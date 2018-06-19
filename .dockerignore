@@ -1,0 +1,8 @@
+.git
+.idea
+
+log
+tmp
+dump
+
+docker/mysql/data

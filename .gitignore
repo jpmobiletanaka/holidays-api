@@ -1,0 +1,16 @@
+.bundle
+config/master.key
+
+docker/mysql/data
+
+# Ignore all logfiles and tempfiles
+log/
+tmp
+!/log/.keep
+!/tmp/.keep
+
+# Ignore other staff
+.idea
+.env
+.vscode
+.DS_Store
