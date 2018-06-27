@@ -113,3 +113,9 @@ Metrics/BlockLength:
   Exclude:
     - spec/**/*
     - lib/tasks/**/*
+
+Naming/UncommunicativeMethodParamName:
+  Enabled: false
+
+Naming/MemoizedInstanceVariableName:
+  Enabled: false

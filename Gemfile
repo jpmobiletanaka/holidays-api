@@ -10,6 +10,8 @@ gem 'rack-cors'
 gem 'rails', '~> 5.2.0'
 gem 'redis', '~> 4.0.1'
 gem 'sidekiq', '~> 5.1', '>= 5.1.1'
+gem 'seedbank'
+gem 'activerecord-import'
 
 group :development, :test do
   gem 'bullet', git: 'https://github.com/k1r8r0wn/bullet.git'

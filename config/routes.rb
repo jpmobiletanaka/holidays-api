@@ -7,4 +7,11 @@ Rails.application.routes.draw do
   # authenticate :user, ->(user) { user.admin? } do
   mount Sidekiq::Web => '/jobs'
   # end
+
+  resources :holidays, only: %i[index] do
+    collection do
+      get ':country_code', action: :index
+      get ':country_code/:year', action: :index
+    end
+  end
 end
