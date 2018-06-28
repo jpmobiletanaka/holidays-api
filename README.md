@@ -21,15 +21,15 @@
 
         docker-compose exec web rake db:setup
 
-## Requests
+## API v.1
 ```ruby
-  get 'holidays'                     # for all countries in Date.current.all_year
-  get 'holidays/:country_code'       # for one country in Date.current.all_year
-  get 'holidays/:country_code/:year' # for one country in :year
+  get 'api/v1/holidays'                     # for all countries in Date.current.all_year
+  get 'api/v1/holidays/:country_code'       # for one country in Date.current.all_year
+  get 'api/v1/holidays/:country_code/:year' # for one country in :year
   # also you can use 'from' and 'to' params for determite the period and it can be used with :country_code
   # default: from = Date.current.beginning_of_year
   #          to   = Date.current.end_of_year
-  get 'holidays?from=Y-m-d&to=Y-m-d'
+  get 'api/v1/holidays?from=Y-m-d&to=Y-m-d'
 ```
 
 ## HolidayExpr `expression` formats:
