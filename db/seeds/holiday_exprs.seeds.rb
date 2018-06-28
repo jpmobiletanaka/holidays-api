@@ -1,3 +1,4 @@
+# rubocop:disable Metrics/LineLength
 [
   { country_code: :cn, calendar_type: :gregorian, en_name: "New Year", ja_name: "New Year", expression: "1.1" },
   { country_code: :cn, calendar_type: :julian, en_name: "Chinese New Year", ja_name: "Chinese New Year", expression: "(12.31)-(1.6)" },
@@ -67,3 +68,5 @@
 ].each do |attrs|
   HolidayExpr.find_or_create_by(attrs).generate_holidays
 end
+
+# rubocop:enable Metrics/LineLength

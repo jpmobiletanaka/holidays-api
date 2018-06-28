@@ -1,5 +1,5 @@
 class String
-  def to_sql
+  def arel
     Arel.sql(self)
   end
 end

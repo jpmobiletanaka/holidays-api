@@ -6,9 +6,9 @@ module Api
       end
 
       def call
-        scope.group('holidays.ja_name, holidays.country_code, YEAR(holidays.date)'.to_sql)
+        scope.group('holidays.ja_name, holidays.country_code, YEAR(holidays.date)'.arel)
              .where(enabled: true)
-             .order('YEAR(holidays.date) ASC, holidays.country_code ASC'.to_sql)
+             .order('YEAR(holidays.date) ASC, holidays.country_code ASC'.arel)
              .left_joins(:moved_from)
              .pluck(columns_to_select)
              .map! do |ja_name, country_code, en_name, dates, moved_from_dates|
@@ -33,7 +33,7 @@ module Api
           ANY_VALUE(holidays.en_name)
           GROUP_CONCAT(holidays.date)
           GROUP_CONCAT(moved_froms_holidays.date)
-        ].join(', ').to_sql
+        ].join(', ').arel
       end
 
       def scope
