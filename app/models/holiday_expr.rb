@@ -11,7 +11,7 @@ class HolidayExpr < ApplicationRecord
   EXPRESSION_REGEXP  = /(#{SIMPLE_GROUP})|(#{NTH_DAY_GROUP})|(#{LARGE_PERIOD_GROUP})|(#{PERIOD_GROUP})|(#{MOON_GROUP})/
 
   enum calendar_type: %i[gregorian julian]
-  enum holiday_type: %i[holiday season]
+  enum holiday_type:  %i[holiday]
 
   scope :processed,   -> { where(processed: true) }
   scope :unprocessed, -> { where(processed: false) }
@@ -21,26 +21,16 @@ class HolidayExpr < ApplicationRecord
 
   validate :valid_expression?
 
+  def processed!
+    update!(processed: true)
+  end
+
   def with_year?
     expression.match?(/^#{YEAR}/)
   end
 
-  def expression_type
-    case expression
-    when MOON_GROUP
-      :full_moon
-    when NTH_DAY_GROUP
-      :nth_day
-    when PERIOD_GROUP
-      :period
-    when LARGE_PERIOD_GROUP
-      :large_period
-    when SIMPLE_GROUP
-      :simple
-    end
-  end
-
   def generate_holidays(params = {})
+    return false if processed?
     HolidayGenerateService.new(self, params).call
   end
 
