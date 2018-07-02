@@ -70,4 +70,4 @@
     ```
 
 ##### Note: delimiter can be `/` or `.`
-##### Note: if `year` is not persisted app will generate Holidays from 1970 to 2038
+##### Note: if `year` is not presented app will generate Holidays from 1970 to 2038

@@ -1,4 +1,6 @@
 class HolidayGenerateService
+  attr_reader :period_to_generate, :holiday_expr
+
   def initialize(holiday_expr, start_date: 1970, end_date: 2038)
     @holiday_expr = holiday_expr
     if holiday_expr.with_year?
@@ -15,8 +17,6 @@ class HolidayGenerateService
   end
 
   private
-
-  attr_reader :period_to_generate, :holiday_expr
 
   def extract_attributes(date)
     {
@@ -68,9 +68,9 @@ class HolidayGenerateService
     nth_orig = sign * (nth.abs - 1)
     period_to_generate.map do |year|
       nth = nth_orig
-      bom = Date.civil(year, month.to_i, 1) # beginning of month
-      eom = bom.end_of_month                #       end of month
-      last_week = Date.commercial(year, -1, 1).cweek
+      last_week = Date.commercial(year, -1, -1)
+      bom = Date.civil(year, month.to_i, 1)                                   # beginning of month
+      eom = bom.end_of_month.cweek < bom.cweek ? last_week : bom.end_of_month # end of month
       week_number = if sign.positive?
                       nth += 1 if bom.cwday > day_of_week
                       bom.cweek + nth
@@ -78,8 +78,8 @@ class HolidayGenerateService
                       nth -= 1 if eom.cwday < day_of_week
                       eom.cweek + nth
                     end
-      if week_number > last_week
-        week_number -= last_week
+      if week_number > last_week.cweek
+        week_number -= last_week.cweek
         year += 1
       end
       Date.commercial(year, week_number, day_of_week) + add.to_i.days
@@ -98,9 +98,8 @@ class HolidayGenerateService
   end
 
   def full_moon(month, add)
-    moon_phases_service = MoonPhasesService.new
     period_to_generate.map do |year|
-      days = moon_phases_service.full_moon_day_in(year, month)
+      days = FullMoonService.in(year, month)
       days.map! { |day| Date.civil(year, month.to_i, day.to_i) + add.to_i.days }
     end.flatten
   end

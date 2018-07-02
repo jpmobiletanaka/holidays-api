@@ -5,6 +5,7 @@ class Holiday < ApplicationRecord
   belongs_to :holiday_expr, optional: true
   belongs_to :country, primary_key: :country_code, foreign_key: :country_code
 
+  scope :enabled,         -> { where(enabled: true) }
   scope :by_date,         ->(date) { where(date: date) }
   scope :by_name,         ->(name) { where(en_name: name).or(where(ja_name: name)) }
   scope :by_year,         ->(year) { where(date: Date.civil(year.to_i, 1, 1).all_year) }
