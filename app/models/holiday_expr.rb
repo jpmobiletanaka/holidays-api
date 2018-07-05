@@ -1,6 +1,6 @@
 class HolidayExpr < ApplicationRecord
-  DAY                = /[0-3]{0,1}\d{1}/
-  MONTH              = /[0-1]{0,1}\d{1}/
+  DAY                = /0?[1-2]?\d{1}|3[0-1]/
+  MONTH              = /0?[1-9]|1[0-2]/
   YEAR               = /[1-2]+\d{3}/
   ADD                = /\((\+)(\d{1,2})\)/
   SIMPLE_GROUP       = %r{^((#{YEAR})(\.|\/))?(#{MONTH})(\.|\/)(#{DAY})$}
@@ -8,7 +8,7 @@ class HolidayExpr < ApplicationRecord
   PERIOD_GROUP       = %r{^((#{YEAR})(\.|\/))?(#{MONTH})(\.|\/)(#{DAY})-(#{DAY})$}
   LARGE_PERIOD_GROUP = %r{^((#{YEAR})(\.|\/))?(\((#{MONTH})(\.|\/)(#{DAY})\))-(\((#{MONTH})(\.|\/)(#{DAY})\))$}
   MOON_GROUP         = %r{^((#{YEAR})(\.|\/))?(#{MONTH})(\.|\/)(full.*moon)(#{ADD})?$}
-  EXPRESSION_REGEXP  = /(#{SIMPLE_GROUP})|(#{NTH_DAY_GROUP})|(#{LARGE_PERIOD_GROUP})|(#{PERIOD_GROUP})|(#{MOON_GROUP})/
+  EXPRESSION_REGEXP  = /(#{SIMPLE_GROUP})|(#{NTH_DAY_GROUP})|(#{LARGE_PERIOD_GROUP})|(#{PERIOD_GROUP})|(#{MOON_GROUP})/mix
 
   enum calendar_type: %i[gregorian julian]
   enum holiday_type:  %i[holiday]
@@ -20,6 +20,8 @@ class HolidayExpr < ApplicationRecord
   belongs_to :country, primary_key: :country_code, foreign_key: :country_code
 
   validate :valid_expression?
+
+  after_save ->(instance) { GenerateHolidaysJob.perform_later(instance.id) }
 
   def processed!
     update!(processed: true)
@@ -41,5 +43,3 @@ class HolidayExpr < ApplicationRecord
     errors.add(:expression, 'is invalid')
   end
 end
-
-# 2018/(12/31)-(06/01)

@@ -13,11 +13,7 @@ RSpec.describe FullMoonService do
       it { expect(service.in(year).values.all? { |v| v.is_a? Array }).to be true }
       it { expect(service.in(year).values.all? { |v| v.count.positive? }).to be true }
       it { expect(service.in(year).values.flatten.all? { |v| v.in? 1..31 }).to be true }
-      it do
-        expect do
-          service.in(year).map { |month, days| days.map { |day| Date.civil(year, month, day) } }
-        end.not_to raise_error
-      end
+      it { expect { service.in(year).map { |month, days| days.map { |day| Date.civil(year, month, day) } } }.not_to raise_error }
     end
 
     context 'with month' do
