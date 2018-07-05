@@ -12,6 +12,9 @@ module ErrorHandler
     when ActiveRecord::RecordNotFound
       status  = :not_found
       message = I18n.t('errors.not_found')
+    when ActiveRecord::RecordInvalid
+      status  = :bad_request
+      message = e.message
     when NotAuthenticatedError, Pundit::NotAuthorizedError
       status  = :unauthorized
       message = I18n.t('errors.unauthorized')

@@ -22,6 +22,13 @@
         docker-compose exec web rake db:setup
 
 ## API v.1
+### Authentification
+  Send POST request to `api/v1/auth` with body `{ email: 'some@email.com', password: 'some_pass' }`
+  
+  Returns JSON like: `{ "token": "YOUR_TOKEN" }`
+  
+  Then for each request add header `Authorization: Bearer YOUR_TOKEN`
+### Using
 ```ruby
   get 'api/v1/holidays'                     # for all countries in Date.current.all_year
   get 'api/v1/holidays/:country_code'       # for one country in Date.current.all_year
