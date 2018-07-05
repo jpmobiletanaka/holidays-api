@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_06_28_123022) do
+ActiveRecord::Schema.define(version: 2018_07_05_110858) do
 
   create_table "countries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "country_code", null: false
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2018_06_28_123022) do
     t.datetime "updated_at", null: false
     t.index ["country_code", "date", "ja_name", "en_name"], name: "index_holidays_on_country_code_and_date_and_ja_name_and_en_name", unique: true
     t.index ["country_code"], name: "index_holidays_on_country_code"
+    t.index ["holiday_expr_id", "country_code", "date"], name: "index_holidays_on_holiday_expr_id_and_country_code_and_date", unique: true
     t.index ["holiday_expr_id"], name: "index_holidays_on_holiday_expr_id"
     t.index ["moved_from_id"], name: "index_holidays_on_moved_from_id"
   end
