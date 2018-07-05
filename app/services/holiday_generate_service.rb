@@ -11,25 +11,33 @@ class HolidayGenerateService
   end
 
   def call
-    holidays_attrs = extract_dates.map! { |date| extract_attributes(date) }.compact
-    Holiday.import!(holidays_attrs, on_duplicate_key_update: %i[ja_name en_name date country_code], validate: false)
+    days_attrs = extract_dates.map! { |date| extract_day_attributes(date) }.compact
+    Day.import!(days_attrs, on_duplicate_key_ignore: true, validate: false)
     holiday_expr.processed!
   end
 
-  def extract_attributes(date)
-    {
-      date: date.send(holiday_expr.calendar_type),
-      holiday_expr_id: holiday_expr.id,
-      country_code: holiday_expr.country_code,
-      ja_name: holiday_expr.ja_name,
-      en_name: holiday_expr.en_name,
-      source: :manual
-    }
+  private
+
+  def holiday
+    @holiday ||= holiday_expr.holidays.find_or_create_by(holiday_attributes)
+  end
+
+  def extract_day_attributes(date)
+    { date: date.send(holiday_expr.calendar_type), holiday_id: holiday.id }
   rescue ArgumentError
     nil
   end
 
-  private
+  def holiday_attributes
+    {
+      holiday_expr_id: holiday_expr.id,
+      country_code: holiday_expr.country_code,
+      ja_name: holiday_expr.ja_name,
+      en_name: holiday_expr.en_name,
+      source: :manual,
+      enabled: true
+    }
+  end
 
   def extract_dates
     generator = case holiday_expr.expression

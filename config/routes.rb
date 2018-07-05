@@ -7,10 +7,17 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :auth, only: %i[create]
-      resources :holidays, only: %i[index update destroy] do
+
+      resources :countries, only: %i[index create update destroy]
+
+      resources :holidays, only: %i[index create update destroy] do
         collection do
-          get ':country_code', action: :index
+          get ':country_code',       action: :index
           get ':country_code/:year', action: :index
+        end
+
+        member do
+          post :move
         end
       end
     end

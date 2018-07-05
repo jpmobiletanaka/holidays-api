@@ -29,6 +29,18 @@
   
   Then for each request add header `Authorization: Bearer YOUR_TOKEN`
 ### Using
+#### CRUD:
+```ruby
+  get 'api/v1/countries'
+  post 'api/v1/countries'       # create | params: %i[ja_name en_name country_code]
+  patch 'api/v1/countries/:id'  # update | params: %i[ja_name en_name country_code]
+  delete 'api/v1/countries/:id' # destroy
+
+  post 'api/v1/holidays'       # create | params: %i[ja_name en_name country_code expression calendar_type holiday_type]
+  patch 'api/v1/holidays/:id'  # update | params: %i[ja_name en_name country_code expression calendar_type holiday_type]
+  delete 'api/v1/holidays/:id' # destroy
+```
+#### Deal with holidays:
 ```ruby
   get 'api/v1/holidays'                     # for all countries in Date.current.all_year
   get 'api/v1/holidays/:country_code'       # for one country in Date.current.all_year
@@ -37,6 +49,7 @@
   # default: from = Date.current.beginning_of_year
   #          to   = Date.current.end_of_year
   get 'api/v1/holidays?from=Y-m-d&to=Y-m-d'
+  post 'api/v1/holidays/:id/move?from=Y-m-d&to=Y-m-d' # move one day of holiday to another
 ```
 
 ## HolidayExpr `expression` formats:

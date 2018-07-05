@@ -8,7 +8,7 @@ class HolidayExpr < ApplicationRecord
   PERIOD_GROUP       = %r{^((#{YEAR})(\.|\/))?(#{MONTH})(\.|\/)(#{DAY})-(#{DAY})$}
   LARGE_PERIOD_GROUP = %r{^((#{YEAR})(\.|\/))?(\((#{MONTH})(\.|\/)(#{DAY})\))-(\((#{MONTH})(\.|\/)(#{DAY})\))$}
   MOON_GROUP         = %r{^((#{YEAR})(\.|\/))?(#{MONTH})(\.|\/)(full.*moon)(#{ADD})?$}
-  EXPRESSION_REGEXP  = /(#{SIMPLE_GROUP})|(#{NTH_DAY_GROUP})|(#{LARGE_PERIOD_GROUP})|(#{PERIOD_GROUP})|(#{MOON_GROUP})/mix
+  EXPRESSION_REGEX = /(#{SIMPLE_GROUP})|(#{NTH_DAY_GROUP})|(#{LARGE_PERIOD_GROUP})|(#{PERIOD_GROUP})|(#{MOON_GROUP})/mix
 
   enum calendar_type: %i[gregorian julian]
   enum holiday_type:  %i[holiday]
@@ -17,11 +17,12 @@ class HolidayExpr < ApplicationRecord
   scope :unprocessed, -> { where(processed: false) }
 
   has_many :holidays
+  has_many :days, through: :holidays
   belongs_to :country, primary_key: :country_code, foreign_key: :country_code
 
   validate :valid_expression?
 
-  after_save ->(instance) { GenerateHolidaysJob.perform_later(instance.id) }
+  after_save :generate_holidays
 
   def processed!
     update!(processed: true)
@@ -33,13 +34,13 @@ class HolidayExpr < ApplicationRecord
 
   def generate_holidays(params = {})
     return false if processed?
-    HolidayGenerateService.new(self, params).call
+    GenerateHolidaysJob.perform_later(id, params)
   end
 
   private
 
   def valid_expression?
-    return if expression.match?(EXPRESSION_REGEXP)
+    return if expression.match?(EXPRESSION_REGEX)
     errors.add(:expression, 'is invalid')
   end
 end

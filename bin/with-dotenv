@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+
+envs = File.read('.env')
+           .split("\n")
+           .select { |pair| pair.index('#').nil? && pair.size > 1 && pair[-1] != '=' }
+           .join(' ')
+cmd  = "#{envs} #{ARGV.join(' ')}"
+puts "Command: #{cmd}\n"
+system(cmd)

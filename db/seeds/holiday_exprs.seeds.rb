@@ -1,5 +1,5 @@
 # rubocop:disable Metrics/LineLength
-[
+HolidayExpr.import!([
   { country_code: :cn, calendar_type: :gregorian, en_name: "New Year", ja_name: "元旦", expression: "1.1" },
   { country_code: :cn, calendar_type: :julian, en_name: "Chinese New Year", ja_name: "春節", expression: "(12.31)-(1.6)" },
   { country_code: :cn, calendar_type: :gregorian, en_name: "Labor Day", ja_name: "労働節", expression: "5.1" },
@@ -65,8 +65,6 @@
   { country_code: :us, calendar_type: :gregorian, en_name: "Veterans Day", ja_name: "退役軍人の日", expression: "11.11" },
   { country_code: :us, calendar_type: :gregorian, en_name: "Thanksgiving Day", ja_name: "感謝祭", expression: "11.4,1" },
   { country_code: :us, calendar_type: :gregorian, en_name: "Christmas Day", ja_name: "クリスマス", expression: "12.25" }
-].each do |attrs|
-  HolidayExpr.find_or_create_by(attrs).generate_holidays
-end
+], on_duplicate_key_ignore: true, validate: false)
 
 # rubocop:enable Metrics/LineLength
