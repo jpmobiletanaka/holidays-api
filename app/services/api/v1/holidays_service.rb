@@ -25,7 +25,7 @@ module Api
       def moves(days)
         days.map! do |day|
           next if day.enabled?
-          { from: day.date, to: day.moved_to.date }
+          { from: day.date, to: day.moved_to_date }
         end.compact!
       end
 

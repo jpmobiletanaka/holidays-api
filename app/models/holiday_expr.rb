@@ -13,7 +13,6 @@ class HolidayExpr < ApplicationRecord
   enum calendar_type: %i[gregorian julian]
   enum holiday_type:  %i[holiday]
 
-  scope :processed,   -> { where(processed: true) }
   scope :unprocessed, -> { where(processed: false) }
 
   has_many :holidays

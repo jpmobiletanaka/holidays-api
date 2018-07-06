@@ -6,18 +6,14 @@ class Day < ApplicationRecord
   has_one :holiday_expr, through: :holiday
   has_one :moved_to, class_name: 'Day', foreign_key: :moved_from_id
 
-  scope :enabled,         -> { where(enabled: true) }
   scope :by_date,         ->(date) { where(date: date) }
-  scope :by_year,         ->(year) { where(date: Date.civil(year.to_i, 1, 1).all_year) }
+
+  delegate :date, to: :moved_to, prefix: true, allow_nil: true
 
   def move_to(date)
     return if date.to_date == self.date
     new_day = Day.create(holiday_id: holiday_id, date: date, moved_from_id: id)
     update(enabled: false)
     new_day
-  end
-
-  def moved?
-    moved_to.present?
   end
 end
