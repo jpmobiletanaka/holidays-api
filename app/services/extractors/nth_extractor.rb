@@ -7,11 +7,12 @@ module Extractors
       @sign = nth <=> 0
       @nth  = sign * (nth.abs - 1)
       period.map do |year|
-        date(year)
+        extract_date(year)
       end
     end
 
-    def date(year)
+    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    def extract_date(year)
       week_num = nth.dup
       first_week_of_year      = Date.commercial(year, 1, 1)   # 1
       last_week_of_year       = Date.commercial(year, -1, -1) # 54
@@ -23,14 +24,13 @@ module Extractors
       eom = last_week_of_year if eom.cweek <= first_week_of_year.cweek
 
       week_num += bom.cweek + (bom.cwday > day_of_week ? 1 : 0) if sign.positive?
-      week_num += eom.cweek - (eom.cwday < day_of_week ? 1 : 0)    if sign.negative?
+      week_num += eom.cweek - (eom.cwday < day_of_week ? 1 : 0) if sign.negative?
 
       date = Date.commercial(year, week_num, day_of_week) + add.to_i.days
       return unless date.month == month.to_i
       date
-    rescue
-      binding.pry
     end
+    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
 
     private
 

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe HolidayExpr do
   subject(:model) { described_class.new(main_attrs) }
-  
+
   let(:country) { create(:country) }
   let(:main_attrs) { { country_code: country.country_code, expression: '12/21', ja_name: I18n.with_locale(:ja) { Faker::Name.name }, en_name: Faker::Name.name, calendar_type: :gregorian } }
 

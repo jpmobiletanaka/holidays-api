@@ -90,6 +90,10 @@ Style/PercentLiteralDelimiters:
 Style/FormatStringToken:
   Enabled: false
 
+Style/Semicolon:
+  Exclude:
+    - spec/**/*
+
 Lint/AmbiguousBlockAssociation:
   Enabled: false
 
