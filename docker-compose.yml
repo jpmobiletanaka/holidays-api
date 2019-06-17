@@ -1,20 +1,20 @@
 version: '3'
 services:
-  # web:
-  #   build:
-  #     context: .
-  #     dockerfile: ./docker/web/Dockerfile
-  #   volumes:
-  #     - ./:/home/dockeruser/project
-  #     - gems:/usr/local/bundle
-  #   links:
-  #     - redis
-  #     - mysql
-  #   ports:
-  #     - 3000:3000
-  #   env_file: .env
-  #   stdin_open: true
-  #   tty: true
+  web:
+   build:
+     context: .
+     dockerfile: ./docker/web/Dockerfile
+   volumes:
+     - ./:/home/dockeruser/project
+     - gems:/usr/local/bundle
+   links:
+  #       - redis
+     - mysql
+   ports:
+     - 3000:3000
+   env_file: .env
+   stdin_open: true
+   tty: true
 
   mysql:
     build:
@@ -28,12 +28,12 @@ services:
       - ./:/home/root/project
       - ./docker/mysql/data:/var/lib/mysql
 
-  redis:
-    build:
-      context: .
-      dockerfile: docker/redis/Dockerfile
-    ports:
-      - 6379:6379
+#  redis:
+#    build:
+#      context: .
+#      dockerfile: docker/redis/Dockerfile
+#    ports:
+#      - 6379:6379
 
 volumes:
   gems:

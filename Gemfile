@@ -8,7 +8,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'puma', '~> 3.11'
 gem 'rack-cors'
 gem 'rails', '~> 5.2.0'
-gem 'sidekiq', '~> 5.1', '>= 5.1.1'
+# gem 'sidekiq', '~> 5.1', '>= 5.1.1'
+gem 'sucker_punch'
 
 # specific
 gem 'lunartic'
