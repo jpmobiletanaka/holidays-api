@@ -38,6 +38,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'rubocop', require: false
   gem 'timecop'
+  gem 'dotenv-rails'
 end
 
 group :development do
