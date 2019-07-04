@@ -13,6 +13,8 @@ gem 'sucker_punch'
 
 # specific
 gem 'lunartic'
+gem 'google_holiday_calendar', require: false
+gem 'whenever', require: false
 
 # databases
 gem 'activerecord-import'
