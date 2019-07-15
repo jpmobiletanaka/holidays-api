@@ -1,12 +1,13 @@
 class ImportJob < ApplicationJob
-  queue_as :google_import
+  queue_as :import
 
-  def perform
-    Country.all.each do |country|
-      Fetchers::GoogleFetcherService.call(langs: %i[en ja], country: country).call
-      #
-      # Add other fetchers here...
-      #
-    end
+  def perform(fetcher_class, options)
+    service = fetcher_class.safe_constantize
+    args = { langs: %i[en ja] }
+    args[:options] = options if options
+    service.call(args)
+    #
+    # Add other fetchers here...
+    #
   end
 end

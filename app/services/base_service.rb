@@ -1,7 +1,17 @@
-module Fetchers
-  class BaseService
-    def self.call(**args)
-      new(*args).call
-    end
+class BaseService
+  def self.call(**args)
+    new(**args).call
+  end
+
+  protected
+
+  def success
+    { state: :success }
+  end
+
+  def error(e)
+    res = { state: :error, msg: e.message, status: 400 }
+    res[:backtrace] = e.backtrace if Rails.env.development?
+    res
   end
 end

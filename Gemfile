@@ -15,6 +15,8 @@ gem 'sucker_punch'
 gem 'lunartic'
 gem 'google_holiday_calendar', require: false
 gem 'whenever', require: false
+gem 'carrierwave'
+gem 'aws-sdk-s3', '~> 1'
 
 # databases
 gem 'activerecord-import'

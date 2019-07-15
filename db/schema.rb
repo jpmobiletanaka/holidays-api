@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_02_212838) do
+ActiveRecord::Schema.define(version: 2019_07_05_011156) do
 
   create_table "countries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "country_code", null: false
@@ -60,6 +60,16 @@ ActiveRecord::Schema.define(version: 2019_07_02_212838) do
     t.index ["country_code"], name: "index_holidays_on_country_code"
     t.index ["holiday_expr_id", "country_code", "ja_name", "en_name"], name: "main_unique_index_on_holidays", unique: true
     t.index ["holiday_expr_id"], name: "index_holidays_on_holiday_expr_id"
+  end
+
+  create_table "uploads", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.string "file"
+    t.integer "status"
+    t.string "type"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_uploads_on_user_id"
   end
 
   create_table "users", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
