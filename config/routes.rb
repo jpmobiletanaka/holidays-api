@@ -20,6 +20,8 @@ Rails.application.routes.draw do
           post :move
         end
       end
+
+      resources :uploads, only: %i[create]
     end
   end
 end
