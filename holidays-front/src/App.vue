@@ -1,8 +1,12 @@
 <template lang="pug">
   div#app.container
-    nav.navbar.navbar-light.bg-light
-      a.navbar-brand Holidays API
-      a.navbar {{ userEmail }}
+    nav.navbar.navbar-expand-lg.navbar-light.bg-light
+      router-link(class="navbar-brand" to="/") Holidays API
+      .collapse.navbar-collapse
+        ul.navbar-nav.mr-auto
+          li.nav-item
+            router-link(to="/upload" class="nav-link") Uploads
+        a.nav-link {{ userEmail }}
     router-view
 </template>
 

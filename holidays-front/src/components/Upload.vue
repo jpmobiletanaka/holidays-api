@@ -10,7 +10,7 @@
           td
             a(:href="file.file_info.url") {{ file.file_info.name }}
           td {{ file.status }}
-          td {{ file.created_at }}
+          td {{ moment(file.created_at).format('MMMM Do YYYY, h:mm:ss a') }}
       b-form#upload(inline method="POST")
         label.sr-only(for="upload-file")
         b-form-file.form-control#upload-file.mb-2.mr-sm-2.mb-sm-0(
