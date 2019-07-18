@@ -8,7 +8,6 @@ class MergeEventGroupService < BaseService
       expression = expression_from_dates(events_chunk.map { |event| event.delete(:date_hash) })
       event = events_chunk.inject(&:merge)
       event[:expression] = expression
-      event.delete(:weight)
       event
     end
   end
@@ -22,19 +21,18 @@ class MergeEventGroupService < BaseService
     expression = if same_month?(dates[0], dates[-1])
                    [dates[0][:year], dates[0][:month], "#{dates[0][:day]}-#{dates[-1][:day]}"].join('.')
                  else
-                   "(#{extended_expression(dates[0], :with_year)})-(#{extended_expression(dates[-1], :with_year)})"
+                   "#{dates[0][:year]}.(#{dates[0][:month]}.#{dates[0][:day]})-(#{dates[-1][:month]}.#{dates[-1][:day]})"
                  end
     Rails.logger.info expression
     expression
   end
   
   def chunked_events(events)
-    events.map { |event| event.merge(weight: count_weight(event[:date_hash])) }
-          .chunk_while { |before, after| before[:weight] + 10 == after[:weight] }
+    events.chunk_while { |before, after| count_diff(before[:date_hash], after[:date_hash]) }
   end
 
-  def count_weight(date_hash)
-    date_hash.values.reverse.each_with_index.map{|e, i| e.to_i * (10**(i+1))}.sum
+  def count_diff(before, after)
+    Date.new(*after.values.map(&:to_i)).beginning_of_day - Date.new(*before.values.map(&:to_i)).beginning_of_day <= 86400
   end
 
   def same_month?(start_date, end_date)
@@ -44,8 +42,9 @@ class MergeEventGroupService < BaseService
   def same_year?(start_date, end_date)
     start_date[:year] == end_date[:year]
   end
-  
-  def extended_expression(date_hash, with_year = false)
-    (with_year ? date_hash : date_hash.slice(:month, :day)).values.join('.')
-  end
+
+  # Not supported yet
+  # def extended_expression(date_hash, with_year = false)
+  #   (with_year ? date_hash : date_hash.slice(:month, :day)).values.join('.')
+  # end
 end

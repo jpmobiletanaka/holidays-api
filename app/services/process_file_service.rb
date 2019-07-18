@@ -7,7 +7,6 @@ class ProcessFileService < BaseService
   def initialize(file:, user:)
     @file = file
     @user = user
-    @s3 = Aws::S3::Resource.new region: REGION
   end
 
   def call
@@ -20,22 +19,19 @@ class ProcessFileService < BaseService
 
   private
 
-  attr_reader :file, :s3, :user
+  attr_reader :file, :user, :upload
 
   def save_file!
-    obj = s3.bucket(BUCKET).object(object_key)
-    obj.put(body: file.tempfile)
+    @upload = user.uploads.new(status: Upload.statuses[:pending])
+    @upload.file = file
+    @upload.save!
   end
 
   def file_name
     @_file_name ||= file.original_filename
   end
 
-  def object_key
-    @_object_key ||= "#{Rails.env}/#{file_name}"
-  end
-
   def queue_for_process
-    ImportJob.perform_later(PROCESS_SERVICE_NAME, { object_key: object_key })
+    ImportJob.perform_later(PROCESS_SERVICE_NAME, { upload_id:  upload.id})
   end
 end

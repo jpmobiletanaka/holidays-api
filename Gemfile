@@ -16,6 +16,7 @@ gem 'lunartic'
 gem 'google_holiday_calendar', require: false
 gem 'whenever', require: false
 gem 'carrierwave'
+gem 'fog-aws'
 gem 'aws-sdk-s3', '~> 1'
 
 # databases

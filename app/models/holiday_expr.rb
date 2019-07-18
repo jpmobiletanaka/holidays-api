@@ -7,8 +7,9 @@ class HolidayExpr < ApplicationRecord
   NTH_DAY_GROUP      = %r{^((#{YEAR})(\.|\/))?(#{MONTH})(\.|\/)((-?[1-4]{1})(\,)([1-7]{1}))(#{ADD})?$}
   PERIOD_GROUP       = %r{^((#{YEAR})(\.|\/))?(#{MONTH})(\.|\/)(#{DAY})-(#{DAY})$}
   LARGE_PERIOD_GROUP = %r{^((#{YEAR})(\.|\/))?(\((#{MONTH})(\.|\/)(#{DAY})\))-(\((#{MONTH})(\.|\/)(#{DAY})\))$}
+  XLARGE_PERIOD_GROUP = %r{^(\((#{YEAR})(\.|\/)(#{MONTH})(\.|\/)(#{DAY})\))-(\((#{YEAR})(\.|\/)(#{MONTH})(\.|\/)(#{DAY})\))$}
   MOON_GROUP         = %r{^((#{YEAR})(\.|\/))?(#{MONTH})(\.|\/)(full.*moon)(#{ADD})?$}
-  EXPRESSION_REGEX = /(#{SIMPLE_GROUP})|(#{NTH_DAY_GROUP})|(#{LARGE_PERIOD_GROUP})|(#{PERIOD_GROUP})|(#{MOON_GROUP})/mix
+  EXPRESSION_REGEX = /(#{SIMPLE_GROUP})|(#{NTH_DAY_GROUP})|(#{LARGE_PERIOD_GROUP})|(#{XLARGE_PERIOD_GROUP})|(#{PERIOD_GROUP})|(#{MOON_GROUP})/mix
 
   enum calendar_type: %i[gregorian julian]
   enum holiday_type:  %i[holiday]

@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :upload do
-    file "MyString"
-    status 1
+    association :user
+    file nil
+    status 0
     type ""
-    user ""
   end
 end

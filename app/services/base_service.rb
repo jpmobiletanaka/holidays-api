@@ -10,7 +10,7 @@ class BaseService
   end
 
   def error(e)
-    res = { state: :error, msg: e.message, status: 400 }
+    res = { state: :error, msg: e.message, status: :bad_request }
     res[:backtrace] = e.backtrace if Rails.env.development?
     res
   end
