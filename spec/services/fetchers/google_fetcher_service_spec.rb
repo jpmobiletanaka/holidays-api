@@ -41,8 +41,8 @@ describe Fetchers::GoogleFetcherService do
       before { service_call }
       it 'creates single holiday with date range expression' do
         holiday_expr = HolidayExpr.where(en_name: "New Year Holiday Week")
-        expect(holiday_expr.size).to eq 1
-        expect(holiday_expr.first.expression).to eq('1.2-8')
+        expect(holiday_expr.size).to eq 2
+        expect(holiday_expr.first.expression).to eq('2019.1.2-4')
       end
     end
 
@@ -51,7 +51,7 @@ describe Fetchers::GoogleFetcherService do
       it 'creates single holiday with date range' do
         holiday_expr = HolidayExpr.where(en_name: "Russia day")
         expect(holiday_expr.size).to eq 1
-        expect(holiday_expr.first.expression).to eq('6.12')
+        expect(holiday_expr.first.expression).to eq('2019.6.12')
       end
     end
   end
@@ -113,9 +113,10 @@ describe Fetchers::GoogleFetcherService do
         holiday_expr = HolidayExpr.where(ja_name: "New Year Holiday Week")
         holiday_expr2 = HolidayExpr.where(ja_name: "New Year Holiday Week2")
         expect(holiday_expr.size).to eq 1
-        expect(holiday_expr.first.expression).to eq('1.2-3')
-        expect(holiday_expr2.size).to eq 1
-        expect(holiday_expr2.first.expression).to eq('1.4-8')
+        expect(holiday_expr.first.expression).to eq('2019.1.2-3')
+        expect(holiday_expr2.size).to eq 2
+        expect(holiday_expr2.first.expression).to eq('2019.1.4')
+        expect(holiday_expr2.last.expression).to eq('2019.1.8')
       end
     end
   end
@@ -127,7 +128,7 @@ describe Fetchers::GoogleFetcherService do
                en_name: "New Year's Day",
                ja_name: "New Year's Day",
                country_code: country.country_code,
-               expression: '1.1',
+               expression: '2019.1.1',
                calendar_type: :gregorian
       end
       before { service_call }
