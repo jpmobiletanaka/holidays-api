@@ -12,4 +12,8 @@ class Upload < ApplicationRecord
   def process_file!
     ImportJob.perform_later(PROCESS_SERVICE_NAME, { object_key: object_key })
   end
+
+  def file_info
+    { name: file.file_name, url: file.url }
+  end
 end

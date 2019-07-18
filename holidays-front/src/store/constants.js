@@ -8,4 +8,4 @@ export const AUTH_DECODE  = 'AUTH_DECODE';
 export const UPLOAD_REQUEST  = 'UPLOAD_REQUEST';
 export const UPLOAD_SUCCESS  = 'UPLOAD_SUCCESS';
 export const UPLOAD_ERROR    = 'UPLOAD_ERROR';
-
+export const GET_FILES       = 'GET_FILES';

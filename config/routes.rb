@@ -21,7 +21,7 @@ Rails.application.routes.draw do
         end
       end
 
-      resources :uploads, only: %i[create]
+      resources :uploads, only: %i[index create]
     end
   end
 end
