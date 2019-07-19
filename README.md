@@ -91,3 +91,39 @@
 
 ##### Note: delimiter can be `/` or `.`
 ##### Note: if `year` is not presented app will generate Holidays from 1970 to 2038
+
+## Deploy manually
+Prerequisites: 
+* AWS CLI Installed
+* AWS Access Keys for `revenue_setup` account (either in env vars or in ~/.aws/credentials)
+
+Build the new image:
+```
+docker build -f docker/web/Dockerfile.ecs -t holidays-api_web .
+```
+
+Tag it with AWS ECR Repo:
+```
+docker tag holidays-api_web 611630892743.dkr.ecr.ap-northeast-1.amazonaws.com/holidays-api
+```
+
+Get ECR login
+```
+aws ecr get-login --no-include-email
+```
+Run the command from response.
+
+Push the image:
+```
+docker push 611630892743.dkr.ecr.ap-northeast-1.amazonaws.com/holidays-api 
+```
+
+Run the migrator task:
+```
+aws ecs run-task --task-definition holidays-api-staging-holdiays-migrator --cluster holidays-api-staging
+```
+
+After migrator task is finished, update service:
+```
+aws ecs update-service --service holidays-api-staging --force-new-deployment --cluster holidays-api-staging
+```
