@@ -10,13 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_07_05_133008) do
+ActiveRecord::Schema.define(version: 2019_07_02_212838) do
 
   create_table "countries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "country_code", null: false
     t.string "ja_name"
     t.string "en_name"
+    t.string "google_calendar_id"
     t.index ["country_code"], name: "index_countries_on_country_code"
+    t.index ["google_calendar_id"], name: "index_countries_on_google_calendar_id"
   end
 
   create_table "days", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|

@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby '2.5.1'
+ruby '2.5.5'
 
 # common
 gem 'bootsnap', '>= 1.1.0', require: false
@@ -13,6 +13,8 @@ gem 'sucker_punch'
 
 # specific
 gem 'lunartic'
+gem 'google_holiday_calendar', require: false
+gem 'whenever', require: false
 
 # databases
 gem 'activerecord-import'
@@ -38,6 +40,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.7'
   gem 'rubocop', require: false
   gem 'timecop'
+  gem 'dotenv-rails'
 end
 
 group :development do
