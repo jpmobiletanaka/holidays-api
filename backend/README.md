@@ -22,7 +22,7 @@
         docker-compose exec web rake db:setup
 
 ## API v.1
-### Authentification
+### Authentication
   Send POST request to `api/v1/auth` with body `{ email: 'some@email.com', password: 'some_pass' }`
   
   Returns JSON like: `{ "token": "YOUR_TOKEN" }`

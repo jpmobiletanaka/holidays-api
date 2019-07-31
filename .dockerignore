@@ -6,4 +6,5 @@ tmp
 dump
 
 docker/mysql/data
-config/master.key
+backend/config/master.key
+node_modules

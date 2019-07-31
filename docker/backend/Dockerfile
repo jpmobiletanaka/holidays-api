@@ -20,14 +20,15 @@ WORKDIR $APP_HOME
 
 RUN gem install bundler
 
-ADD --chown=dockeruser ./ $APP_HOME
+ADD --chown=dockeruser ./backend $APP_HOME
 
-RUN bundle check --path vendor/bundle || bundle install --without development test --path vendor/bundle
+RUN bundle check || bundle install --without development test
 
-COPY docker/web/ecs-entrypoint.sh /
-COPY docker/web/ecs-entrypoint-migrator.sh /
-COPY docker/web/ecs-entrypoint-seed.sh /
+COPY docker/backend/docker-entrypoint.sh /
+COPY docker/backend/ecs-entrypoint.sh /
+COPY docker/backend/ecs-entrypoint-migrator.sh /
+COPY docker/backend/ecs-entrypoint-seed.sh /
 
-ENTRYPOINT ["/ecs-entrypoint.sh"]
+ENTRYPOINT ["/docker-entrypoint.sh"]
 
 CMD ['/bin/bash']
