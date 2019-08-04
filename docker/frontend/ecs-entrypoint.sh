@@ -4,8 +4,8 @@ set -e
 
 sudo cron
 
-yarn check || yarn
+export NODE_ENV=production
 
-yarn run dev
+/home/dockeruser/.yarn/bin/http-server ./dist/
 
 exec "$@"

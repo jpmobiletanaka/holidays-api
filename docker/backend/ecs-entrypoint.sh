@@ -4,6 +4,6 @@ set -e
 
 sudo cron
 
-bundle exec rails s -p 3000 -b '0.0.0.0'
+RAILS_ENV=staging bundle exec rails s -p 3000 -b '0.0.0.0'
 
 exec "$@"

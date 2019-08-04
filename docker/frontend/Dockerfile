@@ -8,18 +8,20 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
                             libfontconfig1 libfontconfig1-dev logrotate \
   && rm -rf /var/lib/apt/lists/*
 
+ENV APP_HOME /home/dockeruser/project
+
 RUN useradd -ms /bin/bash dockeruser
 RUN echo "dockeruser ALL=(ALL) NOPASSWD: /usr/sbin/cron" >> /etc/sudoers
-USER dockeruser
-
-ENV APP_HOME /home/dockeruser/project
-ENV NODE_ENV staging
 
 WORKDIR $APP_HOME
 
-ADD --chown=dockeruser ./frontend $APP_HOME
+ADD ./frontend $APP_HOME
+RUN chown -R dockeruser .
 
-RUN yarn
+USER dockeruser
+
+RUN echo $API_URL
+RUN yarn && yarn build && yarn global add http-server
 
 COPY docker/frontend/docker-entrypoint.sh /
 COPY docker/frontend/ecs-entrypoint.sh /

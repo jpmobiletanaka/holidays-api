@@ -2,6 +2,6 @@
 
 set -e
 
-bundle exec rake db:seed
+RAILS_ENV=staging bundle exec rake db:seed
 
 exec "$@"

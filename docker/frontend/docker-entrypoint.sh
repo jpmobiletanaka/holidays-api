@@ -6,6 +6,6 @@ sudo cron
 
 yarn check || yarn
 
-yarn run dev
+NODE_ENV=development yarn run dev
 
 exec "$@"
