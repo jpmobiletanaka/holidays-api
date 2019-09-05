@@ -116,7 +116,6 @@ jobs:
       - image: circleci/ruby:2.5.1-stretch-node-browsers
         environment:
           RAILS_ENV: test
-          LIBIDN_LIB: libidn-1.33
           DEFAULT_EMAIL: dev.example@mail.com
       - image: circleci/mysql:5.7-ram
         environment:
@@ -259,9 +258,6 @@ jobs:
             echo 'export ECS_WEB_SERVICE_NAME="${AWS_RESOURCE_NAME_PREFIX}-${RAILS_ENV}-web"' >> $BASH_ENV
             echo 'export ECS_WEB_TASK_FAMILY="${AWS_RESOURCE_NAME_PREFIX}-${RAILS_ENV}-web"' >> $BASH_ENV
             echo 'export ECS_WEB_CONTAINER_NAME="${AWS_RESOURCE_NAME_PREFIX}-${RAILS_ENV}-web"' >> $BASH_ENV
-            echo 'export ECS_SIDEKIQ_SERVICE_NAME="${AWS_RESOURCE_NAME_PREFIX}-${RAILS_ENV}-sidekiq"' >> $BASH_ENV
-            echo 'export ECS_SIDEKIQ_TASK_FAMILY="${AWS_RESOURCE_NAME_PREFIX}-${RAILS_ENV}-sidekiq"' >> $BASH_ENV
-            echo 'export ECS_SIDEKIQ_CONTAINER_NAME="${AWS_RESOURCE_NAME_PREFIX}-${RAILS_ENV}-sidekiq"' >> $BASH_ENV
             echo 'export DOCKER_REPOSITORY="${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/${AWS_RESOURCE_NAME_PREFIX}"' >> $BASH_ENV
             source $BASH_ENV
       - run:
