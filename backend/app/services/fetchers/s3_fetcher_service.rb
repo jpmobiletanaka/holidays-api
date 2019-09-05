@@ -3,7 +3,7 @@ module Fetchers
   class S3FetcherService < BaseFetcherService
     REGION = ENV.fetch('AWS_REGION') { 'ap-northeast-1' }
     BUCKET = ENV.fetch('HOLIDAYS_API_BUCKET') { 'revenue-staging-uploads' }
-    DATE_KEY = 'DATE'
+    DATE_KEY = 'Date'
     EN_COUNTRY_KEY = 'Country'
     JA_COUNTRY_KEY = nil
     EN_NAME_KEY = 'Holiday name'
@@ -22,7 +22,6 @@ module Fetchers
       import
       success
     rescue => e
-      binding.pry
       error(e)
     end
 
@@ -66,7 +65,7 @@ module Fetchers
     end
 
     def generate_row_hash(row, country)
-      date_hash = %i(year month day).zip(row[DATE_KEY].split('/')).to_h
+      date_hash = %i(month day year).zip(row[DATE_KEY].split('/')).to_h
       { country_code: country.country_code, calendar_type: calendar_type(row),
         date_hash: date_hash, en_name: row[EN_NAME_KEY], ja_name: row[JA_NAME_KEY] }
     end

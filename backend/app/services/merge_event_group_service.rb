@@ -17,7 +17,7 @@ class MergeEventGroupService < BaseService
   attr_reader :events
 
   def expression_from_dates(dates)
-    return dates[0].values.join('.') if dates.size == 1
+    return [dates[0][:year], dates[0][:month], dates[0][:day]].join('.') if dates.size == 1
     expression = if same_month?(dates[0], dates[-1])
                    [dates[0][:year], dates[0][:month], "#{dates[0][:day]}-#{dates[-1][:day]}"].join('.')
                  else
@@ -32,7 +32,9 @@ class MergeEventGroupService < BaseService
   end
 
   def count_diff(before, after)
-    Date.new(*after.values.map(&:to_i)).beginning_of_day - Date.new(*before.values.map(&:to_i)).beginning_of_day <= 86400
+    after_arr = [after[:year], after[:month], after[:day]].map(&:to_i)
+    before_arr = [before[:year], before[:month], before[:day]].map(&:to_i)
+    Date.new(*after_arr).beginning_of_day - Date.new(*before_arr).beginning_of_day <= 86400
   end
 
   def same_month?(start_date, end_date)
