@@ -17,7 +17,6 @@ class HolidayExpr < ApplicationRecord
   scope :unprocessed, -> { where(processed: false) }
 
   has_many :holidays
-  has_many :holiday_expr_histories
   has_many :days, through: :holidays
   belongs_to :country, primary_key: :country_code, foreign_key: :country_code
 

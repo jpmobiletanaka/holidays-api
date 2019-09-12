@@ -35,7 +35,16 @@ module Api
         date_to      = params[:to]&.to_date   || Date.civil(base_year, 12, 31)
         where_option = {}
         where_option = { holidays: { country_code: params[:country_code] } } if params[:country_code]
+        return history_holidays if params[:date].present?
         @scope     ||= Day.by_date(date_from..date_to).includes(:holiday, :moved_to).where(where_option)
+      end
+
+      def history_holidays
+        date = params[:date]&.to_date
+        @scope ||= Day.includes(:holiday)
+                      .references(:holiday)
+                      .joins('INNER JOIN holiday_expr_histories ON holiday_expr_histories.holiday_expr_id = holidays.holiday_expr_id')
+                      .where(holiday_expr_histories: { date: date.prev_year..date })
       end
     end
   end
