@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Fetchers::GoogleFetcherService do
+describe Fetchers::FetchFromGoogleService do
   before do
     allow_any_instance_of(GoogleHolidayCalendar::Calendar).to receive(:holidays).and_return(holidays_hash)
   end

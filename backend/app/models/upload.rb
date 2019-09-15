@@ -1,5 +1,5 @@
 class Upload < ApplicationRecord
-  PROCESS_SERVICE_NAME = 'Fetchers::S3FetcherService'
+  PROCESS_SERVICE_NAME = 'Fetchers::FetchFromUploadService'
 
   mount_uploader :file, HolidaysUploader
 

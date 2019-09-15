@@ -2,7 +2,7 @@
 class ProcessFileService < BaseService
   REGION = ENV.fetch('AWS_REGION') { 'ap-northeast-1' }
   BUCKET = ENV.fetch('HOLIDAYS_API_BUCKET') { 'revenue-staging-uploads' }
-  PROCESS_SERVICE_NAME = 'Fetchers::S3FetcherService'
+  PROCESS_SERVICE_NAME = 'Fetchers::FetchFromUploadService'
 
   def initialize(file:, user:)
     @file = file

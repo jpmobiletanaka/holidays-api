@@ -1,11 +1,12 @@
 require "google_holiday_calendar"
 
 module Fetchers
-  class GoogleFetcherService < Fetchers::BaseFetcherService
+  class FetchFromGoogleService < ::Fetchers::BaseFetcherService
     DEFAULT_LIMIT = 500
 
     def initialize(**args)
       super
+      @country         = options[:country]
       @start_date      = start_date || Date.today.beginning_of_year
       @end_date        = end_date || Date.today.end_of_year
       @calendar_events = langs.zip(Array.new(langs.size)).to_h
@@ -20,7 +21,7 @@ module Fetchers
 
     private
 
-    attr_reader :langs, :country, :calendar_events, :transformed_events, :start_date, :end_date
+    attr_reader :langs, :options, :country, :calendar_events, :transformed_events, :start_date, :end_date
 
     def fetch
       langs.each do |lang|
