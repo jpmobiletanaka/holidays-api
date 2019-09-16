@@ -13,8 +13,12 @@
 #   rake "some:great:rake:task"
 # end
 #
-every 1.days do
+every 1.hours do
   rake "holidays:import"
+end
+
+every 30.minutes do
+  rake "holidays:create"
 end
 
 # Learn more: http://github.com/javan/whenever
