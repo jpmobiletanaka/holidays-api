@@ -5,7 +5,7 @@ RSpec.describe Auth::JwtService do
 
   context 'not expirable token' do
     let(:payload) { HashWithIndifferentAccess.new(some_key: 'some_value') }
-    let(:token) { 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzb21lX2tleSI6InNvbWVfdmFsdWUifQ.70-xcK9XKPbLBz_ykXV6DO9qfRFuBkFxXXBgHK3uLkg' }
+    let(:token) { 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzb21lX2tleSI6InNvbWVfdmFsdWUifQ.9q2jroIqAFkP9Lv6LKb67L7WUmeyB8kxW2MWFauL9yI' }
 
     describe '#encode' do
       it 'returns tokenized payload' do

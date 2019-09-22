@@ -66,7 +66,7 @@ describe Fetchers::FetchFromUploadService do
         let(:events) do
           csv.map do |row|
             country = Country.find_by(en_name: row[csv.headers[4]])
-            date_hash = %i(year month day).zip(row[csv.headers[1]].split('/')).to_h
+            date_hash = %i(month day year).zip(row[csv.headers[1]].split('/')).to_h
             { country_code: country.country_code, calendar_type: :gregorian,
               date_hash: date_hash, en_name: [row[csv.headers[2]]].pack('a*'),
               ja_name: [row[csv.headers[3]]].pack('a*') }

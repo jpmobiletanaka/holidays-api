@@ -27,7 +27,7 @@ describe Fetchers::FetchFromGoogleService do
     }.each_with_object({}) { |(date, event), res| res[Date.parse(date)] = event }
   end
 
-  subject(:service_call) { described_class.call(langs: %i[en ja], country: country) }
+  subject(:service_call) { described_class.call(langs: %i[en ja], options: { country: country }) }
 
   describe 'multiple languages' do
     before { service_call }
