@@ -40,10 +40,9 @@ module Api
       end
 
       def history_holidays
-        date = params[:date]&.to_date
-        @scope ||= Day.includes(:holiday)
-                      .references(:holiday)
-                      .joins('INNER JOIN holiday_expr_histories ON holiday_expr_histories.holiday_expr_id = holidays.holiday_expr_id')
+        date = params[:date].to_date
+        @scope ||= Day.joins('INNER JOIN holiday_expr_histories ON holiday_expr_histories.holiday_expr_id = holidays.holiday_expr_id')
+                      .eager_load(:holiday)
                       .where(holiday_expr_histories: { date: date.prev_year..date })
       end
     end
