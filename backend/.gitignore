@@ -20,3 +20,4 @@ tmp
 /public/packs
 /public/packs-test
 /public/uploads
+.byebug_history

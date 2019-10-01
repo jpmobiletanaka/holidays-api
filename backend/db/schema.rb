@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_05_011156) do
+ActiveRecord::Schema.define(version: 2019_09_07_074813) do
 
   create_table "countries", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
     t.string "country_code", null: false
@@ -29,6 +29,19 @@ ActiveRecord::Schema.define(version: 2019_07_05_011156) do
     t.index ["holiday_id", "date"], name: "index_days_on_holiday_id_and_date", unique: true
     t.index ["holiday_id"], name: "index_days_on_holiday_id"
     t.index ["moved_from_id"], name: "index_days_on_moved_from_id"
+  end
+
+  create_table "holiday_expr_histories", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
+    t.bigint "holiday_expr_id", null: false
+    t.string "ja_name"
+    t.string "en_name"
+    t.string "country_code"
+    t.string "expression"
+    t.integer "calendar_type"
+    t.integer "holiday_type"
+    t.boolean "processed"
+    t.datetime "date"
+    t.index ["holiday_expr_id"], name: "index_on_holiday_expr_histories_belongs_to_holiday_expr"
   end
 
   create_table "holiday_exprs", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci", force: :cascade do |t|
@@ -82,4 +95,5 @@ ActiveRecord::Schema.define(version: 2019_07_05_011156) do
   end
 
   add_foreign_key "days", "holidays", on_delete: :cascade
+  add_foreign_key "holiday_expr_histories", "holiday_exprs", on_delete: :cascade
 end

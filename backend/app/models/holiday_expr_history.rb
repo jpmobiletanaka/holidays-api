@@ -1,0 +1,1 @@
+class HolidayExprHistory < ApplicationRecord;end

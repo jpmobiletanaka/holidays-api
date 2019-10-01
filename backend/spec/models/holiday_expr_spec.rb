@@ -8,6 +8,14 @@ RSpec.describe HolidayExpr do
 
   it { expect { model.save }.to have_enqueued_job.on_queue('generate_holidays') }
 
+  describe 'when created' do
+    it 'creates a new HolidayExprHistory resource' do
+      perform_enqueued_jobs do
+        expect { model.save }.to change(HolidayExprHistory, :count).by(1)
+      end
+    end
+  end
+
   context 'should be valid' do
     it { expect(model.valid?).to be true }
     it { model.expression = '2018/01/01';         expect(model.valid?).to be true }
