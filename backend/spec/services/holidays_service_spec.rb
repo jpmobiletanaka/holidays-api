@@ -25,14 +25,23 @@ RSpec.describe Api::V1::HolidaysService do
                                        a_hash_including(en_name: greenery_day.en_name)])
       end
 
-      describe 'when new record is added' do
+      describe 'when creates a new holiday_expr' do
         let(:params) { { date: Time.current + 1.day } }
 
         it 'returns new records with existing ones in year' do
           perform_enqueued_jobs { holiday_week }
-
           expect(service.call).to match([a_hash_including(en_name: children_day.en_name),
                                          a_hash_including(en_name: holiday_week.en_name)])
+        end
+      end
+
+      describe 'when holiday is deleted' do
+        let(:params) { { date: Time.current + 1.day } }
+
+        it 'not includes deleted holiday' do
+          perform_enqueued_jobs { holiday_week }
+          Holiday.find(holiday_week.id).delete
+          expect(service.call).to match([a_hash_including(en_name: children_day.en_name)])
         end
       end
     end
