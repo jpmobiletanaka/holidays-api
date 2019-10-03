@@ -21,10 +21,8 @@ RSpec.describe Api::V1::HolidaysService do
       let(:params) { { date: '2018-01-30' } }
 
       it 'returns records according to date in year' do
-        expect(service.call).to match([
-          a_hash_including(en_name: new_year.en_name),
-          a_hash_including(en_name: greenery_day.en_name)
-        ])
+        expect(service.call).to match([a_hash_including(en_name: new_year.en_name),
+                                       a_hash_including(en_name: greenery_day.en_name)])
       end
 
       describe 'when new record is added' do
@@ -33,10 +31,8 @@ RSpec.describe Api::V1::HolidaysService do
         it 'returns new records with existing ones in year' do
           perform_enqueued_jobs { holiday_week }
 
-          expect(service.call).to match([
-            a_hash_including(en_name: children_day.en_name),
-            a_hash_including(en_name: holiday_week.en_name)
-          ])
+          expect(service.call).to match([a_hash_including(en_name: children_day.en_name),
+                                         a_hash_including(en_name: holiday_week.en_name)])
         end
       end
     end

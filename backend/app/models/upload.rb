@@ -1,5 +1,5 @@
 class Upload < ApplicationRecord
-  PROCESS_SERVICE_NAME = 'Fetchers::S3FetcherService'
+  PROCESS_SERVICE_NAME = 'Fetchers::S3FetcherService'.freeze
 
   mount_uploader :file, HolidaysUploader
 
@@ -10,7 +10,7 @@ class Upload < ApplicationRecord
   belongs_to :user
 
   def process_file!
-    ImportJob.perform_later(PROCESS_SERVICE_NAME, { object_key: object_key })
+    ImportJob.perform_later(PROCESS_SERVICE_NAME, object_key: object_key)
   end
 
   def file_info

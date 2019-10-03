@@ -1,1 +1,1 @@
-class HolidayExprHistory < ApplicationRecord;end
+class HolidayExprHistory < ApplicationRecord; end

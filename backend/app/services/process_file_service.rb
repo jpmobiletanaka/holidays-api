@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 class ProcessFileService < BaseService
   REGION = ENV.fetch('AWS_REGION') { 'ap-northeast-1' }
   BUCKET = ENV.fetch('HOLIDAYS_API_BUCKET') { 'revenue-staging-uploads' }
@@ -13,7 +14,7 @@ class ProcessFileService < BaseService
     save_file!
     queue_for_process
     success
-  rescue => e
+  rescue StandardError => e
     error(e)
   end
 
@@ -32,6 +33,6 @@ class ProcessFileService < BaseService
   end
 
   def queue_for_process
-    ImportJob.perform_later(PROCESS_SERVICE_NAME, { upload_id:  upload.id})
+    ImportJob.perform_later(PROCESS_SERVICE_NAME, upload_id: upload.id)
   end
 end

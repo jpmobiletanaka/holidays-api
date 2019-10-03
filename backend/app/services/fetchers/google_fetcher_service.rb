@@ -6,8 +6,8 @@ module Fetchers
 
     def initialize(**args)
       super
-      @start_date      = start_date || Date.today.beginning_of_year
-      @end_date        = end_date || Date.today.end_of_year
+      @start_date      = start_date || Date.current.beginning_of_year
+      @end_date        = end_date || Date.current.end_of_year
       @calendar_events = langs.zip(Array.new(langs.size)).to_h
     end
 
@@ -32,20 +32,21 @@ module Fetchers
     end
 
     def transform
-      events = calendar_events.each_with_object({}) do |(lang, events), res|
-        events = events.each_with_object({}) do |(date, event), res|
-          res[date] = generate_event_hash(date, event, lang)
+      events = calendar_events.each_with_object({}) do |(key, value), result|
+        event_hash = value.each_with_object({}) do |(date, event), hsh|
+          hsh[date] = generate_event_hash(date, event, key)
         end
 
-        res.merge!(events) do |_, old_v, new_v|
+        result.merge!(event_hash) do |_, old_v, new_v|
           old_v.merge(new_v)
         end
       end.values
 
-      @transformed_events = events.group_by { |event| event.slice(*grouping_key) }
-                                              .each_with_object([]) do |(_, events_group), res|
-        res.push *MergeEventGroupService.call(events: events_group)
-      end
+      @transformed_events =
+        events.group_by { |event| event.slice(*grouping_key) }
+              .each_with_object([]) do |(_, events_group), res|
+                res.push(*MergeEventGroupService.call(events: events_group))
+              end
     end
 
     def import

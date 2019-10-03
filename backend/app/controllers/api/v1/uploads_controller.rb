@@ -1,7 +1,6 @@
 module Api
   module V1
     class UploadsController < ::ApplicationController
-
       def index
         render_response do
           Upload.where(user: current_user).last(100)

@@ -36,7 +36,7 @@ module Api
         where_option = {}
         where_option = { holidays: { country_code: params[:country_code] } } if params[:country_code]
         return history_holidays if params[:date].present?
-        @scope     ||= Day.by_date(date_from..date_to).includes(:holiday, :moved_to).where(where_option)
+        @scope ||= Day.by_date(date_from..date_to).includes(:holiday, :moved_to).where(where_option)
       end
 
       def history_holidays
