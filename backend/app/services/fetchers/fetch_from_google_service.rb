@@ -1,11 +1,13 @@
 require "google_holiday_calendar"
 
 module Fetchers
-  class GoogleFetcherService < Fetchers::BaseFetcherService
+  class FetchFromGoogleService < ::Fetchers::BaseFetcherService
     DEFAULT_LIMIT = 500
+    GOOGLE_CALENDAR_API_KEY = Rails.application.credentials.google_calendar_api_key
 
     def initialize(**args)
       super
+      @country         = options[:country]
       @start_date      = start_date || Date.current.beginning_of_year
       @end_date        = end_date || Date.current.end_of_year
       @calendar_events = langs.zip(Array.new(langs.size)).to_h
@@ -20,13 +22,13 @@ module Fetchers
 
     private
 
-    attr_reader :langs, :country, :calendar_events, :transformed_events, :start_date, :end_date
+    attr_reader :langs, :options, :country, :calendar_events, :transformed_events, :start_date, :end_date
 
     def fetch
       langs.each do |lang|
         calendar = GoogleHolidayCalendar::Calendar.new(country: country.google_calendar_id,
                                                        lang: lang,
-                                                       api_key: ENV['GOOGLE_CALENDAR_API_KEY'])
+                                                       api_key: GOOGLE_CALENDAR_API_KEY)
         @calendar_events[lang] = calendar.holidays(start_date: start_date, end_date: end_date, limit: DEFAULT_LIMIT)
       end
     end

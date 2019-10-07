@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Fetchers::GoogleFetcherService do
+describe Fetchers::FetchFromGoogleService do
   before do
     allow_any_instance_of(GoogleHolidayCalendar::Calendar).to receive(:holidays).and_return(holidays_hash)
   end
@@ -28,7 +28,7 @@ describe Fetchers::GoogleFetcherService do
     }.each_with_object({}) { |(date, event), res| res[Date.parse(date)] = event }
   end
 
-  subject(:service_call) { described_class.call(langs: %i[en ja], country: country) }
+  subject(:service_call) { described_class.call(langs: %i[en ja], options: { country: country }) }
 
   describe 'multiple languages' do
     before { service_call }

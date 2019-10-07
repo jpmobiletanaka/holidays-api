@@ -40,7 +40,8 @@ RSpec.describe Api::V1::HolidaysService do
 
         it 'not includes deleted holiday' do
           perform_enqueued_jobs { holiday_week }
-          Holiday.find(holiday_week.id).delete
+          holiday_id = HolidayExpr.find(holiday_week.id).holidays.first.id
+          Holiday.find(holiday_id).delete
           expect(service.call).to match([a_hash_including(en_name: children_day.en_name)])
         end
       end

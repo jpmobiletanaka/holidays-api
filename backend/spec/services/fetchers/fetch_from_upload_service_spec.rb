@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe Fetchers::S3FetcherService do
+describe Fetchers::FetchFromUploadService do
   let(:service) { described_class }
   let(:error_response) {}
   context 'when upload_id is nil' do

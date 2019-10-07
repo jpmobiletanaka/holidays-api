@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Fetchers
-  class S3FetcherService < BaseFetcherService
+  class FetchFromUploadService < ::Fetchers::BaseFetcherService
     REGION = ENV.fetch('AWS_REGION') { 'ap-northeast-1' }
     BUCKET = ENV.fetch('HOLIDAYS_API_BUCKET') { 'revenue-staging-uploads' }
     DATE_KEY = 'Date'
@@ -30,6 +30,8 @@ module Fetchers
 
     private
 
+    attr_reader :options, :upload, :file_body, :countries, :transformed_events
+
     def success
       upload.update! status: Upload.statuses[:success]
       super
@@ -39,8 +41,6 @@ module Fetchers
       upload.update! status: Upload.statuses[:error]
       super
     end
-
-    attr_reader :options, :upload, :file_body, :countries, :transformed_events
 
     def fetch_file
       @file_body = upload.file.read
