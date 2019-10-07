@@ -51,9 +51,9 @@ RSpec.describe HolidayGenerateService do
 
     context 'period' do
       let(:holiday_expr) { create(:holiday_expr, expression: "#{year}/#{month}/#{day_from}-#{day_to}") }
-
-      it { expect { service.call }.to change(Holiday, :count).from(0).to(period_days.count) }
-      it { expect { service.call }.to change(Day, :count).from(0).to(1) }
+ 
+      it { expect { service.call }.to change(Holiday, :count).from(0).to(1) }
+      it { expect { service.call }.to change(Day, :count).from(0).to(period_days.count) }
     end
 
     context 'large period' do

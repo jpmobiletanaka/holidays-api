@@ -1,6 +1,8 @@
 namespace :holidays do
   desc 'Import HolidayExpr from all sources'
   task import: :environment do
-    ImportJob.perform_later
+    Country.all.each do |country|
+      ImportJob.perform_later('Fetchers::FetchFromGoogleService', { country: country })
+    end
   end
 end
