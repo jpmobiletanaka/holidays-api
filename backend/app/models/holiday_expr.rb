@@ -1,4 +1,5 @@
 class HolidayExpr < ApplicationRecord
+  # rubocop:disable Metrics/LineLength
   DAY                = /0?[1-2]?\d{1}|3[0-1]/
   MONTH              = /0?[1-9]|1[0-2]/
   YEAR               = /[1-2]+\d{3}/
@@ -8,8 +9,9 @@ class HolidayExpr < ApplicationRecord
   PERIOD_GROUP       = %r{^((#{YEAR})(\.|\/))?(#{MONTH})(\.|\/)(#{DAY})-(#{DAY})$}
   LARGE_PERIOD_GROUP = %r{^((#{YEAR})(\.|\/))?(\((#{MONTH})(\.|\/)(#{DAY})\))-(\((#{MONTH})(\.|\/)(#{DAY})\))$}
   XLARGE_PERIOD_GROUP = %r{^(\((#{YEAR})(\.|\/)(#{MONTH})(\.|\/)(#{DAY})\))-(\((#{YEAR})(\.|\/)(#{MONTH})(\.|\/)(#{DAY})\))$}
-  MOON_GROUP         = %r{^((#{YEAR})(\.|\/))?(#{MONTH})(\.|\/)(full.*moon)(#{ADD})?$}
+  MOON_GROUP = %r{^((#{YEAR})(\.|\/))?(#{MONTH})(\.|\/)(full.*moon)(#{ADD})?$}
   EXPRESSION_REGEX = /(#{SIMPLE_GROUP})|(#{NTH_DAY_GROUP})|(#{LARGE_PERIOD_GROUP})|(#{XLARGE_PERIOD_GROUP})|(#{PERIOD_GROUP})|(#{MOON_GROUP})/mix
+  # rubocop:enable Metrics/LineLength
 
   enum calendar_type: %i[gregorian julian]
   enum holiday_type:  %i[holiday]

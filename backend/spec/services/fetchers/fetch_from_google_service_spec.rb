@@ -8,23 +8,22 @@ describe Fetchers::FetchFromGoogleService do
   let(:country) { create :country, google_calendar_id: 'fake_google_calendar_id', country_code: :ru }
 
   let(:holidays_hash) do
-    {"2019-01-01"=>"New Year's Day",
-     "2019-01-02"=>"New Year Holiday Week",
-     "2019-01-03"=>"New Year Holiday Week",
-     "2019-01-04"=>"New Year Holiday Week",
-     "2019-01-07"=>"Orthodox Christmas Day",
-     "2019-01-08"=>"New Year Holiday Week",
-     "2019-02-23"=>"Defender of the Fatherland Day",
-     "2019-03-08"=>"International Women's Day",
-     "2019-05-01"=>"Spring and Labor Day",
-     "2019-05-02"=>"Spring and Labor Day Holiday",
-     "2019-05-03"=>"Spring and Labor Day Holiday",
-     "2019-05-09"=>"Victory Day",
-     "2019-05-10"=>"Defender of the Fatherland Day holiday",
-     "2019-06-12"=>"Russia Day",
-     "2019-09-01"=>"Day of Knowledge",
-     "2019-11-04"=>"Unity Day"
-    }.each_with_object({}) { |(date, event), res| res[Date.parse(date)] = event }
+    { "2019-01-01" => "New Year's Day",
+      "2019-01-02" => "New Year Holiday Week",
+      "2019-01-03" => "New Year Holiday Week",
+      "2019-01-04" => "New Year Holiday Week",
+      "2019-01-07" => "Orthodox Christmas Day",
+      "2019-01-08" => "New Year Holiday Week",
+      "2019-02-23" => "Defender of the Fatherland Day",
+      "2019-03-08" => "International Women's Day",
+      "2019-05-01" => "Spring and Labor Day",
+      "2019-05-02" => "Spring and Labor Day Holiday",
+      "2019-05-03" => "Spring and Labor Day Holiday",
+      "2019-05-09" => "Victory Day",
+      "2019-05-10" => "Defender of the Fatherland Day holiday",
+      "2019-06-12" => "Russia Day",
+      "2019-09-01" => "Day of Knowledge",
+      "2019-11-04" => "Unity Day" }.each_with_object({}) { |(date, event), res| res[Date.parse(date)] = event }
   end
 
   subject(:service_call) { described_class.call(langs: %i[en ja], options: { country: country }) }
@@ -59,43 +58,41 @@ describe Fetchers::FetchFromGoogleService do
   describe 'holidays grouping' do
     context 'when result includes holidays with same name in one language, but different names in other language' do
       let(:en_holidays_hash) do
-        {"2019-01-01"=>"New Year's Day",
-         "2019-01-02"=>"New Year Holiday Week",
-         "2019-01-03"=>"New Year Holiday Week",
-         "2019-01-04"=>"New Year Holiday Week",
-         "2019-01-07"=>"Orthodox Christmas Day",
-         "2019-01-08"=>"New Year Holiday Week",
-         "2019-02-23"=>"Defender of the Fatherland Day",
-         "2019-03-08"=>"International Women's Day",
-         "2019-05-01"=>"Spring and Labor Day",
-         "2019-05-02"=>"Spring and Labor Day Holiday",
-         "2019-05-03"=>"Spring and Labor Day Holiday",
-         "2019-05-09"=>"Victory Day",
-         "2019-05-10"=>"Defender of the Fatherland Day holiday",
-         "2019-06-12"=>"Russia Day",
-         "2019-09-01"=>"Day of Knowledge",
-         "2019-11-04"=>"Unity Day"
-        }.each_with_object({}) { |(date, event), res| res[Date.parse(date)] = event }
+        { "2019-01-01" => "New Year's Day",
+          "2019-01-02" => "New Year Holiday Week",
+          "2019-01-03" => "New Year Holiday Week",
+          "2019-01-04" => "New Year Holiday Week",
+          "2019-01-07" => "Orthodox Christmas Day",
+          "2019-01-08" => "New Year Holiday Week",
+          "2019-02-23" => "Defender of the Fatherland Day",
+          "2019-03-08" => "International Women's Day",
+          "2019-05-01" => "Spring and Labor Day",
+          "2019-05-02" => "Spring and Labor Day Holiday",
+          "2019-05-03" => "Spring and Labor Day Holiday",
+          "2019-05-09" => "Victory Day",
+          "2019-05-10" => "Defender of the Fatherland Day holiday",
+          "2019-06-12" => "Russia Day",
+          "2019-09-01" => "Day of Knowledge",
+          "2019-11-04" => "Unity Day" }.each_with_object({}) { |(date, event), res| res[Date.parse(date)] = event }
       end
 
       let(:ja_holidays_hash) do
-        {"2019-01-01"=>"New Year's Day",
-         "2019-01-02"=>"New Year Holiday Week",
-         "2019-01-03"=>"New Year Holiday Week",
-         "2019-01-04"=>"New Year Holiday Week2",
-         "2019-01-07"=>"Orthodox Christmas Day",
-         "2019-01-08"=>"New Year Holiday Week2",
-         "2019-02-23"=>"Defender of the Fatherland Day",
-         "2019-03-08"=>"International Women's Day",
-         "2019-05-01"=>"Spring and Labor Day",
-         "2019-05-02"=>"Spring and Labor Day Holiday",
-         "2019-05-03"=>"Spring and Labor Day Holiday",
-         "2019-05-09"=>"Victory Day",
-         "2019-05-10"=>"Defender of the Fatherland Day holiday",
-         "2019-06-12"=>"Russia Day",
-         "2019-09-01"=>"Day of Knowledge",
-         "2019-11-04"=>"Unity Day"
-        }.each_with_object({}) { |(date, event), res| res[Date.parse(date)] = event }
+        { "2019-01-01" => "New Year's Day",
+          "2019-01-02" => "New Year Holiday Week",
+          "2019-01-03" => "New Year Holiday Week",
+          "2019-01-04" => "New Year Holiday Week2",
+          "2019-01-07" => "Orthodox Christmas Day",
+          "2019-01-08" => "New Year Holiday Week2",
+          "2019-02-23" => "Defender of the Fatherland Day",
+          "2019-03-08" => "International Women's Day",
+          "2019-05-01" => "Spring and Labor Day",
+          "2019-05-02" => "Spring and Labor Day Holiday",
+          "2019-05-03" => "Spring and Labor Day Holiday",
+          "2019-05-09" => "Victory Day",
+          "2019-05-10" => "Defender of the Fatherland Day holiday",
+          "2019-06-12" => "Russia Day",
+          "2019-09-01" => "Day of Knowledge",
+          "2019-11-04" => "Unity Day" }.each_with_object({}) { |(date, event), res| res[Date.parse(date)] = event }
       end
 
       before do

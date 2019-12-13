@@ -45,8 +45,8 @@ module Fetchers
       end.values
 
       @transformed_events = events.group_by { |event| event.slice(*grouping_key) }
-                                              .each_with_object([]) do |(_, events_group), res|
-        res.push *MergeEventGroupService.call(events: events_group)
+                                  .each_with_object([]) do |(_, events_group), res|
+        res.push(*MergeEventGroupService.call(events: events_group))
       end
     end
 

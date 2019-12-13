@@ -1,5 +1,4 @@
 class HolidaysUploader < CarrierWave::Uploader::Base
-
   def self.set_storage
     if ENV['HOLIDAYS_API_BUCKET'] && (Rails.env.production? || Rails.env.staging? || Rails.env.development?)
       :fog

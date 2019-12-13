@@ -6,7 +6,7 @@ class Day < ApplicationRecord
   has_one :holiday_expr, through: :holiday
   has_one :moved_to, class_name: 'Day', foreign_key: :moved_from_id
 
-  scope :by_date,         ->(date) { where(date: date) }
+  scope :by_date, ->(date) { where(date: date) }
 
   delegate :date, to: :moved_to, prefix: true, allow_nil: true
 
