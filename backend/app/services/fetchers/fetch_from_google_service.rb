@@ -8,8 +8,8 @@ module Fetchers
     def initialize(**args)
       super
       @country         = options[:country]
-      @start_date      = start_date || Date.today.beginning_of_year
-      @end_date        = end_date || Date.today.end_of_year
+      @start_date      = start_date || Time.zone.today.beginning_of_year
+      @end_date        = end_date || Time.zone.today.end_of_year
       @calendar_events = langs.zip(Array.new(langs.size)).to_h
     end
 
@@ -34,12 +34,12 @@ module Fetchers
     end
 
     def transform
-      events = calendar_events.each_with_object({}) do |(lang, events), res|
-        events = events.each_with_object({}) do |(date, event), res|
-          res[date] = generate_event_hash(date, event, lang)
+      events = calendar_events.each_with_object({}) do |(lang, events_hsh), res|
+        events_hsh = events_hsh.each_with_object({}) do |(date, event), acc|
+          acc[date] = generate_event_hash(date, event, lang)
         end
 
-        res.merge!(events) do |_, old_v, new_v|
+        res.merge!(events_hsh) do |_, old_v, new_v|
           old_v.merge(new_v)
         end
       end.values
