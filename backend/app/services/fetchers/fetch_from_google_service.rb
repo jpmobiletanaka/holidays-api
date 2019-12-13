@@ -34,12 +34,12 @@ module Fetchers
     end
 
     def transform
-      events = calendar_events.each_with_object({}) do |(key, value), result|
-        event_hash = value.each_with_object({}) do |(date, event), hsh|
-          hsh[date] = generate_event_hash(date, event, key)
+      events = calendar_events.each_with_object({}) do |(lang, events_hsh), res|
+        events_hsh = events_hsh.each_with_object({}) do |(date, event), acc|
+          acc[date] = generate_event_hash(date, event, lang)
         end
 
-        result.merge!(event_hash) do |_, old_v, new_v|
+        res.merge!(events_hsh) do |_, old_v, new_v|
           old_v.merge(new_v)
         end
       end.values

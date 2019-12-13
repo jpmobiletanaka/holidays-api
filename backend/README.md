@@ -97,25 +97,24 @@ Prerequisites:
 * AWS CLI Installed
 * AWS Access Keys for `revenue_setup` account (either in env vars or in ~/.aws/credentials)
 
-Build the new image:
+Build the new backend image if changed:
 ```
-docker build -f docker/web/Dockerfile.ecs -t holidays-api_web .
+docker build -f docker/backend/Dockerfile -t holidays-api_backend .
 ```
 
 Tag it with AWS ECR Repo:
 ```
-docker tag holidays-api_web 611630892743.dkr.ecr.ap-northeast-1.amazonaws.com/holidays-api
+docker tag holidays-api_backend 611630892743.dkr.ecr.ap-northeast-1.amazonaws.com/holidays-api-backend
 ```
 
-Get ECR login
+Login to ECR
 ```
-aws ecr get-login --no-include-email
+aws ecr get-login --no-include-email | bash
 ```
-Run the command from response.
 
-Push the image:
+Push the images:
 ```
-docker push 611630892743.dkr.ecr.ap-northeast-1.amazonaws.com/holidays-api 
+docker push 611630892743.dkr.ecr.ap-northeast-1.amazonaws.com/holidays-api-backend
 ```
 
 Run the migrator task:
@@ -125,5 +124,5 @@ aws ecs run-task --task-definition holidays-api-staging-holdiays-migrator --clus
 
 After migrator task is finished, update service:
 ```
-aws ecs update-service --service holidays-api-staging --force-new-deployment --cluster holidays-api-staging
+aws ecs update-service --service holidays-api-staging-backend --force-new-deployment --cluster holidays-api-staging
 ```

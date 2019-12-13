@@ -1,6 +1,7 @@
 version: '3'
 services:
   backend:
+    image: holidays-api_backend
     build:
       context: .
       dockerfile: ./docker/backend/Dockerfile
@@ -17,6 +18,7 @@ services:
     tty: true
 
   frontend:
+    image: holidays-api_frontend
     build:
       context: .
       dockerfile: ./docker/frontend/Dockerfile

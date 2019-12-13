@@ -6,7 +6,7 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
                             chrpath libssl-dev libxft-dev \
                             libfreetype6 libfreetype6-dev \
                             libfontconfig1 libfontconfig1-dev logrotate \
-                            mysql-client vim \
+                            mariadb-client vim \
   && rm -rf /var/lib/apt/lists/*
 
 ENV APP_HOME /home/dockeruser/project
