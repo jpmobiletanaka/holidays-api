@@ -23,6 +23,13 @@ AllCops:
 Rails:
   Enabled: true
 
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - staging
+    - development
+    - test
+
 Rails/HasManyOrHasOneDependent:
   Enabled: false
 

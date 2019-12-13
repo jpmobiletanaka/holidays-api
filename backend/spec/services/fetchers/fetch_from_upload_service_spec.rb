@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Fetchers::FetchFromUploadService do
   let(:service) { described_class }
-  let(:error_response) { }
+  let(:error_response) {}
   context 'when upload_id is nil' do
     it 'returns hash with state: :error' do
       expect { service.call(options: { upload_id: nil }) }.to raise_error(ActiveRecord::RecordNotFound)
@@ -15,7 +15,6 @@ describe Fetchers::FetchFromUploadService do
     end
   end
 
-
   context 'when upload id found' do
     let(:file) { File.new(file_fixture('ME_Holidays_data.csv')) }
     let!(:upload) do
@@ -24,7 +23,7 @@ describe Fetchers::FetchFromUploadService do
 
     context 'when all countries exist' do
       before do
-        { cn: 'China', jp: 'Japan', tw: 'Taiwan'} .each do |code, name|
+        { cn: 'China', jp: 'Japan', tw: 'Taiwan' } .each do |code, name|
           Country.create! en_name: name, ja_name: name, country_code: code
         end
       end
@@ -66,7 +65,7 @@ describe Fetchers::FetchFromUploadService do
         let(:events) do
           csv.map do |row|
             country = Country.find_by(en_name: row[csv.headers[4]])
-            date_hash = %i(month day year).zip(row[csv.headers[1]].split('/')).to_h
+            date_hash = %i[month day year].zip(row[csv.headers[1]].split('/')).to_h
             { country_code: country.country_code, calendar_type: :gregorian,
               date_hash: date_hash, en_name: [row[csv.headers[2]]].pack('a*'),
               ja_name: [row[csv.headers[3]]].pack('a*') }
@@ -83,7 +82,7 @@ describe Fetchers::FetchFromUploadService do
 
       context 'when country is not found' do
         before { Country.find_by(en_name: 'Japan').destroy }
-        let(:inst) { described_class.new(options: { upload_id: upload.id })}
+        let(:inst) { described_class.new(options: { upload_id: upload.id }) }
         it 'adds such rows to invalid_rows instance var' do
           inst.call
           expect(inst.invalid_rows.size).to eq 8

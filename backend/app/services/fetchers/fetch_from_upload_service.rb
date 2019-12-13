@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Fetchers
   class FetchFromUploadService < ::Fetchers::BaseFetcherService
     REGION = ENV.fetch('AWS_REGION') { 'ap-northeast-1' }
@@ -21,7 +22,7 @@ module Fetchers
       transform
       import
       success
-    rescue => e
+    rescue StandardError => e
       error(e)
     end
 
@@ -54,9 +55,9 @@ module Fetchers
         res.push generate_row_hash(row, country)
       end
 
-      @transformed_events = events.group_by{ |row| grouping_key(row) }
+      @transformed_events = events.group_by { |row| grouping_key(row) }
                                   .each_with_object([]) do |(_, row_group), res|
-        res.push *MergeEventGroupService.call(events: row_group)
+        res.push(*MergeEventGroupService.call(events: row_group))
       end
     end
 
@@ -65,7 +66,7 @@ module Fetchers
     end
 
     def generate_row_hash(row, country)
-      date_hash = %i(month day year).zip(row[DATE_KEY].split('/')).to_h
+      date_hash = %i[month day year].zip(row[DATE_KEY].split('/')).to_h
       { country_code: country.country_code, calendar_type: calendar_type(row),
         date_hash: date_hash, en_name: row[EN_NAME_KEY], ja_name: row[JA_NAME_KEY] }
     end

@@ -13,7 +13,7 @@
 #   rake "some:great:rake:task"
 # end
 #
-every 1.hours do
+every 1.hour do
   rake "holidays:import"
 end
 
