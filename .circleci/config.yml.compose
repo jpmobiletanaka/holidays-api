@@ -62,52 +62,71 @@ jobs:
   build:
     <<: *default
     docker:
-      - image: circleci/ruby:2.5.5-stretch-node-browsers
-        environment:
-          RAILS_ENV: test
-          BUNDLE_PATH: vendor/bundle
-          HOLIDAYS_API_BUCKET: revenue-staging-uploads
-    steps:
-      - checkout
-      - run:
-          name: Install system dependencies
-          command: |
-            sudo apt-get update -qq && sudo apt-get install -y mysql-client unzip libnss3 google-chrome-stable
-      - run:
-          name: Setup env
-          command: cp .env.ci.example .env
-      - restore_cache:
-          name: Restore bundle cache
-          keys:
-            - v4-holidays-api-bundle-{{ checksum "backend/Gemfile.lock" }}-{{ arch }}
-            - v4-holidays-api-bundle-
-      - run:
-          name: Bundle install
-          command: cd backend && bundle check --path vendor/bundle || bundle install --path=vendor/bundle --jobs 4 --retry 3
-      - save_cache:
-          name: Store bundle cache
-          key: v4-holidays-api-bundle-{{ checksum "backend/Gemfile.lock" }}-{{ arch }}
-          paths:
-            - backend/vendor/bundle
-      - persist_to_workspace:
-          root: .
-          paths: .
-  spec:
-    <<: *default
-    docker:
-      - image: circleci/ruby:2.5.5-stretch-node-browsers
-        environment:
-          RAILS_ENV: test
-          BUNDLE_PATH: vendor/bundle
-          HOLIDAYS_API_BUCKET: revenue-staging-uploads
-          MYSQL_HOST: 127.0.0.1
-          MYSQL_PORT: 3306
-      - image: circleci/mysql:5.7-ram
-        environment:
-          MYSQL_ROOT_PASSWORD: pass
+      - image: docker/compose:1.25.0-alpine
+#        environment:
+#          RAILS_ENV: test
+#          HOLIDAYS_API_BUCKET: revenue-staging-uploads
+#      - image: circleci/mysql:5.7-ram
+#        environment:
+#          MYSQL_HOST: 127.0.0.1
+#          MYSQL_PORT: 3306
+#          MYSQL_ROOT_PASSWORD: pass
     steps:
       - attach_workspace:
           at: .
+      - checkout
+      - setup_remote_docker:
+          docker_layer_caching: true
+#      - run:
+#          name: Install system dependencies
+#          command: |
+#            sudo apt-get update -qq && sudo apt-get install -y mysql-client unzip libnss3 google-chrome-stable
+      - run:
+          name: Setup env
+          command: cp .env.ci.example .env
+      - run:
+          name: Build images
+          command: docker-compose build
+#      - restore_cache:
+#          name: Restore bundle cache
+#          keys:
+#            - v1-holidays-api-bundle-{{ checksum "Gemfile.lock" }}-{{ arch }}
+#            - v1-holidays-api-bundle-
+#      - run:
+#          name: Bundle install
+#          command: bundle check --path vendor/bundle || bundle install --path vendor/bundle --jobs 4 --retry 3
+#      - save_cache:
+#          name: Store bundle cache
+#          key: v1-holidays-api-bundle-{{ checksum "Gemfile.lock" }}-{{ arch }}
+#          paths:
+#            - vendor/bundle
+      - run:
+          name: Save docker image
+          command: |
+            mkdir -p docker/images
+            docker save ${CIRCLE_PROJECT_REPONAME}_backend > docker/images/backend.tar
+            docker save ${CIRCLE_PROJECT_REPONAME}_frontend > docker/images/frontend.tar
+      - persist_to_workspace:
+          root: .
+          paths:
+            - docker/images
+  spec:
+    <<: *default
+    docker:
+      - image: python:3.6.1
+    steps:
+      - attach_workspace:
+          at: .
+      - setup_remote_docker:
+          docker_layer_caching: true
+      - run:
+          name: Load image
+          command: |
+            docker load --input docker/images/backend.tar
+            docker load --input docker/images/frontend.tar
+      - run:
+          name: Up containers
+          command: docker-compose up -d
       #      - run:
 #          name: Run Bundle audit
 #          when: on_success
@@ -119,23 +138,19 @@ jobs:
 #          command: |
 #            bundle exec rails_best_practices .
       - run:
-          name: Set bundle path
-          command: cd backend && bundle --path vendor/bundle
-      - run:
           name: Run Rubocop
           when: always
           command: |
-            cd backend && bundle exec rubocop
+            docker-compose exec backend bundle exec rubocop
       - run:
           name: Setup db and other stuff
-          when: always
           command: |
-            cd backend && bundle exec rails db:create db:migrate
+            docker-compose exec backend bundle exec rails db:create db:migrate
       - run:
           name: Run RSpec
           when: always
           command: |
-            cd backend && bundle exec rspec --profile 10 \
+            docker-compose exec backend bundle exec rspec --profile 10 \
                               --out test_results/rspec/results.xml \
                               --format progress
 #      - store_artifacts:
