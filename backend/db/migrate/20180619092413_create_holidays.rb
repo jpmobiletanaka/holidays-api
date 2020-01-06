@@ -5,8 +5,12 @@ class CreateHolidays < ActiveRecord::Migration[5.2]
       t.string     :country_code, index: true, null: true
       t.string     :ja_name
       t.string     :en_name
-      t.integer    :source,  default: 0, limit: 1
+      t.integer    :current_source_type,  default: 0, limit: 1
+      t.jsonb      :source_ids
       t.boolean    :enabled, default: true
+      t.boolean    :observed, default: false, null: false
+      t.boolean    :day_off, default: true
+
       t.timestamps
     end
 

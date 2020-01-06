@@ -1,6 +1,6 @@
 class BaseService
   def self.call(**args)
-    new(**args).call
+    args.present? ? new(**args).call : new.call
   end
 
   protected

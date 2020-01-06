@@ -1,25 +1,25 @@
 development:
-  adapter:  mysql2
-  encoding: utf8mb4
-  charset: utf8mb4
-  collation: utf8mb4_unicode_ci
+  adapter:  postgresql
+#  encoding: utf8mb4
+#  charset: utf8mb4
+#  collation: utf8mb4_unicode_ci
   database: holidays_development
   pool:     10
-  username: root
-  password: <%= ENV.fetch('MYSQL_ROOT_PASSWORD', 'pass') %>
-  port: <%= ENV.fetch('MYSQL_PORT', 3306) %>
+  username: postgres
+#  password: <%= ENV.fetch('MYSQL_ROOT_PASSWORD', 'pass') %>
+  port: <%= ENV.fetch('MYSQL_PORT', 5432) %>
   host: <%= ENV.fetch('MYSQL_HOST', '127.0.0.1') %>
 
 test:
-  adapter:  mysql2
-  encoding: utf8mb4
-  charset: utf8mb4
-  collation: utf8mb4_unicode_ci
+  adapter:  postgresql
+#  encoding: utf8mb4
+#  charset: utf8mb4
+#  collation: utf8mb4_unicode_ci
   database: holidays_test
   pool:     5
-  username: root
-  password: <%= ENV.fetch('MYSQL_ROOT_PASSWORD', 'pass') %>
-  port: <%= ENV.fetch('MYSQL_PORT', 3306) %>
+  username: postgres
+#  password: <%= ENV.fetch('MYSQL_ROOT_PASSWORD', 'pass') %>
+  port: <%= ENV.fetch('MYSQL_PORT', 5432) %>
   host: <%= ENV.fetch('MYSQL_HOST', '127.0.0.1') %>
 
 production:

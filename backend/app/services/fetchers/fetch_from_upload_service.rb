@@ -4,11 +4,14 @@ module Fetchers
   class FetchFromUploadService < ::Fetchers::BaseFetcherService
     REGION = ENV.fetch('AWS_REGION') { 'ap-northeast-1' }
     BUCKET = ENV.fetch('HOLIDAYS_API_BUCKET') { 'revenue-staging-uploads' }
-    DATE_KEY = 'Date'
-    EN_COUNTRY_KEY = 'Country'
+    DATE_KEY = 'date'
+    EN_COUNTRY_KEY = 'country'
     JA_COUNTRY_KEY = nil
-    EN_NAME_KEY = 'Holiday name'
-    JA_NAME_KEY = 'Holiday name (ja)'
+    EN_NAME_KEY = 'en_name'
+    JA_NAME_KEY = 'ja_name'
+    DAY_OFF_KEY = 'day_off'
+    OBSERVED_KEY = 'observed'
+    MOVED_FROM_KEY = 'moved_from'
 
     def initialize(**args)
       super
@@ -26,11 +29,9 @@ module Fetchers
       error(e)
     end
 
-    attr_reader :invalid_rows
-
     private
 
-    attr_reader :options, :upload, :file_body, :countries, :transformed_events
+    attr_reader :options, :upload, :file_body, :countries, :events, :invalid_rows
 
     def success
       upload.update! status: Upload.statuses[:success]
@@ -49,35 +50,34 @@ module Fetchers
     def transform
       data = CSV.parse file_body, headers: true
 
-      events = data.each_with_object([]) do |row, res|
-        country = find_country(row)
-        invalid_rows.push(row) && next unless country
-        res.push generate_row_hash(row, country)
+      @events = data.each_with_object([]) do |row, res|
+        res.push generate_row_hash(row)
       end
-
-      @transformed_events =
-        events.group_by { |row| grouping_key(row) }
-              .each_with_object([]) do |(_, row_group), res|
-                res.push(*MergeEventGroupService.call(events: row_group))
-              end
     end
 
     def import
-      HolidayExpr.import!(transformed_events, on_duplicate_key_ignore: true, validate: false)
+      FileRawHoliday.import!(events, on_duplicate_key_update: { conflict_target: %i[en_name date country observed],
+                                                                columns: %i[moved_from day_off] }, validate: false)
     end
 
-    def generate_row_hash(row, country)
-      date_hash = %i[month day year].zip(row[DATE_KEY].split('/')).to_h
-      { country_code: country.country_code, calendar_type: calendar_type(row),
-        date_hash: date_hash, en_name: row[EN_NAME_KEY], ja_name: row[JA_NAME_KEY] }
+    def generate_row_hash(row)
+      {
+        country: row[EN_COUNTRY_KEY],
+        date: Date.parse(row[DATE_KEY]),
+        en_name: row[EN_NAME_KEY].strip,
+        ja_name: row[JA_NAME_KEY].strip,
+        observed: row[OBSERVED_KEY].to_bool,
+        moved_from: moved_from(row[MOVED_FROM_KEY]),
+        day_off: row[DAY_OFF_KEY].to_bool
+      }
+    end
+
+    def moved_from(val)
+      Date.parse(val) rescue nil
     end
 
     def find_country(row)
       countries[row[EN_COUNTRY_KEY]] ||= Country.find_by(en_name: row[EN_COUNTRY_KEY])
-    end
-
-    def grouping_key(row)
-      [row[:country_code], row[:en_name]]
     end
 
     def calendar_type(_)

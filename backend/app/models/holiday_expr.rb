@@ -19,6 +19,7 @@ class HolidayExpr < ApplicationRecord
   scope :unprocessed, -> { where(processed: false) }
 
   has_many :holidays
+  has_many :history_records, class_name: 'HolidayExprHistory'
   has_many :days, through: :holidays
   belongs_to :country, primary_key: :country_code, foreign_key: :country_code
 
@@ -32,6 +33,10 @@ class HolidayExpr < ApplicationRecord
 
   def with_year?
     expression.match?(/^#{YEAR}/)
+  end
+
+  def recurring?
+    !with_year?
   end
 
   def generate_holidays(params = {})

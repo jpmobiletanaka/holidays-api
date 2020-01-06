@@ -10,7 +10,7 @@ module Fetchers
       @country         = options[:country]
       @start_date      = start_date || Date.current.beginning_of_year
       @end_date        = end_date || Date.current.end_of_year
-      @calendar_events = langs.zip(Array.new(langs.size)).to_h
+      @raw_events      = langs.zip(Array.new(langs.size)).to_h
     end
 
     def call
@@ -22,19 +22,19 @@ module Fetchers
 
     private
 
-    attr_reader :langs, :options, :country, :calendar_events, :transformed_events, :start_date, :end_date
+    attr_reader :langs, :options, :country, :events, :raw_events, :transformed_events, :start_date, :end_date
 
     def fetch
       langs.each do |lang|
         calendar = GoogleHolidayCalendar::Calendar.new(country: country.google_calendar_id,
                                                        lang: lang,
                                                        api_key: GOOGLE_CALENDAR_API_KEY)
-        @calendar_events[lang] = calendar.holidays(start_date: start_date, end_date: end_date, limit: DEFAULT_LIMIT)
+        @raw_events[lang] = calendar.holidays(start_date: start_date, end_date: end_date, limit: DEFAULT_LIMIT)
       end
     end
 
     def transform
-      events = calendar_events.each_with_object({}) do |(lang, events_hsh), res|
+      @events = raw_events.each_with_object({}) do |(lang, events_hsh), res|
         events_hsh = events_hsh.each_with_object({}) do |(date, event), acc|
           acc[date] = generate_event_hash(date, event, lang)
         end
@@ -43,29 +43,21 @@ module Fetchers
           old_v.merge(new_v)
         end
       end.values
-
-      @transformed_events =
-        events.group_by { |event| event.slice(*grouping_key) }
-              .each_with_object([]) do |(_, events_group), res|
-                res.push(*MergeEventGroupService.call(events: events_group))
-              end
     end
 
     def import
-      HolidayExpr.import!(transformed_events, on_duplicate_key_ignore: true, validate: false)
+      GoogleRawHoliday.import!(events, on_duplicate_key_update: { conflict_target: %i[en_name date country_code],
+                                                                  columns: %i[observed] }, validate: false)
     end
 
     def generate_event_hash(date, event, lang)
-      { country_code: country.country_code, calendar_type: calendar_type(event),
-        date_hash: { year: date.year, month: date.month, day: date.day }, "#{lang}_name": event }
+      hsh = { country_code: country.country_code, date: date, "#{lang}_name": event }
+      hsh[:observed] = observed?(event) if lang.to_s == 'en'
+      hsh
     end
 
-    def grouping_key
-      @_grouping_key ||= langs.map { |l| :"#{l}_name" }
-    end
-
-    def calendar_type(_)
-      :gregorian
+    def observed?(event)
+      event.include?('observed')
     end
   end
 end
