@@ -12,7 +12,7 @@ class CreateGoogleRawHolidays < ActiveRecord::Migration[5.2]
       t.timestamps
     end
 
-    add_index :google_raw_holidays, %i[en_name date country_code observed], unique: true
-    add_index :google_raw_holidays, %i[ja_name date country_code observed], unique: true
+    add_index :google_raw_holidays, %i[en_name date country_code observed], unique: true, name: :en_upsert_constraint
+    add_index :google_raw_holidays, %i[ja_name date country_code observed], unique: true, name: :ja_upsert_constraint
   end
 end

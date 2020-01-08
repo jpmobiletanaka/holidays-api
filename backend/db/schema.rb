@@ -65,9 +65,9 @@ ActiveRecord::Schema.define(version: 2019_12_29_214649) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "holiday_id"
-    t.index ["en_name", "date", "country_code"], name: "index_google_raw_holidays_on_en_name_and_date_and_country_code", unique: true
+    t.index ["en_name", "date", "country_code", "observed"], name: "en_upsert_constraint", unique: true
     t.index ["holiday_id"], name: "index_google_raw_holidays_on_holiday_id"
-    t.index ["ja_name", "date", "country_code"], name: "index_google_raw_holidays_on_ja_name_and_date_and_country_code", unique: true
+    t.index ["ja_name", "date", "country_code", "observed"], name: "ja_upsert_constraint", unique: true
     t.index ["state"], name: "index_google_raw_holidays_on_state"
   end
 
@@ -118,6 +118,7 @@ ActiveRecord::Schema.define(version: 2019_12_29_214649) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["country_code"], name: "index_holidays_on_country_code"
+    t.index ["en_name"], name: "index_holidays_on_en_name", opclass: :gin_trgm_ops, using: :gin
     t.index ["holiday_expr_id", "country_code", "ja_name", "en_name"], name: "main_unique_index_on_holidays", unique: true
     t.index ["holiday_expr_id"], name: "index_holidays_on_holiday_expr_id"
   end

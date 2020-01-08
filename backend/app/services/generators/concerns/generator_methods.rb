@@ -62,16 +62,16 @@ module Generators
       def unprocessed_holidays
         sql = <<~SQL
           WITH sequenced_holidays AS (
-            WITH partitioned_holidays AS ( SELECT *, date - LAG(date, 1) OVER (w) > 1 AS new_holiday_date FROM file_raw_holidays
+            WITH partitioned_holidays AS ( SELECT *, date - LAG(date, 1) OVER (w) > 1 AS new_holiday_date FROM #{raw_holiday_class.table_name}
               WINDOW w AS (PARTITION BY #{self.class::PARTITION_FIELDS.join(', ')} ORDER BY date) )
             SELECT *, COALESCE(SUM(CASE WHEN new_holiday_date THEN 1 END) OVER (w2), 0) holiday_seq FROM partitioned_holidays
               WINDOW w2 AS (PARTITION BY #{self.class::PARTITION_FIELDS.join(', ')} ORDER BY date)
            )
-            SELECT JSONB_OBJECT_AGG(id, date) AS ids, country, en_name, observed, MIN(date) AS min_date,
+            SELECT JSONB_OBJECT_AGG(id, date) AS ids, #{self.class::COUNTRY_FIELD.to_s}, en_name, observed, MIN(date) AS min_date,
                    MAX(date) AS max_date, JSON_AGG(DISTINCT ja_name) AS ja_name, holiday_seq
             FROM sequenced_holidays
             WHERE state = 'pending'
-            GROUP BY country, en_name, holiday_seq, observed
+            GROUP BY #{self.class::COUNTRY_FIELD.to_s}, en_name, holiday_seq, observed
         SQL
 
         raw_holiday_class.find_by_sql(sql).each do |holiday|
@@ -93,7 +93,7 @@ module Generators
           'source_ids' => source_ids.deep_merge(self.class::SOURCE => raw_holiday.ids.keys.map(&:to_i)),
           'current_source_type' => Holiday.current_source_types[self.class::SOURCE]
         }
-        holiday.assign_attributes(raw_holiday.attributes.slice(*self.class::HOLIDAY_FIELDS).merge(**merge_args))
+        holiday.assign_attributes(raw_holiday.attributes.slice(*self.class::HOLIDAY_FIELDS).merge(merge_args))
         holiday
       end
 
