@@ -1,47 +1,26 @@
+default: &default
+  adapter:  <%= ENV.fetch('DB_ADAPTER', 'postgresql') %>
+  username: <%= ENV.fetch('DB_USER', 'postgres') %>
+  port: <%= ENV.fetch('DB_PORT', 5432) %>
+  host: <%= ENV.fetch('DB_HOST', '127.0.0.1') %>
+  password: <%= ENV.fetch('DB_PASSWORD', '') %>
+
 development:
-  adapter:  postgresql
-#  encoding: utf8mb4
-#  charset: utf8mb4
-#  collation: utf8mb4_unicode_ci
+  <<: *default
   database: holidays_development
   pool:     10
-  username: postgres
-#  password: <%= ENV.fetch('MYSQL_ROOT_PASSWORD', 'pass') %>
-  port: <%= ENV.fetch('MYSQL_PORT', 5432) %>
-  host: <%= ENV.fetch('MYSQL_HOST', '127.0.0.1') %>
 
 test:
-  adapter:  postgresql
-#  encoding: utf8mb4
-#  charset: utf8mb4
-#  collation: utf8mb4_unicode_ci
+  <<: *default
   database: holidays_test
-  pool:     5
-  username: postgres
-#  password: <%= ENV.fetch('MYSQL_ROOT_PASSWORD', 'pass') %>
-  port: <%= ENV.fetch('MYSQL_PORT', 5432) %>
-  host: <%= ENV.fetch('MYSQL_HOST', '127.0.0.1') %>
+  pool:     10
 
 production:
-  adapter:  mysql2
-  encoding: utf8mb4
-  charset: utf8mb4
-  collation: utf8mb4_unicode_ci
+  <<: *default
   database: holidays_production
-  pool:     5
-  username: <%= ENV['MYSQL_USER'] %>
-  password: <%= ENV['MYSQL_PASSWORD'] %>
-  port: <%= ENV['MYSQL_PORT'] %>
-  host: <%= ENV['MYSQL_HOST'] %>
+  pool:     10
 
 staging:
-  adapter:  mysql2
-  encoding: utf8mb4
-  charset: utf8mb4
-  collation: utf8mb4_unicode_ci
+  <<: *default
   database: holidays_staging
-  pool:     5
-  username: <%= ENV['MYSQL_USER'] %>
-  password: <%= ENV['MYSQL_PASSWORD'] %>
-  port: <%= ENV['MYSQL_PORT'] %>
-  host: <%= ENV['MYSQL_HOST'] %>
+  pool:     10

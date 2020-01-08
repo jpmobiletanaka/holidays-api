@@ -24,10 +24,10 @@ USER dockeruser
 RUN gem install bundler
 RUN bundle check || bundle install --without development test
 
-COPY ../docker/backend/docker-entrypoint.sh /
-COPY ../docker/backend/ecs-entrypoint.sh /
-COPY ../docker/backend/ecs-entrypoint-migrator.sh /
-COPY ../docker/backend/ecs-entrypoint-seed.sh /
+COPY docker/web/docker-entrypoint.sh /
+COPY docker/web/ecs-entrypoint.sh /
+COPY docker/web/ecs-entrypoint-migrator.sh /
+COPY docker/web/ecs-entrypoint-seed.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
