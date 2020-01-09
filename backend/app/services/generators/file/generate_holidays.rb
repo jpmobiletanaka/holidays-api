@@ -3,7 +3,11 @@
 module Generators
   module File
     class GenerateHolidays < BaseService
-      include Generators::Concerns::GeneratorMethods
+      include Generators::Concerns::FindBySimilarity
+      include Generators::Concerns::ValidateHolidays
+      include Generators::Concerns::ProcessHolidays
+      include Generators::Concerns::ProcessAggregatedRawHolidays
+      include Generators::Concerns::PersistHolidays
 
       SIMILARITY_THRESHOLD = 0.6
       SOURCE = :file
@@ -11,6 +15,24 @@ module Generators
       HOLIDAY_FIELDS = %w[en_name observed day_off].freeze
       COUNTRY_FIELD = :country
       PARTITION_FIELDS = %w[country en_name observed].freeze
+
+      def call
+        unprocessed_holidays do |grouped_raw_holiday|
+          next unless raw_holiday_valid?(grouped_raw_holiday)
+
+          holidays = find_holidays_matching_date_range(grouped_raw_holiday)
+          next unless holidays_valid?(holidays, grouped_raw_holiday)
+
+          process_holidays(holidays.to_a, grouped_raw_holiday)
+        end
+
+        ActiveRecord::Base.transaction do
+          destroy_old_holidays
+          save_holidays
+          save_days
+          save_raw_holidays
+        end
+      end
 
       private
 

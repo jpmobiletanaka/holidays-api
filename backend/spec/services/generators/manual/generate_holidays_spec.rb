@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe HolidayGenerateService do
+RSpec.describe Generators::Manual::GenerateHolidays do
   subject(:service) { described_class.new(holiday_expr, params) }
 
   let(:years_period) { 1995..2005 }

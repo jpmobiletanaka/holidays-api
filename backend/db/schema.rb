@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_29_214649) do
+ActiveRecord::Schema.define(version: 2020_01_08_234612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
@@ -81,6 +81,7 @@ ActiveRecord::Schema.define(version: 2019_12_29_214649) do
     t.boolean "processed", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "observed"
     t.index ["calendar_type"], name: "index_holiday_exprs_on_calendar_type"
     t.index ["country_code"], name: "index_holiday_exprs_on_country_code"
     t.index ["holiday_type"], name: "index_holiday_exprs_on_holiday_type"

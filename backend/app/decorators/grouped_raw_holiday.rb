@@ -10,4 +10,12 @@ class GroupedRawHoliday
   def ja_names
     JSON.parse(ja_name) rescue {}
   end
+
+  def extracted_dates
+    holiday.min_date..holiday.max_date
+  end
+
+  def calendar_type
+    :gregorian
+  end
 end

@@ -12,7 +12,7 @@ class Holiday < ApplicationRecord
   alias manual_raw_holidays holiday_expr
 
   def sources
-    self.class.sources.keys.each_with_object([]) do |source, res|
+    source_ids.keys.each_with_object([]) do |source, res|
       res.push(*send("#{source}_raw_holidays"))
     end
   end
