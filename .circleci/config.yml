@@ -72,7 +72,7 @@ jobs:
       - run:
           name: Install system dependencies
           command: |
-            sudo apt-get update -qq && sudo apt-get install -y mysql-client unzip libnss3 google-chrome-stable
+            sudo apt-get update -qq && sudo apt-get install -y unzip libnss3 google-chrome-stable
       - run:
           name: Setup env
           command: cp .env.ci.example .env
@@ -100,11 +100,9 @@ jobs:
           RAILS_ENV: test
           BUNDLE_PATH: vendor/bundle
           HOLIDAYS_API_BUCKET: revenue-staging-uploads
-          MYSQL_HOST: 127.0.0.1
-          MYSQL_PORT: 3306
-      - image: circleci/mysql:5.7-ram
-        environment:
-          MYSQL_ROOT_PASSWORD: pass
+          DB_HOST: 127.0.0.1
+          DB_PORT: 5432
+      - image: circleci/postgres:11.5-ram
     steps:
       - attach_workspace:
           at: .
