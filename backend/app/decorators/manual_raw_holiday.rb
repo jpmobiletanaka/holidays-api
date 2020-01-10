@@ -41,5 +41,4 @@ class ManualRawHoliday
   def max_date
     extracted_dates.max
   end
-
 end

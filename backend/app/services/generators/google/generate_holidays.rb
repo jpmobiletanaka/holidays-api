@@ -32,10 +32,6 @@ module Generators
           save_days
           save_raw_holidays
         end
-      rescue => e
-        pp e.record.errors
-        pp e.message
-        pp e.backtrace
       end
 
       private

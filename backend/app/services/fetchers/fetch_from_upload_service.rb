@@ -12,6 +12,7 @@ module Fetchers
     DAY_OFF_KEY = 'day_off'
     OBSERVED_KEY = 'observed'
     MOVED_FROM_KEY = 'moved_from'
+    UPSERT_KEYS = %i[en_name date country observed].freeze
 
     def initialize(**args)
       super
@@ -49,15 +50,18 @@ module Fetchers
 
     def transform
       data = CSV.parse file_body, headers: true
-
       @events = data.each_with_object([]) do |row, res|
         res.push generate_row_hash(row)
       end
     end
 
+    def uniq_events
+      events.uniq { |e| e.slice(*UPSERT_KEYS) }
+    end
+
     def import
-      FileRawHoliday.import!(events, on_duplicate_key_update: { conflict_target: %i[en_name date country observed],
-                                                                columns: %i[moved_from day_off] }, validate: false)
+      FileRawHoliday.import!(uniq_events, on_duplicate_key_update: { conflict_target: UPSERT_KEYS,
+                                                                     columns: %i[moved_from day_off] }, validate: false)
     end
 
     def generate_row_hash(row)

@@ -1,7 +1,10 @@
+# frozen-string-literal: true
+
 module Api
   module V1
     class HolidaysService
       HOLIDAY_ATTRS = %w[id country_code ja_name en_name observed day_off current_source_type].freeze
+      DELETE_EVENT = 'DELETE'
 
       def initialize(params)
         @params = params
@@ -13,7 +16,7 @@ module Api
             dates: days.select(&:enabled?).map!(&:date).sort,
             moves: moves(days),
             destroyed: holiday.respond_to?(:holiday) && holiday.holiday.nil?
-          )
+          ).symbolize_keys
         end
       end
 
@@ -29,7 +32,7 @@ module Api
       end
 
       def history_request?
-        @_history_request ||= params[:state_at].present?
+        @_history_request ||= state_date.present?
       end
 
       attr_reader :params
@@ -41,8 +44,12 @@ module Api
         end.compact!
       end
 
+      def state_date
+        @_state_date ||= params[:state_at]&.to_date
+      end
+
       def base_year
-        @_base_year ||= params[:year]&.to_i || Date.current.year
+        @_base_year ||= params[:year]&.to_i || state_date&.year || Date.current.year
       end
 
       def date_from
@@ -60,18 +67,23 @@ module Api
         @scope ||= Day.by_date(date_from..date_to).includes(:holiday, :moved_to).where(where_option)
       end
 
-      def history_holidays
-        date = params[:state_at].to_date
-        subquery = HolidayHistory
-                   .select(:holiday_id,
-                           'row_number() OVER (PARTITION BY holiday_id ORDER BY date DESC) AS ts_position')
-                   .where("date <= ?::date", date)
-        subquery = subquery.where(country_code: params[:country_code]) if params[:country_code].present?
+      def partition_query(deleted_only: false)
+        query = HolidayHistory
+                .select(:holiday_id,
+                        'row_number() OVER (PARTITION BY holiday_id ORDER BY date DESC) AS ts_position')
+                .where("date <= ?::date", state_date)
+        query = query.where(country_code: params[:country_code]) if params[:country_code].present?
+        query = query.where(event: DELETE_EVENT) if deleted_only
+        query
+      end
 
+      def history_holidays
+        deleted_holiday_ids = partition_query(deleted_only: true).pluck(:holiday_id)
         @scope ||= Day.by_date(date_from..date_to)
-                      .joins("INNER JOIN (#{subquery.to_sql}) t USING(holiday_id)")
+                      .joins("INNER JOIN (#{partition_query.to_sql}) t USING(holiday_id)")
                       .includes(:moved_to, holiday_history: :holiday)
                       .where("t.ts_position <= ?", 1)
+                      .where.not(holiday_id: deleted_holiday_ids)
       end
     end
   end

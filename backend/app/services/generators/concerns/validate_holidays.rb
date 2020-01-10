@@ -1,7 +1,7 @@
 module Generators
   module Concerns
     module ValidateHolidays
-      def raw_holiday_valid?(raw_holiday)
+      def raw_holiday_valid?(_raw_holiday)
         raise NotImplementedError
       end
 

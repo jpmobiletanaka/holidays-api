@@ -46,8 +46,9 @@ module Fetchers
     end
 
     def import
-      GoogleRawHoliday.import!(events, on_duplicate_key_update: { conflict_target: %i[en_name date country_code observed],
-                                                                  columns: %i[updated_at] }, validate: false)
+      GoogleRawHoliday
+        .import!(events, on_duplicate_key_update: { conflict_target: %i[en_name date country_code observed],
+                                                    columns: %i[updated_at] }, validate: false)
     end
 
     def generate_event_hash(date, event, lang)

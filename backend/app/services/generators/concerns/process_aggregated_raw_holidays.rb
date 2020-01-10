@@ -14,23 +14,24 @@ module Generators
         end
       end
 
+      # rubocop:disable Metrics/MethodLength
       def unprocessed_holidays
         sql = <<~SQL
           WITH sequenced_holidays AS (
-            WITH partitioned_holidays AS ( 
+            WITH partitioned_holidays AS (
               SELECT *, date - LAG(date, 1) OVER (w) > 1 AS new_holiday_date FROM #{raw_holiday_class.table_name}
-               WINDOW w AS (PARTITION BY #{self.class::PARTITION_FIELDS.join(', ')} ORDER BY date) 
+               WINDOW w AS (PARTITION BY #{self.class::PARTITION_FIELDS.join(', ')} ORDER BY date)
             )
             SELECT *, COALESCE(SUM(CASE WHEN new_holiday_date THEN 1 END) OVER (w2), 0) holiday_seq FROM partitioned_holidays
               WINDOW w2 AS (PARTITION BY #{self.class::PARTITION_FIELDS.join(', ')} ORDER BY date)
           )
-          SELECT JSONB_OBJECT_AGG(id, date) AS ids, 
-                 #{self.class::COUNTRY_FIELD}, 
-                 en_name, 
-                 observed, 
+          SELECT JSONB_OBJECT_AGG(id, date) AS ids,
+                 #{self.class::COUNTRY_FIELD},
+                 en_name,
+                 observed,
                  MIN(date) AS min_date,
-                 MAX(date) AS max_date, 
-                 JSON_AGG(DISTINCT ja_name) AS ja_name, 
+                 MAX(date) AS max_date,
+                 JSON_AGG(DISTINCT ja_name) AS ja_name,
                  holiday_seq
           FROM sequenced_holidays
           WHERE state = 'pending'
@@ -41,6 +42,7 @@ module Generators
           yield ::GroupedRawHoliday.new(holiday)
         end
       end
+      # rubocop:enable Metrics/MethodLength
     end
   end
 end

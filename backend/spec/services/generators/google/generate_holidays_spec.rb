@@ -135,7 +135,6 @@ describe Generators::Google::GenerateHolidays do
         end
       end
 
-
       context 'and existing holiday source priority is equal to processed source' do
         let(:current_source_type) { Holiday.current_source_types[:google] }
 

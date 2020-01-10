@@ -73,7 +73,7 @@ module Generators
         holiday
       end
 
-      def update_state(raw_holiday, state, holiday_id, errors = [])
+      def update_state(raw_holiday, _state, _holiday_id, _errors = [])
         raw_holiday.assign_attributes(processed: true)
         raw_holidays.push raw_holiday
       end

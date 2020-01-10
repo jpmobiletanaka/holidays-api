@@ -12,7 +12,7 @@ module Generators
       end
 
       def destroy_old_holidays
-        holidays_to_destroy.map(&:destroy!)
+        Holiday.where(id: holidays_to_destroy.map(&:id)).delete_all
       end
 
       def save_holidays
@@ -33,7 +33,7 @@ module Generators
 
       def save_raw_holidays
         raw_holiday_class.import(expanded_raw_holidays, on_duplicate_key_update: %i[state error holiday_id],
-                                 validate: false)
+                                                        validate: false)
       end
 
       def update_state(raw_holiday, state, holiday_id, errors = [])
@@ -45,7 +45,7 @@ module Generators
         raw_holidays.each_with_object([]) do |grouped_raw_holiday, res|
           grouped_raw_holiday.ids.each do |id, date|
             holiday = grouped_raw_holiday.attributes.slice(*self.class::RAW_HOLIDAY_FIELDS)
-                        .merge(id: id, date: date, ja_name: grouped_raw_holiday.ja_names.first)
+                                         .merge(id: id, date: date, ja_name: grouped_raw_holiday.ja_names.first)
             res.push(holiday)
           end
         end
