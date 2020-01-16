@@ -14,7 +14,7 @@ module Api
         scope.group_by(&holiday_rel).map do |holiday, days|
           holiday.slice(*select_attrs).merge(
             dates: days.select(&:enabled?).map!(&:date).sort,
-            moves: moves(days),
+            # moves: moves(days),
             destroyed: holiday.respond_to?(:holiday) && holiday.holiday.nil?,
             recurring: holiday.recurring? || false
           ).symbolize_keys
@@ -66,10 +66,10 @@ module Api
         where_option = { holidays: { country_code: params[:country_code] } } if params[:country_code]
         return history_holidays if history_request?
         @scope ||= Day.by_date(date_from..date_to)
-                     .joins(:holiday)
-                     .includes({holiday: :holiday_expr}, :moved_to)
-                     .where(where_option)
-                     .order(:date)
+                      .joins(:holiday)
+                      .includes({ holiday: :holiday_expr }, :moved_to)
+                      .where(where_option)
+                      .order(:date)
       end
 
       def partition_query(deleted_only: false)

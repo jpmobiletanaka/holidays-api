@@ -3,5 +3,5 @@ class HolidayHistory < ApplicationRecord
 
   enum current_source_type: %i[manual file google]
 
-  delegate :recurring, to: :holiday, allow_nil: true
+  delegate :recurring, :recurring?, to: :holiday, allow_nil: true
 end
