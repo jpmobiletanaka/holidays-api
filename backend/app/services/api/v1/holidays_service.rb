@@ -15,7 +15,8 @@ module Api
           holiday.slice(*select_attrs).merge(
             dates: days.select(&:enabled?).map!(&:date).sort,
             moves: moves(days),
-            destroyed: holiday.respond_to?(:holiday) && holiday.holiday.nil?
+            destroyed: holiday.respond_to?(:holiday) && holiday.holiday.nil?,
+            recurring: holiday.recurring? || false
           ).symbolize_keys
         end
       end
@@ -64,7 +65,11 @@ module Api
         where_option = {}
         where_option = { holidays: { country_code: params[:country_code] } } if params[:country_code]
         return history_holidays if history_request?
-        @scope ||= Day.by_date(date_from..date_to).includes(:holiday, :moved_to).where(where_option)
+        @scope ||= Day.by_date(date_from..date_to)
+                     .joins(:holiday)
+                     .includes({holiday: :holiday_expr}, :moved_to)
+                     .where(where_option)
+                     .order(:date)
       end
 
       def partition_query(deleted_only: false)
@@ -81,7 +86,7 @@ module Api
         deleted_holiday_ids = partition_query(deleted_only: true).pluck(:holiday_id)
         @scope ||= Day.by_date(date_from..date_to)
                       .joins("INNER JOIN (#{partition_query.to_sql}) t USING(holiday_id)")
-                      .includes(:moved_to, holiday_history: :holiday)
+                      .includes(:moved_to, holiday_history: { holiday: :holiday_expr })
                       .where("t.ts_position <= ?", 1)
                       .where.not(holiday_id: deleted_holiday_ids)
       end

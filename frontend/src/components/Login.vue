@@ -22,38 +22,38 @@
 
 </template>
 <script>
-  import { AUTH_REQUEST, AUTH_LOGOUT } from "../store/constants";
+import { AUTH_REQUEST, AUTH_LOGOUT } from "../store/constants";
 
-  export default {
-    name: 'Login',
-    data() {
-      return {
-        emailState: null,
-        passwordState: null,
-        email: null,
-        password: null,
-      }
+export default {
+  name: 'Login',
+  data() {
+    return {
+      emailState: null,
+      passwordState: null,
+      email: null,
+      password: null,
+    }
+  },
+  methods: {
+    login() {
+      this.$store.dispatch('Auth/' + AUTH_REQUEST, this.user)
+        .then(() => {
+          this.$router.push('/')
+        })
     },
-    methods: {
-      login() {
-        this.$store.dispatch('Auth/' + AUTH_REQUEST, this.user)
-          .then(() => {
-            this.$router.push('/')
-          })
-      },
-      logout() {
-        this.$store.dispatch(AUTH_LOGOUT)
-          .then(() => {
-            this.$router.push('/login')
-          })
-      },
+    logout() {
+      this.$store.dispatch(AUTH_LOGOUT)
+        .then(() => {
+          this.$router.push('/login')
+        })
     },
-    computed: {
-      user() {
-        return { email: this.email, password: this.password }
-      }
+  },
+  computed: {
+    user() {
+      return { email: this.email, password: this.password }
     }
   }
+};
 </script>
 
 <style lang="sass">

@@ -6,14 +6,14 @@ services:
       context: ./backend
       dockerfile: docker/web/Dockerfile
     volumes:
-      - .:/home/dockeruser/project
+      - ./backend:/home/dockeruser/project
       - gems:/usr/local/bundle
     links:
       - postgres
       - frontend
     ports:
       - 3000:3000
-    env_file: ../.env
+    env_file: .env
     stdin_open: true
     tty: true
 
@@ -26,11 +26,11 @@ services:
       HOST: '0.0.0.0'
       PORT: '8080'
     volumes:
-      - .:/home/dockeruser/project
+      - ./frontend:/home/dockeruser/project
       - node_modules:/home/dockeruser/project/node_modules
     ports:
       - 8080:8080
-    env_file: ../.env
+    env_file: .env
     stdin_open: true
     tty: true
 
