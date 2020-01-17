@@ -23,8 +23,8 @@ USER dockeruser
 RUN echo $API_URL
 RUN yarn && yarn build && yarn global add http-server
 
-COPY ../docker/frontend/docker-entrypoint.sh /
-COPY ../docker/frontend/ecs-entrypoint.sh /
+COPY docker/web/docker-entrypoint.sh /
+COPY docker/web/ecs-entrypoint.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 

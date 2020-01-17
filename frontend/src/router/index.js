@@ -3,7 +3,7 @@ import Router from 'vue-router';
 import store from '../store'; // your vuex store
 import Upload from '@/components/Upload';
 import Login from '@/components/Login';
-import Holidays from '@/components/holidays';
+import HolidaysIndex from '@/components/holidays/Index.vue';
 import EditHolidayExpr from '@/components/holiday_exprs/Edit.vue'
 import NewHolidayExpr from '@/components/holiday_exprs/New.vue'
 
@@ -41,8 +41,8 @@ export default new Router({
     },
     {
       path: '/holidays',
-      name: 'Holidays',
-      component: Holidays,
+      name: 'Holidays Index',
+      component: HolidaysIndex,
       beforeEnter: ifAuthenticated,
     },
     {
