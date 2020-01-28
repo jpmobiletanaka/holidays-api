@@ -36,10 +36,13 @@
                   a
                     b-icon(icon="pencil")
 
+                a(href="js:;" @click="deleteHoliday(holiday)")
+                  b-icon(icon="x")
+
 </template>
 
 <script>
-import { GET_HOLIDAYS } from "../../store/constants";
+  import {DESTROY_HOLIDAY, GET_HOLIDAYS} from "../../store/constants";
 
 export default {
   components: {
@@ -52,7 +55,10 @@ export default {
     },
     isManual(holiday) {
       return holiday.current_source_type === 'manual'
-    }
+    },
+    deleteHoliday(holiday) {
+      this.$store.dispatch('Holidays/' + DESTROY_HOLIDAY, holiday.id)
+    },
   },
   computed: {
     holidays() {

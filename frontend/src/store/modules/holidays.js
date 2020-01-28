@@ -1,4 +1,4 @@
-import {GET_HOLIDAYS, POST_HOLIDAY_EXPR, PATCH_HOLIDAY_EXPR, GET_HOLIDAY_EXPR} from '../constants';
+import {GET_HOLIDAYS, POST_HOLIDAY_EXPR, PATCH_HOLIDAY_EXPR, GET_HOLIDAY_EXPR, DESTROY_HOLIDAY} from '../constants';
 import axios from '../axios'
 
 const resource = '/holidays';
@@ -13,6 +13,10 @@ const mutations = {
   },
   [PATCH_HOLIDAY_EXPR]: (state, holiday) => {
     console.log(holiday)
+  },
+  [DESTROY_HOLIDAY]: (state, id) => {
+    const idx = state.holidays.map(item => item.id).indexOf(id)
+    state.holidays.splice(idx, 1)
   }
 }
 
@@ -61,6 +65,20 @@ const actions = {
         .catch(err => {
           reject(err)
         })
+    })
+  },
+  [DESTROY_HOLIDAY]: ({commit}, id)  => {
+    return new Promise((resolve, reject) => {
+      if (confirm('Are you sure?')) {
+        axios.delete(`/holidays/${id}`)
+          .then(resp => {
+            commit(DESTROY_HOLIDAY, id);
+            resolve(resp)
+          })
+          .catch(err => {
+            reject(err)
+          })
+      }
     })
   }
 }

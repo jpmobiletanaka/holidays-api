@@ -29,32 +29,20 @@ npm test
 
 For a detailed explanation on how things work, check out the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
 
-## Deploy manually
+## Deploy
 Prerequisites: 
 * AWS CLI Installed
-* AWS Access Keys for `revenue_setup` account (either in env vars or in ~/.aws/credentials)
+* AWS Access Keys for IAM account (either in env vars or in ~/.aws/credentials). This account has to be included in 
 
-Build the new backend image if changed:
-```
-docker build -f docker/frontend/Dockerfile -t holidays-api_frontend .
-```
+### Using deploy script
 
-Tag it with AWS ECR Repo:
-```
-docker tag holidays-api_frontend 611630892743.dkr.ecr.ap-northeast-1.amazonaws.com/holidays-api-frontend
-```
+Run `APP_ENV=your_env deploy/deploy.sh`
 
-Login to ECR
-```
-aws ecr get-login --no-include-email | bash
-```
+It will build, push, migrate (if needed) and update a cluster service.
 
-Push the images:
+Also you can run separate scripts:
 ```
-docker push 611630892743.dkr.ecr.ap-northeast-1.amazonaws.com/holidays-api-frontend
-```
-
-Update service:
-```
-aws ecs update-service --service holidays-api-staging-frontend --force-new-deployment --cluster holidays-api-staging
+sh deploy/build.sh
+sh deploy/push.sh
+sh APP_ENV=your_env deploy/update_service.sh
 ```
