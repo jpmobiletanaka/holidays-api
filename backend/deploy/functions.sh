@@ -17,3 +17,25 @@ function fail {
   echo "Exiting with status ${code}"
   exit "${code}"
 }
+
+function parse_args () {
+  while [ $# -gt 0 ]; do
+    case "$1" in
+      -c=*|--cluster=*)
+        CLUSTER_NAME="${1#*=}"
+        ;;
+      -a=*|--app-name=*)
+        APP_NAME="${1#*=}"
+        ;;
+      -e=*|--app-env=*)
+        APP_ENV="${1#*=}"
+        ;;
+      *)
+        printf "***************************\n"
+        printf "* Error: Invalid argument.*\n"
+        printf "***************************\n"
+        fail "Exiting", 1
+    esac
+    shift
+  done
+}

@@ -78,6 +78,7 @@ RSpec.describe Api::V1::HolidaysService do
         christmas_day.reload
                      .attributes
                      .slice(*described_class::HOLIDAY_ATTRS)
+                     .except('id')
                      .symbolize_keys.merge(destroyed: false,
                                            recurring: false,
                                            current_source_type: 'manual',
@@ -89,7 +90,7 @@ RSpec.describe Api::V1::HolidaysService do
       end
 
       it 'returns all fields within holiday' do
-        expect(service.call.first).to eq(expected_attrs)
+        expect(service.call.first).to include(expected_attrs)
       end
     end
   end
