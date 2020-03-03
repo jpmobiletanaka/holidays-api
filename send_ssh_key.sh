@@ -1,10 +1,10 @@
 default_key_path='~/.ssh/id_rsa.pub'
 
 [[ $1 =~ i-[a-z0-9]{17} ]] && IS_INSTANCE_ID=true || IS_INSTANCE_ID=false
-CLUSTER_NAME=holidays-api-production-backend
 BASTION_INSTANCE_ID='i-0c4e56d699fd24711'
 INSTANCE_OR_TASK_FAMILY=$1
 KEY_PATH=${3:-$default_key_path}
+CLUSTER_NAME=${INSTANCE_OR_TASK_FAMILY}
 
 if ${IS_INSTANCE_ID}; then
   echo "Sending key to instance ${1}"
@@ -27,4 +27,12 @@ az=$(aws ec2 describe-instances --instance-id ${instance_id} --output text --que
 echo "Found instance id: ${instance_id} ${instance_ip} ${az}"
 echo "Bastion instance IP: ${bastion_ip}"
 aws ec2-instance-connect send-ssh-public-key --instance-id ${BASTION_INSTANCE_ID} --ssh-public-key file://${KEY_PATH} --availability-zone ap-northeast-1a --instance-os-user ec2-user
-aws ec2-instance-connect send-ssh-public-key --instance-id ${instance_id} --ssh-public-key file://${KEY_PATH} --availability-zone ${az} --instance-os-user ec2-user
+
+if [[ ${INSTANCE_OR_TASK_FAMILY} != ${BASTION_INSTANCE_ID} ]]; then
+  aws ec2-instance-connect send-ssh-public-key --instance-id ${instance_id} --ssh-public-key file://${KEY_PATH} --availability-zone ${az} --instance-os-user ec2-user
+  echo "# Use following command to access your server:"
+  echo "ssh -A -t ec2-user@${bastion_ip} ssh ${instance_ip}"
+else
+  echo "# Use following command to access your server:"
+  echo "ssh -A ec2-user@${bastion_ip}"
+fi
