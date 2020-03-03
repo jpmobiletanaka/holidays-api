@@ -7,7 +7,7 @@ ruby '2.5.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'puma', '~> 3.11'
 gem 'rack-cors'
-gem 'rails', '~> 5.2.0'
+gem 'rails', '~> 5.2.1'
 # gem 'sidekiq', '~> 5.1', '>= 5.1.1'
 gem 'sucker_punch'
 
@@ -21,7 +21,8 @@ gem 'aws-sdk-s3', '~> 1'
 
 # databases
 gem 'activerecord-import'
-gem 'mysql2', '~> 0.4.10'
+# gem 'mysql2', '~> 0.4.10'
+gem 'pg'
 gem 'redis', '~> 4.0.1'
 gem 'seedbank'
 
@@ -29,6 +30,9 @@ gem 'seedbank'
 gem 'bcrypt'
 gem 'jwt'
 gem 'pundit'
+
+gem 'rails_select_on_includes', '~> 5.2.1'
+gem 'wannabe_bool'
 
 group :development, :test do
   gem 'bullet', git: 'https://github.com/k1r8r0wn/bullet.git'

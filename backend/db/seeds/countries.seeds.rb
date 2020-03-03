@@ -19,7 +19,7 @@
   { country_code: :de, en_name: 'Germany', ja_name: 'ドイツ', google_calendar_id: 'german' },
   { country_code: :it, en_name: 'Italy', ja_name: 'イタリア', google_calendar_id: 'italian' },
   { country_code: :ru, en_name: 'Russia', ja_name: 'ロシア', google_calendar_id: 'russian' },
-  { country_code: :es, en_name: 'Spain', ja_name: 'スペイン', google_calendar_id: 'spanish' },
+  { country_code: :es, en_name: 'Spain', ja_name: 'スペイン', google_calendar_id: 'spain' },
 ].each do |attrs|
   country = Country.find_or_create_by(attrs.slice(:country_code, :en_name, :ja_name))
   country.update_column(:google_calendar_id, attrs[:google_calendar_id]) if country.google_calendar_id.blank?

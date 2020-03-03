@@ -42,6 +42,13 @@ Rails/HasAndBelongsToMany:
 Rails/InverseOf:
   Enabled: false
 
+Rails/UnknownEnv:
+  Environments:
+    - production
+    - development
+    - test
+    - staging
+
 Documentation:
   Enabled: false
 

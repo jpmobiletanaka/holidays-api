@@ -18,12 +18,13 @@ class MergeEventGroupService < BaseService
 
   def expression_from_dates(dates)
     return [dates[0][:year], dates[0][:month], dates[0][:day]].join('.') if dates.size == 1
-    expression = if same_month?(dates[0], dates[-1])
-                   [dates[0][:year], dates[0][:month], "#{dates[0][:day]}-#{dates[-1][:day]}"].join('.')
-                 else
-                   ["#{dates[0][:year]}.(#{dates[0][:month]}.#{dates[0][:day]})",
-                    "(#{dates[-1][:month]}.#{dates[-1][:day]})"].join('-')
-                 end
+    expression =
+      if same_month?(dates[0], dates[-1])
+        [dates[0][:year], dates[0][:month], "#{dates[0][:day]}-#{dates[-1][:day]}"].join('.')
+      else
+        ["#{dates[0][:year]}.(#{dates[0][:month]}.#{dates[0][:day]})",
+         "(#{dates[-1][:month]}.#{dates[-1][:day]})"].join('-')
+      end
     Rails.logger.info expression
     expression
   end

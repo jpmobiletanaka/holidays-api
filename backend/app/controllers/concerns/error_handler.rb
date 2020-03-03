@@ -22,6 +22,11 @@ module ErrorHandler
       status  = :bad_request
       message = I18n.t('errors.bad_request')
     end
-    render json: { error: message }, status: status
+    res = { error: message }
+    if Rails.env.development?
+      res[:message] = e.message
+      res[:backtrace] = e.backtrace
+    end
+    render json: res, status: status
   end
 end

@@ -15,7 +15,7 @@ RUN echo "dockeruser ALL=(ALL) NOPASSWD: /usr/sbin/cron" >> /etc/sudoers
 
 WORKDIR $APP_HOME
 
-ADD ./frontend $APP_HOME
+ADD . $APP_HOME
 RUN chown -R dockeruser .
 
 USER dockeruser
@@ -23,8 +23,8 @@ USER dockeruser
 RUN echo $API_URL
 RUN yarn && yarn build && yarn global add http-server
 
-COPY docker/frontend/docker-entrypoint.sh /
-COPY docker/frontend/ecs-entrypoint.sh /
+COPY ../docker/frontend/docker-entrypoint.sh /
+COPY ../docker/frontend/ecs-entrypoint.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 

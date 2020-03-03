@@ -3,48 +3,58 @@ services:
   backend:
     image: holidays-api_backend
     build:
-      context: .
-      dockerfile: ./docker/backend/Dockerfile
+      context: ./backend
+      dockerfile: docker/web/Dockerfile
     volumes:
-      - ./backend/:/home/dockeruser/project
+      - .:/home/dockeruser/project
       - gems:/usr/local/bundle
     links:
-      - mysql
+      - postgres
       - frontend
     ports:
       - 3000:3000
-    env_file: .env
+    env_file: ../.env
     stdin_open: true
     tty: true
 
   frontend:
     image: holidays-api_frontend
     build:
-      context: .
-      dockerfile: ./docker/frontend/Dockerfile
+      context: ./frontend
+      dockerfile: ../docker/frontend/Dockerfile
     environment:
       HOST: '0.0.0.0'
       PORT: '8080'
     volumes:
-      - ./frontend:/home/dockeruser/project
+      - .:/home/dockeruser/project
       - node_modules:/home/dockeruser/project/node_modules
     ports:
       - 8080:8080
-    env_file: .env
+    env_file: ../.env
     stdin_open: true
     tty: true
 
-  mysql:
+  postgres:
     build:
       context: .
-      dockerfile: ./docker/mysql/Dockerfile
-    env_file: .env
-    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci]
+      dockerfile: ./docker/postgresql/Dockerfile
     ports:
-      - 3306:3306
+      - 5432:5432
     volumes:
-      - ./backend:/home/root/project
-      - ./docker/mysql/data:/var/lib/mysql
+      - ./docker/postgresql/data/:/var/lib/postgresql/data
+
+
+#  mysql:
+#    build:
+#      context: .
+#      dockerfile: ./docker/mysql/Dockerfile
+#    env_file: .env
+#    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci]
+#    ports:
+#      - 3306:3306
+#    volumes:
+#      - ./backend:/home/root/project
+#      - ./docker/mysql/data:/var/lib/mysql
 
 volumes:
   gems:

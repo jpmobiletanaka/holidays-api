@@ -1,0 +1,837 @@
+date,en_name,ja_name,country,day_off,observed,moved_from
+2015/1/1,NEW Years,元旦,China,1,0,0
+2015/1/1,New Year’s Day,元日,Japan,1,0,0
+2015/1/1,New Year,元旦,Korea,1,0,0
+2015/1/1,New Years Day,元旦,Taiwan,1,0,0
+2015/1/1,New Years Day,元旦,Thailand,1,0,0
+2015/1/1,New Year,元旦,United States,1,0,0
+2015/1/1,The first day of January,元旦,Hong Kong,1,0,0
+2015/1/2,NEW Years,元旦,China,1,0,0
+2015/1/2,New Years Day,元旦,Taiwan,1,0,0
+2015/1/3,NEW Years,元旦,China,1,0,0
+2015/1/12,Coming-of-age Day,成人の日,Japan,1,0,0
+2015/1/19,Martin Luther King Jr.'S Birthday ,マーティン・ルーサー・キング誕生日,United States,1,0,0
+2015/2/11,National Foundation Day,建国記念の日,Japan,1,0,0
+2015/2/16,President's Day ,大統領の日,United States,1,0,0
+2015/2/18,Spring Festival,春節,China,1,0,0
+2015/2/18,Korean New Year,旧正月,Korea,1,0,0
+2015/2/18,Spring Festival,旧正月,Taiwan,1,0,0
+2015/2/19,Spring Festival,春節,China,1,0,0
+2015/2/19,Korean New Year,旧正月,Korea,1,0,0
+2015/2/19,Spring Festival,旧正月,Taiwan,1,0,0
+2015/2/19,Lunar New Year's Day,春節,Hong Kong,1,0,0
+2015/2/20,Spring Festival,春節,China,1,0,0
+2015/2/20,Korean New Year,旧正月,Korea,1,0,0
+2015/2/20,Spring Festival,旧正月,Taiwan,1,0,0
+2015/2/20,The second day of Lunar New Year,春節,Hong Kong,1,0,0
+2015/2/21,Spring Festival,春節,China,1,0,0
+2015/2/21,Spring Festival,旧正月,Taiwan,1,0,0
+2015/2/21,The third day of Lunar New Year,春節,Hong Kong,1,0,0
+2015/2/22,Spring Festival,春節,China,1,0,0
+2015/2/22,Spring Festival,旧正月,Taiwan,1,0,0
+2015/2/23,Spring Festival,春節,China,1,0,0
+2015/2/23,Spring Festival,旧正月,Taiwan,1,0,0
+2015/2/24,Spring Festival,春節,China,1,0,0
+2015/2/27,Peace Memorial Day,和平記念日,Taiwan,1,1,2015/2/28
+2015/2/28,Peace Memorial Day,和平記念日,Taiwan,1,0,0
+2015/3/1,Independence Day,三一節,Korea,1,0,0
+2015/3/1,Peace Memorial Day,和平記念日,Taiwan,1,0,0
+2015/3/4,Makha Bucha Day,万仏祭,Thailand,1,0,0
+2015/3/21,Vernal Equinox Day,春分の日,Japan,1,0,0
+2015/4/3,Children Day / Qingming Festival,こどもの日/清明節,Taiwan,1,1,2015/4/4
+2015/4/3,Good Friday,取蘇受難節,Hong Kong,1,0,0
+2015/4/4,Children Day / Qingming Festival,こどもの日/清明節,Taiwan,1,0,0
+2015/4/5,Qingming Festival,清明節,China,1,0,0
+2015/4/5,Children Day / Qingming Festival,こどもの日/清明節,Taiwan,1,0,0
+2015/4/4,Good Friday,取蘇受難節,Hong Kong,1,1,2015/4/3
+2015/4/6,Ching Ming Festival,清明節,Hong Kong,1,1,2015/4/5
+2015/4/6,Qingming Festival,清明節,China,1,1,2015/4/5
+2015/4/6,Children Day / Qingming Festival,こどもの日/清明節,Taiwan,1,1,2015/4/5
+2015/4/6,Chakri Day,チャクリー王朝記念日,Thailand,1,0,0
+2015/4/13,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,0,0
+2015/4/14,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,0,0
+2015/4/15,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,0,0
+2015/4/29,Shōwa Day,昭和の日,Japan,1,0,0
+2015/5/1,Lobour Day,労働節,China,1,0,0
+2015/5/1,Labor Day,メーデー (労働者のみ、公務員は5/1出勤),Taiwan,1,0,0
+2015/5/1,Labour Day,労働者の日,Thailand,1,0,0
+2015/4/7,Easter Monday,イースター・マンデー,Hong Kong,1,1,2015/4/6
+2015/5/1,Labour Day,労働節,Hong Kong,1,0,0
+2015/5/3,Constitution Memorial Day,憲法記念日,Japan,1,0,0
+2015/5/4,Greenery Day,みどりの日,Japan,1,0,0
+2015/5/5,Children’s Day,こどもの日,Japan,1,0,0
+2015/5/5,Childrens Day,子どもの日,Korea,1,0,0
+2015/5/5,Coronation Day,プミポン国王即位記念日,Thailand,1,0,0
+2015/5/6,Substitute Holiday,振替休日,Japan,1,1,2015/5/5
+2015/5/13,Royal Ploughing Ceremony,農耕祭,Thailand,1,0,0
+2015/5/25,Buddhas Birthday,仏誕節,Korea,1,0,0
+2015/5/25,Memorial Day,戦没者追悼祈念日,United States,1,0,0
+2015/5/25,The Birthday of the Buddha,仏誕節,Hong Kong,1,0,0
+2015/6/1,Visakha Bucha Day,仏誕節,Thailand,1,0,0
+2015/6/6,Memorial Day,顕忠日,Korea,1,0,0
+2015/6/19,Dragon Boat Festival,端午節,Taiwan,1,1,2015/6/20
+2015/6/20,Dragon Boat Festival,端午節,China,1,0,0
+2015/6/20,Dragon Boat Festival,端午節,Taiwan,1,0,0
+2015/6/20,Tuen Ng Festival,端午節,Hong Kong,1,0,0
+2015/6/21,Dragon Boat Festival,端午節,China,1,0,0
+2015/6/21,Dragon Boat Festival,端午節,Taiwan,1,0,0
+2015/6/22,Dragon Boat Festival,端午節,China,1,1,2015/6/20
+2015/7/1,Hong Kong Special Administrative Region Establishment Day,香港特別行政区成立記念日,Hong Kong,1,0,0
+2015/7/3,Independence Day　,独立記念日,United States,1,0,0
+2015/7/20,Marine Day,海の日,Japan,1,0,0
+2015/7/30,Asalha Bucha,三宝節,Thailand,1,0,0
+2015/7/31,Buddhist Lent Day,入安居,Thailand,1,0,0
+2015/8/12,H.M. the Queen’s Birthday,王妃誕生日,Thailand,1,0,0
+2015/8/15,Liberation Day,光復節,Korea,1,0,0
+2015/9/28,the Chinese Mid-Autumn Festival,中秋節,Hong Kong,1,1,2015/9/27
+2015/9/7,Labor Day　,労働者の日,United States,1,0,0
+2015/9/21,Respect for the Aged Day,敬老の日,Japan,1,0,0
+2015/9/22,National Holiday,国民の休日,Japan,1,0,0
+2015/9/23,Autumnal Equinox Day,秋分の日,Japan,1,0,0
+2015/9/26,Chuseok,秋夕,Korea,1,0,0
+2015/9/26,Mid Autumn or Moon Festival,中秋節,Taiwan,1,0,0
+2015/9/27,Mid Autumn or Moon Festival,中秋節,China,1,0,0
+2015/9/27,Chuseok,秋夕,Korea,1,0,0
+2015/9/27,Mid Autumn or Moon Festival,中秋節,Taiwan,1,0,0
+2015/10/1,National Day,国慶日,Hong Kong,1,0,0
+2015/9/28,Chuseok,秋夕,Korea,1,0,0
+2015/9/28,Mid Autumn or Moon Festival,中秋節,Taiwan,1,1,2015/9/26
+2015/9/29,Chuseok,秋夕,Korea,1,0,0
+2015/10/1,National Day,国慶節,China,1,0,0
+2015/10/21,Chung Yeung Festival,重陽節,Hong Kong,1,0,0
+2015/10/2,National Day,国慶節,China,1,0,0
+2015/10/3,National Day,国慶節,China,1,0,0
+2015/10/3,Foundation Day,開天節,Korea,1,0,0
+2015/10/4,National Day,国慶節,China,1,0,0
+2015/10/5,National Day,国慶節,China,1,0,0
+2015/10/6,National Day,国慶節,China,1,0,0
+2015/10/7,National Day,国慶節,China,1,0,0
+2015/10/9,Hangeul Day,ハングルの日,Korea,1,0,0
+2015/10/9,National Day,国慶日,Taiwan,1,1,2015/10/10
+2015/10/10,National Day,国慶日,Taiwan,1,0,0
+2015/10/12,Health-Sports Day,体育の日,Japan,1,0,0
+2015/10/12,Columbus Day　,コロンブス・デー,United States,1,0,0
+2015/12/25,Christmas Day,クリスマス,Hong Kong,1,0,0
+2015/10/23,Chulalongkorn Day,チュラロコーン大王記念日,Thailand,1,0,0
+2015/11/3,Culture Day,文化の日,Japan,1,0,0
+2015/11/11,Veterans Day,退役軍人の日,United States,1,0,0
+2015/11/26,Thanksgiving Day,感謝祭,United States,1,0,0
+2015/12/5,King Rama IX's Birthday,国王誕生日,Thailand,1,0,0
+2015/12/10,Constitution Day,憲法記念日,Thailand,1,0,0
+2015/12/25,Christmas Day,クリスマス,Korea,1,0,0
+2015/12/25,Christmas Day,クリスマス,United States,1,0,0
+2015/12/26,Boxing Day,ボクシング・デー,Hong Kong,1,0,0
+2016/1/1,The first day of January,元旦,Hong Kong,1,0,0
+2015/12/31,New Year's Eve,大晦日,Thailand,1,0,0
+2016/1/1,NEW Years,元旦,China,1,0,0
+2016/1/1,New Year’s Day,元日,Japan,1,0,0
+2016/1/1,New Year,元旦,Korea,1,0,0
+2016/1/1,New Years Day,元旦,Taiwan,1,0,0
+2016/1/1,New Years Day,元旦,Thailand,1,0,0
+2016/1/1,New Year,元旦,United States,1,0,0
+2016/2/8,Lunar New Year's Day,春節,Hong Kong,1,0,0
+2016/1/2,NEW Years,元旦,China,1,0,0
+2016/1/2,New Years Day,元旦,Taiwan,1,0,0
+2016/1/3,NEW Years,元旦,China,1,0,0
+2016/1/3,New Years Day,元旦,Taiwan,1,0,0
+2016/1/11,Coming-of-age Day,成人の日,Japan,1,0,0
+2016/1/18,Martin Luther King Jr.'S Birthday ,マーティン・ルーサー・キング誕生日,United States,1,0,0
+2016/2/6,Chinese New Year,旧正月,Taiwan,1,0,0
+2016/2/7,Spring Festival,春節,China,1,0,0
+2016/2/7,Korean New Year,旧正月,Korea,1,0,0
+2016/2/7,Chinese New Year,旧正月,Taiwan,1,0,0
+2016/2/8,Spring Festival,春節,China,1,0,0
+2016/2/8,Korean New Year,旧正月,Korea,1,0,0
+2016/2/8,Chinese New Year,旧正月,Taiwan,1,0,0
+2016/2/9,The second day of Lunar New Year,春節,Hong Kong,1,0,0
+2016/2/9,Spring Festival,春節,China,1,0,0
+2016/2/9,Korean New Year,旧正月,Korea,1,0,0
+2016/2/9,Chinese New Year,旧正月,Taiwan,1,0,0
+2016/2/10,The third day of Lunar New Year,春節,Hong Kong,1,0,0
+2016/2/10,Spring Festival,春節,China,1,0,0
+2016/2/10,Korean New Year,旧正月,Korea,1,0,2016/2/9
+2016/2/10,Chinese New Year,旧正月,Taiwan,1,0,0
+2016/3/25,Good Friday,取蘇受難節,Hong Kong,1,0,0
+2016/2/11,Spring Festival,春節,China,1,0,0
+2016/2/11,National Foundation Day,建国記念の日,Japan,1,0,0
+2016/2/11,Chinese New Year,旧正月,Taiwan,1,1,2016/2/7
+2016/2/12,Spring Festival,春節,China,1,0,0
+2016/2/12,Chinese New Year,旧正月,Taiwan,1,1,2016/1/30
+2016/2/13,Spring Festival,春節,China,1,0,0
+2016/2/13,Chinese New Year,旧正月,Taiwan,1,0,0
+2016/2/14,Chinese New Year,旧正月,Taiwan,1,0,0
+2016/2/15,President's Day ,大統領の日,United States,1,0,0
+2016/2/22,Makha Bucha Day,万仏祭,Thailand,1,0,0
+2016/2/27,Peace Memorial Day,和平記念日,Taiwan,1,0,0
+2016/2/28,Peace Memorial Day,和平記念日,Taiwan,1,0,0
+2016/2/29,Peace Memorial Day,和平記念日,Taiwan,1,1,2019/2/28
+2016/3/1,Independence Day,三一節,Korea,1,0,0
+2016/3/20,Vernal Equinox Day,春分の日,Japan,1,0,0
+2016/3/21,Substitute Holiday,振替休日,Japan,1,1,2016/3/20
+2016/3/25,Good Friday,取蘇受難節,Hong Kong,1,1,2016/3/25
+2016/3/28,Easter Monday,イースター・マンデー,Hong Kong,1,0,0
+2016/4/4,Ching Ming Festival,清明節,Hong Kong,1,0,0
+2016/4/2,Qingming Festival,清明節,China,1,0,0
+2016/4/2,Children Day / Qingming Festival,こどもの日/清明節,Taiwan,1,0,0
+2016/4/3,Qingming Festival,清明節,China,1,0,0
+2016/4/3,Children Day / Qingming Festival,こどもの日/清明節,Taiwan,1,0,0
+2016/4/4,Qingming Festival,清明節,China,1,0,0
+2016/4/4,Children Day / Qingming Festival,こどもの日/清明節,Taiwan,1,0,0
+2016/5/1,Labour Day,労働節,Hong Kong,1,1,2016/5/2
+2016/4/5,Children Day / Qingming Festival,こどもの日/清明節,Taiwan,1,1,2016/4/5
+2016/4/6,Chakri Day,チャクリー王朝記念日,Thailand,1,0,0
+2016/4/13,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,0,0
+2016/4/14,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,0,0
+2016/4/15,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,0,0
+2016/4/29,Shōwa Day,昭和の日,Japan,1,0,0
+2016/5/1,Lobour Day,労働節,China,1,0,0
+2016/5/1,Labor Day,メーデー (労働者のみ、公務員は5/1出勤),Taiwan,1,0,0
+2016/5/1,Labour Day,労働者の日,Thailand,1,0,0
+2016/5/2,Labour Day,労働節,Hong Kong,1,1,2016/5/1
+2016/5/14,The Birthday of the Buddha,仏誕節,Hong Kong,1,0,0
+2016/5/2,Lobour Day,労働節,China,1,1,2019/5/1
+2016/5/2,Special Day,振替,Thailand,1,1,2016/5/1
+2016/5/3,Constitution Memorial Day,憲法記念日,Japan,1,0,0
+2016/5/4,Greenery Day,みどりの日,Japan,1,0,0
+2016/5/5,Children’s Day,こどもの日,Japan,1,0,0
+2016/5/5,Childrens Day,子どもの日,Korea,1,0,0
+2016/5/5,Coronation Day,プミポン国王即位記念日,Thailand,1,0,0
+2016/5/6,Special Day,特別休日,Thailand,0,0,0
+2016/5/9,Royal Ploughing Ceremony,農耕祭,Thailand,1,0,0
+2016/5/14,Buddhas Birthday,仏誕節,Korea,1,0,0
+2016/6/9,Tuen Ng Festival,端午節,Hong Kong,1,0,0
+2016/5/20,Visakha Bucha Day,仏誕節,Thailand,1,0,0
+2016/5/30,Memorial Day,戦没者追悼祈念日,United States,1,0,0
+2016/6/6,Memorial Day,顕忠日,Korea,1,0,0
+2016/6/9,Dragon Boat Festival,端午節,China,1,0,0
+2016/6/9,Dragon Boat Festival,端午節,Taiwan,1,0,0
+2016/7/1,Hong Kong Special Administrative Region Establishment Day,香港特別行政区成立記念日,Hong Kong,1,0,0
+2016/6/10,Dragon Boat Festival,端午節,China,1,0,0
+2016/6/10,Dragon Boat Festival,端午節,Taiwan,1,1,2016/6/4
+2016/6/11,Dragon Boat Festival,端午節,China,1,0,0
+2016/6/11,Dragon Boat Festival,端午節,Taiwan,1,0,0
+2016/6/12,Dragon Boat Festival,端午節,Taiwan,1,0,0
+2016/9/15,the Chinese Mid-Autumn Festival,中秋節,Hong Kong,1,0,0
+2016/7/4,Independence Day　,独立記念日,United States,1,0,0
+2016/7/18,Marine Day,海の日,Japan,1,0,0
+2016/7/18,Special Day,特別休日,Thailand,0,0,0
+2016/7/19,Asalha Bucha,三宝節,Thailand,1,0,0
+2016/7/20,Buddhist Lent Day,入安居,Thailand,1,0,0
+2016/8/11,Mountain Day,山の日,Japan,1,0,0
+2016/8/12,H.M. the Queen’s Birthday,王妃誕生日,Thailand,1,0,0
+2016/8/15,Liberation Day,光復節,Korea,1,0,0
+2016/9/5,Labor Day　,労働者の日,United States,1,0,0
+2016/9/14,Chuseok,秋夕,Korea,1,0,0
+2016/9/15,Mid Autumn or Moon Festival,中秋節,China,1,0,0
+2016/9/15,Chuseok,秋夕,Korea,1,0,0
+2016/9/15,Mid Autumn or Moon Festival,中秋節,Taiwan,1,0,0
+2016/10/1,National Day,国慶日,Hong Kong,1,0,0
+2016/9/16,Mid Autumn or Moon Festival,中秋節,China,1,0,0
+2016/9/16,Chuseok,秋夕,Korea,1,0,0
+2016/9/16,Mid Autumn or Moon Festival,中秋節,Taiwan,1,1,2016/9/15
+2016/9/17,Mid Autumn or Moon Festival,中秋節,China,1,0,0
+2016/9/17,Mid Autumn or Moon Festival,中秋節,Taiwan,1,0,0
+2016/9/18,Mid Autumn or Moon Festival,中秋節,Taiwan,1,0,0
+2016/9/19,Respect for the Aged Day,敬老の日,Japan,1,0,0
+2016/9/22,Autumnal Equinox Day,秋分の日,Japan,1,0,0
+2016/10/1,National Day,国慶節,China,1,0,0
+2016/10/10,Chung Yeung Festival,重陽節,Hong Kong,1,0,2016/10/9
+2016/10/2,National Day,国慶節,China,1,0,0
+2016/10/3,National Day,国慶節,China,1,0,0
+2016/10/3,Foundation Day,開天節,Korea,1,0,0
+2016/10/4,National Day,国慶節,China,1,0,0
+2016/10/5,National Day,国慶節,China,1,0,0
+2016/10/6,National Day,国慶節,China,1,0,0
+2016/10/7,National Day,国慶節,China,1,0,0
+2016/10/8,National Day,国慶日,Taiwan,1,0,0
+2016/10/9,Hangeul Day,ハングルの日,Korea,1,0,0
+2016/10/9,National Day,国慶日,Taiwan,1,0,0
+2016/12/26,Boxing Day,ボクシング・デー,Hong Kong,1,1,2016/12/25
+2016/10/10,Health-Sports Day,体育の日,Japan,1,0,0
+2016/10/10,National Day,国慶日,Taiwan,1,0,0
+2016/10/10,Columbus Day　,コロンブス・デー,United States,1,0,0
+2016/10/23,Chulalongkorn Day,チュラロコーン大王記念日,Thailand,1,0,0
+2016/10/24,Special Day,振替,Thailand,1,1,2016/10/23
+2016/11/3,Culture Day,文化の日,Japan,1,0,0
+2016/11/11,Veterans Day,退役軍人の日,United States,1,0,0
+2016/11/23,Labor Thanksgiving Day,勤労感謝の日,Japan,1,0,0
+2016/11/24,Thanksgiving Day,感謝祭,United States,1,0,0
+2016/12/5,King Rama IX's Birthday,国王誕生日,Thailand,1,0,0
+2016/12/10,Constitution Day,憲法記念日,Thailand,1,0,0
+2016/12/12,Special Day,振替,Thailand,1,1,2016/12/10
+2016/12/23,Emperor’s Birthday,天皇誕生日,Japan,1,0,0
+2016/12/25,Christmas Day,クリスマス,Korea,1,0,0
+2016/12/25,Christmas Day,クリスマス,United States,1,0,0
+2016/12/27,Christmas Day,クリスマス,Hong Kong,1,1,2016/12/25
+2017/1/2,The first day of January,元旦,Hong Kong,1,1,2017/1/1
+2016/12/31,New Year's Eve,大晦日,Thailand,1,0,0
+2017/1/1,New Year,元旦,China,1,0,0
+2017/1/1,New Year,元旦,Japan,1,0,0
+2017/1/1,New Year,元旦,Korea,1,0,0
+2017/1/1,New Years Day,元旦,Taiwan,1,0,0
+2017/1/1,New Year,元旦,Thailand,1,0,0
+2017/1/1,New Year,元旦,United States,1,0,0
+2017/1/28,Lunar New Year's Day,春節,Hong Kong,1,0,0
+2017/1/2,New Year,元旦,China,1,1,2017/1/1
+2017/1/2,New Year,元旦,Japan,1,1,2017/1/1
+2017/1/2,New Years Day,元旦,Taiwan,1,1,2017/1/1
+2017/1/2,New Year,元旦,Thailand,1,1,2016/1/1
+2017/1/2,New Year,元旦,United States,1,1,2017/1/2
+2017/1/3,Martin Luther King Jr.'S Birthday ,マーティン・ルーサー・キング誕生日,United States,1,0,0
+2017/1/9,Coming of Age Day,成人の日,Japan,1,0,0
+2017/1/20,President's Day ,大統領の日,United States,1,0,0
+2017/1/27,Chinese New Year,春節,China,1,0,0
+2017/1/27,Korean New Year,旧正月,Korea,1,0,0
+2017/1/27,Chinese New Year,旧正月,Taiwan,1,0,0
+2017/1/28,Chinese New Year,春節,China,1,0,0
+2017/1/28,Korean New Year,旧正月,Korea,1,0,0
+2017/1/28,Chinese New Year,旧正月,Taiwan,1,0,0
+2017/1/30,The second day of Lunar New Year,春節,Hong Kong,1,0,0
+2017/1/29,Chinese New Year,春節,China,1,0,0
+2017/1/29,Korean New Year,旧正月,Korea,1,0,0
+2017/1/29,Chinese New Year,旧正月,Taiwan,1,0,0
+2017/1/30,Chinese New Year,春節,China,1,0,0
+2017/1/30,Korean New Year,旧正月,Korea,1,1,2017/1/29
+2017/1/30,Chinese New Year,旧正月,Taiwan,1,0,0
+2017/1/31,The third day of Lunar New Year,春節,Hong Kong,1,0,0
+2017/1/31,Chinese New Year,春節,China,1,0,0
+2017/1/31,Chinese New Year,旧正月,Taiwan,1,1,2017/1/28
+2017/4/5,Ching Ming Festival,清明節,Hong Kong,1,0,0
+2017/2/1,Chinese New Year,春節,China,1,0,0
+2017/2/1,Chinese New Year,旧正月,Taiwan,1,1,2017/1/29
+2017/2/2,Chinese New Year,春節,China,1,0,0
+2017/2/11,Foundation Day,建国記念の日,Japan,1,0,0
+2017/2/11,Magha Puja,万仏節,Thailand,1,0,0
+2017/2/13,Magha Puja,万仏節,Thailand,1,1,2017/2/11
+2017/2/27,Peace Memorial Day,和平記念日,Taiwan,1,0,0
+2017/2/28,Peace Memorial Day,和平記念日,Taiwan,1,0,0
+2017/3/1,March First Movement,三一節,Korea,1,0,0
+2017/3/20,Vernal Equinox Day,春分の日,Japan,1,0,0
+2017/4/1,Children Day / Qingming Festival,こどもの日/清明節,Taiwan,1,0,0
+2017/4/2,Tomb Sweeping Day or Qingming Festival,清明節,China,1,0,0
+2017/4/2,Children Day / Qingming Festival,こどもの日/清明節,Taiwan,1,0,0
+2017/4/3,Tomb Sweeping Day or Qingming Festival,清明節,China,1,0,0
+2017/4/3,Children Day / Qingming Festival,こどもの日/清明節,Taiwan,1,0,0
+2017/4/4,Tomb Sweeping Day or Qingming Festival,清明節,China,1,0,0
+2017/4/4,Children Day / Qingming Festival,こどもの日/清明節,Taiwan,1,0,0
+2017/4/14,Good Friday,取蘇受難節,Hong Kong,1,0,0
+2017/4/6,Chakri Memorial Day,チャックリー記念日,Thailand,1,0,0
+2017/4/13,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,0,0
+2017/4/14,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,0,0
+2017/4/15,Good Friday,取蘇受難節,Hong Kong,1,1,2017/4/14
+2017/4/17,Easter Monday,イースター・マンデー,Hong Kong,1,0,0
+2017/5/1,Labour Day,労働節,Hong Kong,1,0,0
+2017/4/29,Labor Day,労働節,China,1,0,0
+2017/4/29,Showa Day, 昭和の日,Japan,1,0,0
+2017/4/30,Labor Day,労働節,China,1,0,0
+2017/5/1,Labor Day,労働節,China,1,0,0
+2017/5/1,Golden Week,ゴールデンウィーク,Japan,1,0,0
+2017/5/1,Labor Day,メーデー (労働者のみ、公務員は5/1出勤),Taiwan,1,0,0
+2017/5/1,Labour Day,労働者の日,Thailand,1,0,0
+2017/5/3,The Birthday of the Buddha,仏誕節,Hong Kong,1,0,0
+2017/5/2,Golden Week,ゴールデンウィーク,Japan,1,0,0
+2017/5/3,Constitution Memorial Day,憲法記念日,Japan,1,0,0
+2017/5/3,Buddha Birthday,仏誕節,Korea,1,0,0
+2017/5/30,Tuen Ng Festival,端午節,Hong Kong,1,0,0
+2017/5/4,Greenery Day,みどりの日,Japan,1,0,0
+2017/5/5,Children's Day,こどもの日,Japan,1,0,0
+2017/5/5,Children's Day,子どもの日,Korea,1,0,0
+2017/5/9,Presidential election Day,統一地方選挙の日,Korea,1,0,0
+2017/5/10,Vesaka Puja,仏誕節,Thailand,1,0,0
+2017/5/27,Dragon Boat Festival,端午節,Taiwan,1,0,0
+2017/5/28,Dragon Boat Festival,端午節,China,1,0,0
+2017/5/28,Dragon Boat Festival,端午節,Taiwan,1,0,0
+2017/5/29,Dragon Boat Festival,端午節,China,1,0,0
+2017/5/29,Dragon Boat Festival,端午節,Taiwan,1,0,0
+2017/5/29,Memorial Day,戦没者祈念日,United States,1,0,0
+2017/5/30,Dragon Boat Festival,端午節,China,1,0,0
+2017/5/30,Dragon Boat Festival,端午節,Taiwan,1,0,0
+2017/7/1,Hong Kong Special Administrative Region Establishment Day,香港特別行政区成立記念日,Hong Kong,1,0,0
+2017/6/6,South Korea Memorial Day,顕忠日,Korea,1,0,0
+2017/10/2,National Day,国慶日,Hong Kong,1,1,2017/10/1
+2017/7/4,Independence Day　,独立記念日,United States,1,0,0
+2017/7/8,Asalha Puja,三宝節,Thailand,1,0,0
+2017/7/9,Khao Phansa,入安居,Thailand,1,0,0
+2017/7/10,Asalha Puja,三宝節,Thailand,1,1,2017/7/8
+2017/7/17,Marine Day,海の日,Japan,1,0,0
+2017/7/28,H.M.King Maha Vajiralongkorn’s Birthday,ワチラーロンコーン国王陛下生誕日,Thailand,1,0,0
+2017/8/11,Mountain Day,山の日,Japan,1,0,0
+2017/8/12,Queen's Birthday,王妃誕生日,Thailand,1,0,0
+2017/8/14,Obon,お盆,Japan,0,0,0
+2017/8/14,Queen's Birthday,王妃誕生日,Thailand,1,1,2017/8/14
+2017/8/15,Obon,お盆,Japan,0,0,0
+2017/8/15,Liberation Day,光復節,Korea,1,0,0
+2017/8/16,Obon,お盆,Japan,0,0,0
+2017/9/4,Labor Day　, 労働感謝の日,United States,1,0,0
+2017/9/18,Respect-for-the-Aged Day,敬老の日,Japan,1,0,0
+2017/9/23,Autumnal Equinox Day,秋分の日,Japan,1,0,0
+2017/10/1,National Day,国慶節,China,1,0,0
+2017/10/5,the Chinese Mid-Autumn Festival,中秋節,Hong Kong,1,0,0
+2017/10/2,National Day,国慶節,China,1,0,0
+2017/10/3,National Day,国慶節,China,1,0,0
+2017/10/3,National Foundation Day,開天節,Korea,1,0,0
+2017/10/4,National Day,国慶節,China,1,0,0
+2017/10/4,Harvest Festival,秋夕,Korea,1,0,0
+2017/10/4,Mid Autumn or Moon Festival,中秋節,Taiwan,1,0,0
+2017/10/28,Chung Yeung Festival,重陽節,Hong Kong,1,0,0
+2017/10/5,National Day,国慶節,China,1,0,0
+2017/10/5,Harvest Festival,秋夕,Korea,1,0,0
+2017/10/6,National Day,国慶節,China,1,0,0
+2017/10/6,Harvest Festival,秋夕,Korea,1,0,2017/10/5
+2017/10/7,National Day,国慶節,China,1,0,0
+2017/10/7,National Day,国慶日,Taiwan,1,0,0
+2017/10/8,National Day,国慶節,China,1,0,0
+2017/10/8,National Day,国慶日,Taiwan,1,0,0
+2017/10/9,Health and Sports Day,体育の日,Japan,1,0,0
+2017/10/9,Hangul Day,ハングルの日,Korea,1,0,0
+2017/10/9,National Day,国慶日,Taiwan,1,0,0
+2017/10/9,Columbus Day　,コロンブス記念日,United States,1,0,0
+2017/10/10,National Day,国慶日,Taiwan,1,0,0
+2017/10/13,King Rama IX's Death,ラマ９世崩御日,Thailand,1,0,0
+2017/10/23,Chulalongkorn Day,チュラロコーン大王記念日,Thailand,1,0,0
+2017/12/25,Christmas Day,クリスマス,Hong Kong,1,0,0
+2017/11/3,Culture Day,文化の日,Japan,1,0,0
+2017/11/10,Veterans Day,退役軍人の日,United States,1,1,2017/11/11
+2017/11/11,Veterans Day,退役軍人の日,United States,1,0,0
+2017/11/23,Labor Thanksgiving Day,勤労感謝の日,Japan,1,0,0
+2017/11/23,Thanksgiving Day,感謝祭,United States,1,0,0
+2017/12/5,King Rama IX's Birthday,ラーマ9世記念日,Thailand,1,0,0
+2017/12/10,Constitution Day,憲法記念日,Thailand,1,0,0
+2017/12/11,Constitution Day,憲法記念日,Thailand,1,1,2017/12/10
+2017/12/23,The Emperor’s Birthday, 天皇誕生日,Japan,1,0,0
+2017/12/25,Christmas Day,クリスマス,Korea,1,0,0
+2017/12/25,Christmas Day,クリスマス,United States,1,0,0
+2017/12/26,Boxing Day,ボクシング・デー,Hong Kong,1,0,0
+2018/1/1,The first day of January,元旦,Hong Kong,1,0,0
+2017/12/31,New Year's Eve,大晦日,Thailand,1,0,0
+2018/1/1,New Year,元旦,China,1,0,0
+2018/1/1,New Year,元旦,Japan,1,0,0
+2018/1/1,New Year,元旦,Korea,1,0,0
+2018/1/1,New Years Day,元旦,Taiwan,1,0,0
+2018/1/1,New Year,元旦,Thailand,1,0,0
+2018/1/1,New Year,元旦,United States,1,0,0
+2018/2/16,Lunar New Year's Day,春節,Hong Kong,1,0,0
+2018/1/2,New Year's Eve,大晦日,Thailand,1,1,2017/12/31
+2018/1/8,Coming of Age Day,成人の日,Japan,1,0,0
+2018/1/15,Martin Luther King Jr.'S Birthday ,マーティン・ルーサー・キング誕生日,United States,1,0,0
+2018/2/11,Foundation Day,建国記念の日,Japan,1,0,0
+2018/2/12,Foundation Day,建国記念の日,Japan,1,1,2018/2/11
+2018/2/15,Chinese New Year,春節,China,1,0,0
+2018/2/15,Korean New Year,旧正月,Korea,1,0,0
+2018/2/15,Chinese New Year,旧正月,Taiwan,1,0,0
+2018/2/16,Chinese New Year,春節,China,1,0,0
+2018/2/16,Korean New Year,旧正月,Korea,1,0,0
+2018/2/16,Chinese New Year,旧正月,Taiwan,1,0,0
+2018/2/17,The second day of Lunar New Year,春節,Hong Kong,1,0,0
+2018/2/17,Chinese New Year,春節,China,1,0,0
+2018/2/17,Chinese New Year,旧正月,Taiwan,1,0,0
+2018/2/19,The third day of Lunar New Year,春節,Hong Kong,1,0,0
+2018/2/18,Chinese New Year,春節,China,1,0,0
+2018/2/18,Chinese New Year,旧正月,Taiwan,1,0,0
+2018/2/19,Chinese New Year,春節,China,1,0,0
+2018/2/19,Chinese New Year,旧正月,Taiwan,1,1,2018/2/17
+2018/2/19,President's Day,大統領の日,United States,1,0,0
+2018/3/30,Good Friday,取蘇受難節,Hong Kong,1,0,0
+2018/2/20,Chinese New Year,春節,China,1,0,0
+2018/2/20,Chinese New Year,旧正月,Taiwan,1,1,2018/2/18
+2018/2/21,Chinese New Year,春節,China,1,0,0
+2018/2/28,Peace Memorial Day,和平記念日,Taiwan,1,0,0
+2018/3/1,March First Movement,三一節,Korea,1,0,0
+2018/3/1,Magha Puja,万仏節,Thailand,1,0,0
+2018/3/21,Vernal Equinox Day,春分の日,Japan,1,0,0
+2018/3/31,Good Friday,取蘇受難節,Hong Kong,1,1,2018/3/30
+2018/4/2,Easter Monday,イースター・マンデー,Hong Kong,1,0,0
+2018/4/5,Ching Ming Festival,清明節,Hong Kong,1,0,0
+2018/4/4,Children Day / Qingming Festival,こどもの日,Taiwan,1,0,0
+2018/4/5,Tomb Sweeping Day or Qingming Festival,清明節,China,1,0,0
+2018/4/5,Children Day / Qingming Festival,清明節,Taiwan,1,0,0
+2018/5/1,Labour Day,労働節,Hong Kong,1,0,0
+2018/4/6,Tomb Sweeping Day or Qingming Festival,清明節,China,1,0,0
+2018/4/6,Children Day / Qingming Festival,清明節,Taiwan,1,1,2018/3/31
+2018/4/6,Chakri Memorial Day,チャックリー記念日,Thailand,1,0,0
+2018/4/7,Tomb Sweeping Day or Qingming Festival,清明節,China,1,0,0
+2018/4/7,Children Day / Qingming Festival,清明節,Taiwan,1,0,0
+2018/4/8,Children Day / Qingming Festival,清明節,Taiwan,1,0,0
+2018/4/13,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,0,0
+2018/4/14,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,0,0
+2018/4/15,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,0,0
+2018/4/16,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,1,2018/4/13
+2018/4/17,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,1,2018/4/14
+2018/4/29,Labor Day,労働節,China,1,0,0
+2018/4/29,Showa Day, 昭和の日,Japan,1,0,0
+2018/4/30,Labor Day,労働節,China,1,0,0
+2018/4/30,Showa Day, 昭和の日,Japan,1,1,2018/4/29
+2018/5/1,Labor Day,労働節,China,1,0,0
+2018/5/1,Golden Week,ゴールデンウィーク,Japan,1,0,0
+2018/5/1,Labor Day,メーデー (労働者のみ、公務員は5/1出勤),Taiwan,1,0,0
+2018/5/1,Labour Day,労働者の日,Thailand,1,0,0
+2018/5/22,The Birthday of the Buddha,仏誕節,Hong Kong,1,0,0
+2018/5/2,Golden Week,ゴールデンウィーク,Japan,1,0,0
+2018/5/3,Constitution Memorial Day,憲法記念日,Japan,1,0,0
+2018/5/4,Greenery Day,みどりの日,Japan,1,0,0
+2018/5/5,Children's Day,こどもの日,Japan,1,0,0
+2018/5/5,Children's Day,子どもの日,Korea,1,0,0
+2018/5/7,Children's Day,子どもの日,Korea,1,1,2018/5/5
+2018/5/22,Buddha Birthday ,仏誕節,Korea,1,0,0
+2018/6/18,Tuen Ng Festival,端午節,Hong Kong,1,0,0
+2018/5/28,Memorial Day,戦没者祈念日,United States,1,0,0
+2018/5/29,Vesaka Puja,仏誕節,Thailand,1,0,0
+2018/6/6,South Korea Memorial Day,顕忠日,Korea,1,0,0
+2018/6/13,Local elections Day,統一地方選挙の日,Korea,1,0,0
+2018/6/16,Dragon Boat Festival,端午節,China,1,0,0
+2018/6/16,Dragon Boat Festival,端午節,Taiwan,1,0,0
+2018/6/17,Dragon Boat Festival,端午節,China,1,0,0
+2018/6/17,Dragon Boat Festival,端午節,Taiwan,1,0,0
+2018/6/18,Dragon Boat Festival,端午節,China,1,0,0
+2018/6/18,Dragon Boat Festival,端午節,Taiwan,1,0,0
+2018/7/2,Hong Kong Special Administrative Region Establishment Day,香港特別行政区成立記念日,Hong Kong,1,1,2018/7/1
+2018/9/25,the Chinese Mid-Autumn Festival,中秋節,Hong Kong,1,0,0
+2018/7/4,Independence Day　, 独立記念日,United States,1,0,0
+2018/7/16,Marine Day,海の日,Japan,1,0,0
+2018/7/27,Asalha Puja,三宝祭,Thailand,1,0,0
+2018/7/28,Khao Phansa/King's Birthday,入安居/国王誕生日,Thailand,1,0,0
+2018/7/30,Khao Phansa/King's Birthday,入安居/国王誕生日,Thailand,1,1,2018/7/28
+2018/8/11,Mountain Day,山の日,Japan,1,0,0
+2018/8/12,Queen's Birthday,王妃誕生日,Thailand,1,0,0
+2018/8/13,Obon,お盆,Japan,0,0,0
+2018/8/13,Queen's Birthday,王妃誕生日,Thailand,1,1,2018/8/12
+2018/8/14,Obon,お盆,Japan,0,0,0
+2018/8/15,Obon,お盆,Japan,0,0,0
+2018/8/15,Liberation Day,光復節,Korea,1,0,0
+2018/8/16,Obon,お盆,Japan,0,0,0
+2018/9/3,Labor Day, 労働感謝の日,United States,1,0,0
+2018/9/17,Respect-for-the-Aged Day,敬老の日,Japan,1,0,0
+2018/9/22,Mid Autumn or Moon Festival,中秋節,China,1,0,0
+2018/9/22,Mid Autumn or Moon Festival,中秋節,Taiwan,1,0,0
+2018/9/23,Mid Autumn or Moon Festival,中秋節,China,1,0,0
+2018/9/23,Autumnal Equinox Day,秋分の日,Japan,1,0,0
+2018/9/23,Harvest Festival,秋夕,Korea,1,0,0
+2018/9/23,Mid Autumn or Moon Festival,中秋節,Taiwan,1,0,0
+2018/9/24,Mid Autumn or Moon Festival,中秋節,China,1,0,0
+2018/9/24,Autumnal Equinox Day,秋分の日,Japan,1,1,2018/9/23
+2018/9/24,Harvest Festival,秋夕,Korea,1,0,0
+2018/9/24,Mid Autumn or Moon Festival,中秋節,Taiwan,1,0,0
+2018/9/25,Harvest Festival,秋夕,Korea,1,0,0
+2018/9/26,Harvest Festival,秋夕,Korea,1,0,2018/9/23
+2018/10/1,National Day ,国慶節,China,1,0,0
+2018/10/1,National Day,国慶日,Hong Kong,1,0,0
+2018/10/2,National Day ,国慶節,China,1,0,0
+2018/10/3,National Day ,国慶節,China,1,0,0
+2018/10/3,National Foundation Day,開天節,Korea,1,0,0
+2018/10/4,National Day ,国慶節,China,1,0,0
+2018/10/5,National Day ,国慶節,China,1,0,0
+2018/10/6,National Day ,国慶節,China,1,0,0
+2018/10/7,National Day ,国慶節,China,1,0,0
+2018/10/8,Health and Sports Day,体育の日,Japan,1,0,0
+2018/10/8,Columbus Day,コロンブス記念日,United States,1,0,0
+2018/10/9,Hangul Day,ハングルの日,Korea,1,0,0
+2018/10/10,National Day,国慶日,Taiwan,1,0,0
+2018/10/13,King Rama IX's Death,ラマ９世崩御日,Thailand,1,0,0
+2018/10/15,King Rama IX's Death,ラマ９世崩御日,Thailand,1,1,2018/10/13
+2018/10/17,Chung Yeung Festival,重陽節,Hong Kong,1,0,0
+2018/10/23,Chulalongkorn Day,チュラロコーン大王記念日,Thailand,1,0,0
+2018/11/3,Culture Day,文化の日,Japan,1,0,0
+2018/11/11,Veterans Day,退役軍人の日,United States,1,0,0
+2018/11/12,Veterans Day,退役軍人の日,United States,1,1,2018/11/12
+2018/11/22,Thanksgiving Day,感謝祭,United States,1,0,0
+2018/11/23,Labor Thanksgiving Day,勤労感謝の日,Japan,1,0,0
+2018/12/5,King Rama IX's Birthday,ラーマ9世記念日,Thailand,1,0,0
+2018/12/10,Constitution Day,憲法記念日,Thailand,1,0,0
+2018/12/23,The Emperor’s Birthday, 天皇誕生日,Japan,1,0,0
+2018/12/24,The Emperor’s Birthday, 天皇誕生日,Japan,1,1,2018/12/23
+2018/12/25,Christmas Day,クリスマス,Korea,1,0,0
+2018/12/25,Christmas Day,クリスマス,United States,1,0,0
+2018/12/25,Christmas Day,クリスマス,Hong Kong,1,0,0
+2018/12/26,Boxing Day,ボクシング・デー,Hong Kong,1,0,0
+2018/12/29,New Years Day,元旦,Taiwan,1,0,0
+2018/12/30,New Year,元旦,China,1,0,0
+2018/12/31,New Year,元旦,China,1,0,0
+2018/12/31,New Year's Eve,大晦日,Japan,1,0,0
+2018/12/31,New Years Day,元旦,Taiwan,1,1,2018/12/22
+2018/12/31,New Year's Eve,大晦日,Thailand,1,0,0
+2019/1/1,New Year,元旦,China,1,0,0
+2019/1/1,New Year,元旦,Japan,1,0,0
+2019/1/1,New Year,元旦,Korea,1,0,0
+2019/1/1,New Years Day,元旦,Taiwan,1,0,0
+2019/1/1,New Year,元旦,Thailand,1,0,0
+2019/1/1,New Year,元旦,United States,1,0,0
+2019/1/1,The first day of January,元旦,Hong Kong,1,0,0
+2019/1/2,New Year,元旦,Japan,1,0,0
+2019/1/14,Coming of Age Day,成人の日,Japan,1,0,0
+2019/1/21,Martin Luther King Jr.'S Birthday,マーティン・ルーサー・キング誕生日,United States,1,0,0
+2019/2/2,Chinese New Year,旧正月,Taiwan,1,0,0
+2019/2/3,Chinese New Year,旧正月,Taiwan,1,0,0
+2019/2/4,Chinese New Year,春節,China,1,0,0
+2019/2/4,Korean New Year,旧正月,Korea,1,0,0
+2019/2/4,Chinese New Year,旧正月,Taiwan,1,0,0
+2019/2/5,Chinese New Year,春節,China,1,0,0
+2019/2/5,Korean New Year,旧正月,Korea,1,0,0
+2019/2/5,Chinese New Year,旧正月,Taiwan,1,0,0
+2019/2/5,Lunar New Year's Day,春節,Hong Kong,1,0,0
+2019/2/6,Chinese New Year,春節,China,1,0,0
+2019/2/6,Korean New Year,旧正月,Korea,1,0,0
+2019/2/6,Chinese New Year,旧正月,Taiwan,1,0,0
+2019/2/6,The second day of Lunar New Year,春節,Hong Kong,1,0,0
+2019/2/7,Chinese New Year,春節,China,1,0,0
+2019/2/7,Chinese New Year,旧正月,Taiwan,1,0,0
+2019/2/7,The third day of Lunar New Year,春節,Hong Kong,1,0,0
+2019/2/8,Chinese New Year,春節,China,1,0,0
+2019/2/8,Chinese New Year,旧正月,Taiwan,1,1,2019/1/19
+2019/2/9,Chinese New Year,春節,China,1,0,0
+2019/2/9,Chinese New Year,旧正月,Taiwan,1,0,0
+2019/2/10,Chinese New Year,春節,China,1,0,0
+2019/2/10,Chinese New Year,旧正月,Taiwan,1,0,0
+2019/2/11,Foundation Day,建国記念の日,Japan,1,0,0
+2019/2/18,President's Day,大統領の日,United States,1,0,0
+2019/2/19,Magha Puja,万仏節,Thailand,1,0,0
+2019/2/28,Peace Memorial Day,和平記念日,Taiwan,1,0,0
+2019/3/1,March First Movement,三一節,Korea,1,0,0
+2019/3/21,Vernal Equinox Day,春分の日,Japan,1,0,0
+2019/4/4,Children Day / Qingming Festival,子どもの日/清明節,Taiwan,1,0,0
+2019/4/5,Tomb Sweeping Day or Qingming Festival,清明節,China,1,0,0
+2019/4/5,Children Day / Qingming Festival,子どもの日/清明節,Taiwan,1,0,0
+2019/4/5,Ching Ming Festival,清明節,Hong Kong,1,0,0
+2019/4/6,Tomb Sweeping Day or Qingming Festival,清明節,China,1,0,0
+2019/4/6,Children Day / Qingming Festival,子どもの日/清明節,Taiwan,1,0,0
+2019/4/6,Chakri Memorial Day,チャックリー記念日,Thailand,1,0,0
+2019/4/7,Tomb Sweeping Day or Qingming Festival,清明節,China,1,0,0
+2019/4/7,Children Day / Qingming Festival,子どもの日/清明節,Taiwan,1,0,0
+2019/4/13,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,0,0
+2019/4/14,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,0,0
+2019/4/15,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,0,0
+2019/4/16,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,1,2019/4/14
+2019/4/19,Good Friday,取蘇受難節,Hong Kong,1,0,0
+2019/4/19,Good Friday,取蘇受難節,Hong Kong,1,1,2019/4/19
+2019/4/22,Easter Monday,イースター・マンデー,Hong Kong,1,0,0
+2019/4/29,Showa Day,昭和の日,Japan,1,0,0
+2019/4/30,Golden Week,ゴールデンウィーク,Japan,1,0,0
+2019/5/1,Labor Day,労働節,China,1,0,0
+2019/5/1,Golden Week,ゴールデンウィーク,Japan,1,0,0
+2019/5/1,Labor Day,メーデー (労働者のみ、公務員は5/1出勤),Taiwan,1,0,0
+2019/5/1,Labour Day,労働者の日,Thailand,1,0,0
+2019/5/1,Labour Day,労働節,Hong Kong,1,0,0
+2019/5/2,Labor Day,労働節,China,1,0,0
+2019/5/2,Golden Week,ゴールデンウィーク,Japan,1,0,0
+2019/5/3,Labor Day,労働節,China,1,0,0
+2019/5/3,Constitution Memorial Day,憲法記念日,Japan,1,0,0
+2019/5/4,Labor Day,労働節,China,1,0,0
+2019/5/4,Greenery Day,みどりの日,Japan,1,0,0
+2019/5/5,Children's Day,子供の日,Japan,1,0,0
+2019/5/5,Children's Day,子どもの日,Korea,1,0,0
+2019/5/6,Children's Day,子供の日,Japan,1,1,2019/5/5
+2019/5/6,Children's Day,子どもの日,Korea,1,1,2019/5/5
+2019/5/12,Buddha Birthday,仏誕節,Korea,1,0,0
+2019/5/13,The Birthday of the Buddha,仏誕節,Hong Kong,1,1,2019/5/12
+2019/5/18,Vesaka Puja,仏誕節,Thailand,1,0,0
+2019/5/20,Vesaka Puja,仏誕節,Thailand,1,1,2019/5/18
+2019/5/27,Memorial Day,戦没者祈念日,United States,1,0,0
+2019/6/3,Queen Stider's birthday,スティダー王妃誕生日,Thailand,1,0,0
+2019/6/6,South Korea Memorial Day,顕忠日,Korea,1,0,0
+2019/6/7,Dragon Boat Festival,端午節,China,1,0,0
+2019/6/7,Dragon Boat Festival,端午節,Taiwan,1,0,0
+2019/6/7,Tuen Ng Festival,端午節,Hong Kong,1,0,0
+2019/6/8,Dragon Boat Festival,端午節,China,1,0,0
+2019/6/8,Dragon Boat Festival,端午節,Taiwan,1,0,0
+2019/6/9,Dragon Boat Festival,端午節,China,1,0,0
+2019/6/9,Dragon Boat Festival,端午節,Taiwan,1,0,0
+2019/7/1,Hong Kong Special Administrative Region Establishment Day,香港特別行政区成立記念日,Hong Kong,1,0,0
+2019/7/4,Independence Day　,独立記念日,United States,1,0,0
+2019/7/15,Marine Day,海の日,Japan,1,0,0
+2019/7/28,H.M.King Maha Vajiralongkorn’s Birthday,ワチラーロンコーン国王陛下生誕日,Thailand,1,0,0
+2019/7/29,H.M.King Maha Vajiralongkorn’s Birthday,ワチラーロンコーン国王陛下生誕日,Thailand,1,1,2019/7/28
+2019/8/11,Mountain Day,山の日,Japan,1,0,0
+2019/8/12,Mountain Day,山の日,Japan,1,1,2019/8/11
+2019/8/12,Queen Sirikit Anniversary,王妃誕生日,Thailand,1,0,0
+2019/8/13,Obon,お盆,Japan,0,0,0
+2019/8/14,Obon,お盆,Japan,0,0,0
+2019/8/15,Obon,お盆,Japan,0,0,0
+2019/8/15,Liberation Day,光復節,Korea,1,0,0
+2019/8/16,Obon,お盆,Japan,0,0,0
+2019/9/2,Labor Day, 労働感謝の日,United States,1,0,0
+2019/9/12,Chuseok,秋夕,Korea,1,0,0
+2019/9/13,Mid Autumn or Moon Festival,中秋節,China,1,0,0
+2019/9/13,Chuseok,秋夕,Korea,1,0,0
+2019/9/13,Mid Autumn or Moon Festival,中秋節,Taiwan,1,0,0
+2019/9/14,the Chinese Mid-Autumn Festival,中秋節,Hong Kong,1,0,0
+2019/9/14,Mid Autumn or Moon Festival,中秋節,China,1,0,0
+2019/9/14,Chuseok,秋夕,Korea,1,0,0
+2019/9/14,Mid Autumn or Moon Festival,中秋節,Taiwan,1,0,0
+2019/9/15,Mid Autumn or Moon Festival,中秋節,China,1,0,0
+2019/9/15,Mid Autumn or Moon Festival,中秋節,Taiwan,1,0,0
+2019/9/16,Respect-for-the-Aged Day,敬老の日,Japan,1,0,0
+2019/9/23,Autumnal Equinox Day,秋分の日,Japan,1,0,0
+2019/9/30,National Day ,国慶節,China,0,0,0
+2019/10/1,National Day ,国慶節,China,1,0,0
+2019/10/1,National Day,国慶日,Hong Kong,1,0,0
+2019/10/2,National Day ,国慶節,China,1,0,0
+2019/10/3,National Day ,国慶節,China,1,0,0
+2019/10/3,National  Day,開天節,Korea,1,0,0
+2019/10/4,National Day ,国慶節,China,1,0,0
+2019/10/5,National Day ,国慶節,China,1,0,0
+2019/10/6,National Day ,国慶節,China,1,0,0
+2019/10/7,National Day ,国慶節,China,1,0,0
+2019/10/7,Chung Yeung Festival,重陽節,Hong Kong,1,0,0
+2019/10/9,Hangul Day,ハングルの日,Korea,1,0,0
+2019/10/10,National Day,国慶日,Taiwan,1,0,0
+2019/10/11,National Day,国慶日,Taiwan,1,1,2019/10/5
+2019/10/12,National Day,国慶日,Taiwan,1,0,0
+2019/10/13,National Day,国慶日,Taiwan,1,0,0
+2019/10/13,King Rama IX's Death,ラマ９世崩御日,Thailand,1,0,0
+2019/10/14,Health and Sports Day,体育の日,Japan,1,0,0
+2019/10/14,King Rama IX's Death,ラマ９世崩御日,Thailand,1,1,2019/10/13
+2019/10/14,Columbus Day,コロンブス記念日,United States,1,0,0
+2019/10/23,Chulalongkorn Day,チュラロコーン大王記念日,Thailand,1,0,0
+2019/11/3,Culture Day,文化の日,Japan,1,0,0
+2019/11/4,Culture Day,文化の日,Japan,1,1,2019/11/3
+2019/11/11,Veterans Day,退役軍人の日,United States,1,0,0
+2019/11/23,Labor Thanksgiving Day,勤労感謝の日,Japan,1,0,0
+2019/11/28,Thanksgiving Day,感謝祭,United States,1,0,0
+2019/12/5,King Rama IX's Birthday Birthday,ラーマ9世記念日,Thailand,1,0,0
+2019/12/10,Constitution Day,憲法記念日,Thailand,1,0,0
+2019/12/25,Christmas Day,クリスマス,Korea,1,0,0
+2019/12/25,Christmas Day,クリスマス,United States,1,0,0
+2019/12/25,Christmas Day,クリスマス,Hong Kong,1,0,0
+2019/12/26,Boxing Day,ボクシング・デー,Hong Kong,1,0,0
+2019/12/30,New Years Day,元旦,Taiwan,1,0,0
+2019/12/31,New Year's Eve,大晦日,Japan,1,0,0
+2019/12/31,New Year's Eve,大晦日,Thailand,1,0,0
+2020/1/1,New Year,元旦,China,1,0,0
+2020/1/1,New Year,元日,Japan,1,0,0
+2020/1/1,New Year,元旦,Korea,1,0,0
+2020/1/1,New Year,元旦,United States,1,0,0
+2020/1/1,New Year,元旦,Thailand,1,0,0
+2020/1/1,New Years Day,元旦,Taiwan,1,0,0
+2020/1/1,The first day of January,元旦,Hong Kong,1,0,0
+2020/1/13,Coming of Age Day,成人の日,Japan,1,0,0
+2020/1/20,Martin Luther King Jr.'S Birthday,マーティン・ルーサー・キング誕生日,United States,1,0,0
+2020/1/23,Chinese New Year,旧正月,Taiwan,1,0,2020/2/15
+2020/1/24,Chinese New Year,春節,China,1,0,0
+2020/1/24,Korean New Year,旧正月,Korea,1,0,0
+2020/1/24,Chinese New Year,旧正月,Taiwan,1,0,0
+2020/1/25,Chinese New Year,春節,China,1,0,0
+2020/1/25,Korean New Year,旧正月,Korea,1,0,0
+2020/1/25,Chinese New Year,旧正月,Taiwan,1,0,0
+2020/1/25,The second day of Lunar New Year,春節,Hong Kong,1,0,0
+2020/1/26,Chinese New Year,春節,China,1,0,0
+2020/1/26,Korean New Year,旧正月,Korea,1,0,0
+2020/1/26,Chinese New Year,旧正月,Taiwan,1,0,0
+2020/1/27,Chinese New Year,春節,China,1,0,0
+2020/1/27,Chinese New Year,旧正月,Taiwan,1,0,0
+2020/1/27,Lunar New Year's Day,春節,Hong Kong,1,0,0
+2020/1/28,Chinese New Year,春節,China,1,0,0
+2020/1/28,Chinese New Year,旧正月,Taiwan,1,1,2020/1/25
+2020/1/28,The third day of Lunar New Year,春節,Hong Kong,1,0,0
+2020/1/29,Chinese New Year,春節,China,1,0,0
+2020/1/29,Chinese New Year,旧正月,Taiwan,1,1,2020/1/26
+2020/1/30,Chinese New Year,春節,China,1,0,0
+2020/2/8,Magha Puja,万仏祭,Thailand,1,0,0
+2020/2/10,Magha Puja,万仏祭,Thailand,1,1,2020/2/8
+2020/2/11,Foundation Day,建国記念の日,Japan,1,0,0
+2020/2/17,President's Day,大統領の日,United States,1,0,0
+2020/2/23,The Emperor’s Birthday,天皇誕生日,Japan,1,0,0
+2020/2/24,The Emperor’s Birthday,休日,Japan,1,1,2020/2/23
+2020/2/28,Peace Memorial Day,和平記念日,Taiwan,1,0,0
+2020/3/1,March First Movement,三一節,Korea,1,0,0
+2020/3/20,Vernal Equinox Day,春分の日,Japan,1,0,0
+2020/4/2,Children Day / Qingming Festival,子どもの日/清明節,Taiwan,1,1,2020/4/4
+2020/4/3,Children Day / Qingming Festival,子どもの日/清明節,Taiwan,1,1,2020/4/4
+2020/4/4,Tomb Sweeping Day or Qingming Festival,清明節,China,1,0,0
+2020/4/4,Children Day / Qingming Festival,子どもの日/清明節,Taiwan,1,0,0
+2020/4/4,Ching Ming Festival,清明節,Hong Kong,1,0,0
+2020/4/5,Tomb Sweeping Day or Qingming Festival,清明節,China,1,0,0
+2020/4/5,Children Day / Qingming Festival,子どもの日/清明節,Taiwan,1,0,0
+2020/4/6,Tomb Sweeping Day or Qingming Festival,清明節,China,1,0,0
+2020/4/6,Chakri Memorial Day,チャックリー記念日,Thailand,1,0,0
+2020/4/10,Good Friday,取蘇受難節,Hong Kong,1,0,0
+2020/4/13,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,0,0
+2020/4/11,Good Friday,取蘇受難節,Hong Kong,1,1,2020/4/10
+2020/4/13,Easter Monday,イースター・マンデー,Hong Kong,1,0,0
+2020/4/14,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,0,0
+2020/4/15,Parliamentary Election,国会議員選挙,Korea,1,0,0
+2020/4/15,Songkran Festival,ソンクラーン（旧正月）,Thailand,1,0,0
+2020/4/29,Showa Day,昭和の日,Japan,1,0,0
+2020/4/30,Buddha Birthday,仏誕節,Korea,1,0,0
+2020/4/30,The Birthday of the Buddha,仏誕節,Hong Kong,1,0,0
+2020/5/1,Labor Day,労働節,China,1,0,0
+2020/5/1,Labour Day,労働者の日,Thailand,1,0,0
+2020/5/1,Labour Day,労働節,Hong Kong,1,0,0
+2020/5/2,Labor Day,労働節,China,1,0,0
+2020/5/3,Labor Day,労働節,China,1,0,0
+2020/5/3,Constitution Memorial Day,憲法記念日,Japan,1,0,0
+2020/5/4,Labor Day,労働節,China,1,0,0
+2020/5/4,Greenery Day,みどりの日,Japan,1,0,0
+2020/5/4,Coronation Day,プミポン国王即位記念日,Thailand,1,0,0
+2020/5/5,Labor Day,労働節,China,1,0,0
+2020/5/5,Children's Day,こどもの日,Japan,1,0,0
+2020/5/5,Children's Day,子どもの日,Korea,1,0,0
+2020/5/6,Children's Day,休日,Japan,1,1,2020/5/5
+2020/5/6,Vesaka Puja,仏誕節,Thailand,1,0,0
+2020/5/25,Memorial Day,戦没者祈念日,United States,1,0,0
+2020/6/3,Queen Stider's birthday,スティダー王妃誕生日,Thailand,1,0,0
+2020/6/6,South Korea Memorial Day,顕忠日,Korea,1,0,0
+2020/6/25,Dragon Boat Festival,端午節,China,1,0,0
+2020/6/25,Dragon Boat Festival,端午節,Taiwan,1,0,0
+2020/6/25,Tuen Ng Festival,端午節,Hong Kong,1,0,0
+2020/6/26,Dragon Boat Festival,端午節,China,1,0,0
+2020/6/26,Dragon Boat Festival,端午節,Taiwan,1,1,2020/6/20
+2020/6/27,Dragon Boat Festival,端午節,China,1,0,0
+2020/6/27,Dragon Boat Festival,端午節,Taiwan,1,0,0
+2020/6/28,Dragon Boat Festival,端午節,Taiwan,1,0,0
+2020/7/1,Hong Kong Special Administrative Region Establishment Day,香港特別行政区成立記念日,Hong Kong,1,0,0
+2020/7/3,Independence Day　,独立記念日,United States,1,1,2020/7/4
+2020/7/4,Independence Day　,独立記念日,United States,1,0,0
+2020/7/5,Asalha Bucha ,三宝節,Thailand,1,0,0
+2020/7/6,Khao Phansa,入安居,Thailand,1,0,0
+2020/7/7,Asalha Bucha Day,三宝節,Thailand,1,1,2020/7/5
+2020/7/23,Marine Day,海の日,Japan,1,0,0
+2020/7/24,Health and Sports Day,スポーツの日,Japan,1,0,0
+2020/7/28,H.M.King Maha Vajiralongkorn’s Birthday,ワチラーロンコーン国王陛下生誕日,Thailand,1,0,0
+2020/8/10,Mountain Day,山の日,Japan,1,0,0
+2020/8/12,Queen Sirikit Anniversary,王妃誕生日,Thailand,1,0,0
+2020/8/13,Obon,お盆,Japan,0,0,0
+2020/8/14,Obon,お盆,Japan,0,0,0
+2020/8/15,Obon,お盆,Japan,0,0,0
+2020/8/15,Liberation Day,光復節,Korea,1,0,0
+2020/8/16,Obon,お盆,Japan,0,0,0
+2020/9/7,Labor Day, 労働感謝の日,United States,1,0,0
+2020/9/21,Respect-for-the-Aged Day,敬老の日,Japan,1,0,0
+2020/9/22,Autumnal Equinox Day,秋分の日,Japan,1,0,0
+2020/9/30,Chuseok,秋夕,Korea,1,0,0
+2020/10/1,Mid Autumn or Moon Festival,中秋節,China,1,0,0
+2020/10/1,Chuseok,秋夕,Korea,1,0,0
+2020/10/1,Mid Autumn or Moon Festival,中秋節,Taiwan,1,0,0
+2020/10/1,National Day,国慶日,Hong Kong,1,0,0
+2020/10/2,the Chinese Mid-Autumn Festival,中秋節,Hong Kong,1,1,2020/10/1
+2020/10/2,National Day ,国慶節,China,1,0,0
+2020/10/2,Chuseok,秋夕,Korea,1,0,0
+2020/10/2,Ok Phansa Day,出安居,Thailand,0,0,0
+2020/10/2,Mid Autumn or Moon Festival,中秋節,Taiwan,1,1,2020/9/26
+2020/10/3,National Day ,国慶節,China,1,0,0
+2020/10/3,National Foundation Day,開天節,Korea,1,0,0
+2020/10/3,Mid Autumn or Moon Festival,中秋節,Taiwan,1,0,0
+2020/10/4,National Day ,国慶節,China,1,0,0
+2020/10/4,Mid Autumn or Moon Festival,中秋節,Taiwan,1,0,0
+2020/10/5,National Day ,国慶節,China,1,0,0
+2020/10/6,National Day ,国慶節,China,1,0,0
+2020/10/7,National Day ,国慶節,China,1,0,0
+2020/10/8,National Day ,国慶節,China,1,0,0
+2020/10/9,Hangul Day,ハングルの日,Korea,1,0,0
+2020/10/9,National Day,国慶日,Taiwan,1,1,2020/10/10
+2020/10/10,National Day,国慶日,Taiwan,1,0,0
+2020/10/11,National Day,国慶日,Taiwan,1,0,0
+2020/10/12,Columbus Day,コロンブス記念日,United States,1,0,0
+2020/10/13,King Rama IX's Death,ラマ９世崩御日,Thailand,1,0,0
+2020/10/23,Chulalongkorn Day,チュラロコーン大王記念日,Thailand,1,0,0
+2020/10/26,Chung Yeung Festival,重陽節,Hong Kong,1,1,2020/10/25
+2020/11/3,Culture Day,文化の日,Japan,1,0,0
+2020/11/11,Veterans Day,退役軍人の日,United States,1,0,0
+2020/11/23,Labor Thanksgiving Day,勤労感謝の日,Japan,1,0,0
+2020/11/26,Thanksgiving Day,感謝祭,United States,1,0,0
+2020/12/5,King Rama IX's Birthday Birthday,ラーマ9世記念日,Thailand,1,0,0
+2020/12/7,King Rama IX's Birthday Birthday,ラーマ9世記念日,Thailand,1,1,2020/12/5
+2020/12/10,Constitution Day,憲法記念日,Thailand,1,0,0
+2020/12/25,Christmas Day,クリスマス,Korea,1,0,0
+2020/12/25,Christmas Day,クリスマス,United States,1,0,0
+2020/12/25,Christmas Day,クリスマス,Hong Kong,1,0,0
+2020/12/26,Boxing Day,ボクシング・デー,Hong Kong,1,0,0
+2020/12/31,New Year's Eve,大晦日,Thailand,1,0,0

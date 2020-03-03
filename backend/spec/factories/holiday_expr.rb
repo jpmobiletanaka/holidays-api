@@ -6,6 +6,7 @@ FactoryBot.define do
     expression { Date.current.strftime('%m/%d') }
     calendar_type { :gregorian }
     holiday_type { :holiday }
+    observed { false }
     processed { false }
   end
 end

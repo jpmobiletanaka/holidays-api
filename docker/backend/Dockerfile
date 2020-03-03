@@ -16,7 +16,7 @@ RUN echo "dockeruser ALL=(ALL) NOPASSWD: /usr/sbin/cron" >> /etc/sudoers
 
 WORKDIR $APP_HOME
 
-ADD ./backend $APP_HOME
+ADD . $APP_HOME
 RUN mkdir -p tmp/cache && chown -R dockeruser .
 
 USER dockeruser
@@ -24,10 +24,10 @@ USER dockeruser
 RUN gem install bundler
 RUN bundle check || bundle install --without development test
 
-COPY docker/backend/docker-entrypoint.sh /
-COPY docker/backend/ecs-entrypoint.sh /
-COPY docker/backend/ecs-entrypoint-migrator.sh /
-COPY docker/backend/ecs-entrypoint-seed.sh /
+COPY ../docker/backend/docker-entrypoint.sh /
+COPY ../docker/backend/ecs-entrypoint.sh /
+COPY ../docker/backend/ecs-entrypoint-migrator.sh /
+COPY ../docker/backend/ecs-entrypoint-seed.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 
