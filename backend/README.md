@@ -49,7 +49,6 @@
   # default: from = Date.current.beginning_of_year
   #          to   = Date.current.end_of_year
   get 'api/v1/holidays?from=Y-m-d&to=Y-m-d'
-  post 'api/v1/holidays/:id/move?from=Y-m-d&to=Y-m-d' # move one day of holiday to another
 ```
 
 ## HolidayExpr `expression` formats:
@@ -92,37 +91,21 @@
 ##### Note: delimiter can be `/` or `.`
 ##### Note: if `year` is not presented app will generate Holidays from 1970 to 2038
 
-## Deploy manually
+## Deploy
 Prerequisites: 
 * AWS CLI Installed
-* AWS Access Keys for `revenue_setup` account (either in env vars or in ~/.aws/credentials)
+* AWS Access Keys for IAM account (either in env vars or in ~/.aws/credentials). This account has to be included in 
 
-Build the new backend image if changed:
-```
-docker build -f docker/backend/Dockerfile -t holidays-api_backend .
-```
+### Using deploy script
 
-Tag it with AWS ECR Repo:
-```
-docker tag holidays-api_backend 611630892743.dkr.ecr.ap-northeast-1.amazonaws.com/holidays-api-backend
-```
+Run `APP_ENV=your_env deploy/deploy.sh`
 
-Login to ECR
-```
-aws ecr get-login --no-include-email | bash
-```
+It will build, push, migrate (if needed) and update a cluster service.
 
-Push the images:
+Also you can run separate scripts:
 ```
-docker push 611630892743.dkr.ecr.ap-northeast-1.amazonaws.com/holidays-api-backend
-```
-
-Run the migrator task:
-```
-aws ecs run-task --task-definition holidays-api-staging-holdiays-migrator --cluster holidays-api-staging
-```
-
-After migrator task is finished, update service:
-```
-aws ecs update-service --service holidays-api-staging-backend --force-new-deployment --cluster holidays-api-staging
+sh deploy/build.sh
+sh deploy/push.sh
+sh APP_ENV=your_env deploy/migrate.sh
+sh APP_ENV=your_env deploy/update_service.sh
 ```

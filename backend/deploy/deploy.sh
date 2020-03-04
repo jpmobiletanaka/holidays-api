@@ -2,6 +2,10 @@
 
 cur_dir="$(dirname "$0")"
 source ${cur_dir}/functions.sh
+parse_args "${@}"
+CLUSTER_NAME=${CLUSTER_NAME:="${APP_NAME}-${APP_ENV}"}
+printf "Deploying ${CLUSTER_NAME} "
+printf "for ${APP_ENV}\n"
 source ${cur_dir}/build.sh
 source ${cur_dir}/push.sh
 

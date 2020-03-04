@@ -10,4 +10,5 @@ class HolidayPolicy < ApplicationPolicy
   alias update?  create?
   alias destroy? create?
   alias move? create?
+  alias show? create?
 end

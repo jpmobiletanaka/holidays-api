@@ -1,4 +1,4 @@
-#!env bash
+#!/usr/bin/env bash
 
 cur_dir="$(dirname "$0")"
 source ${cur_dir}/functions.sh
