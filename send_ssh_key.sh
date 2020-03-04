@@ -3,8 +3,9 @@ default_key_path='~/.ssh/id_rsa.pub'
 [[ $1 =~ i-[a-z0-9]{17} ]] && IS_INSTANCE_ID=true || IS_INSTANCE_ID=false
 BASTION_INSTANCE_ID='i-0c4e56d699fd24711'
 INSTANCE_OR_TASK_FAMILY=$1
-KEY_PATH=${3:-$default_key_path}
+[[ $1 == "bastion" ]] && IS_INSTANCE_ID=true && INSTANCE_OR_TASK_FAMILY=${BASTION_INSTANCE_ID}
 CLUSTER_NAME=${INSTANCE_OR_TASK_FAMILY}
+KEY_PATH=${3:-$default_key_path}
 
 if ${IS_INSTANCE_ID}; then
   echo "Sending key to instance ${1}"
