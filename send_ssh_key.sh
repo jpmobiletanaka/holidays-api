@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 default_key_path='~/.ssh/id_rsa.pub'
 
 [[ $1 =~ i-[a-z0-9]{17} ]] && IS_INSTANCE_ID=true || IS_INSTANCE_ID=false

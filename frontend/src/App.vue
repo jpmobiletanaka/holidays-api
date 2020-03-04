@@ -6,7 +6,9 @@
         ul.navbar-nav.mr-auto
           li.nav-item
             router-link(to="/upload" class="nav-link") Uploads
-        a.nav-link {{ userEmail }}
+          li.nav-item
+            router-link(to="/holidays" class="nav-link") Holidays
+        a.nav-link(v-if="isAuthenticated") {{ userEmail }}
     router-view
 </template>
 
@@ -16,6 +18,9 @@ export default {
   computed: {
     userEmail() {
       return this.$store.state.Auth.userData.email
+    },
+    isAuthenticated(){
+      return this.$store.getters['Auth/isAuthenticated']
     }
   }
 };

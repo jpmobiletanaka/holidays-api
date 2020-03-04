@@ -16,4 +16,7 @@ class Holiday < ApplicationRecord
       res.push(*send("#{source}_raw_holidays"))
     end
   end
+
+  # TODO: Denormalize to separate field
+  delegate :recurring?, to: :holiday_expr, allow_nil: true
 end

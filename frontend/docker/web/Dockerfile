@@ -1,12 +1,11 @@
-FROM ruby:2.5.5
+FROM node:9
 
 RUN apt-get update -qq && apt-get install -y --no-install-recommends \
                             apt-utils build-essential \
-                            libpq-dev cron sudo less \
+                            cron sudo less \
                             chrpath libssl-dev libxft-dev \
                             libfreetype6 libfreetype6-dev \
                             libfontconfig1 libfontconfig1-dev logrotate \
-                            mariadb-client vim \
   && rm -rf /var/lib/apt/lists/*
 
 ENV APP_HOME /home/dockeruser/project
@@ -17,17 +16,15 @@ RUN echo "dockeruser ALL=(ALL) NOPASSWD: /usr/sbin/cron" >> /etc/sudoers
 WORKDIR $APP_HOME
 
 ADD . $APP_HOME
-RUN mkdir -p tmp/cache && chown -R dockeruser .
+RUN chown -R dockeruser .
 
 USER dockeruser
 
-RUN gem install bundler
-RUN bundle check || bundle install --without development test
+RUN echo $API_URL
+RUN yarn && yarn build && yarn global add http-server
 
-COPY ../docker/backend/docker-entrypoint.sh /
-COPY ../docker/backend/ecs-entrypoint.sh /
-COPY ../docker/backend/ecs-entrypoint-migrator.sh /
-COPY ../docker/backend/ecs-entrypoint-seed.sh /
+COPY docker/web/docker-entrypoint.sh /
+COPY docker/web/ecs-entrypoint.sh /
 
 ENTRYPOINT ["/docker-entrypoint.sh"]
 

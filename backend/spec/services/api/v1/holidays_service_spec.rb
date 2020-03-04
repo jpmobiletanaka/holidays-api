@@ -72,11 +72,25 @@ RSpec.describe Api::V1::HolidaysService do
       end
     end
 
-    context 'when params[:date] is empty' do
+    context 'when params[:state_at] is empty' do
       let(:params) { {} }
+      let(:expected_attrs) do
+        christmas_day.reload
+                     .attributes
+                     .slice(*described_class::HOLIDAY_ATTRS)
+                     .except('id')
+                     .symbolize_keys.merge(destroyed: false,
+                                           recurring: false,
+                                           current_source_type: 'manual',
+                                           dates: ["#{Date.current.year}-1-7".to_date])
+      end
 
       it 'returns all holidays in year' do
         expect(service.call.count).to eq(1)
+      end
+
+      it 'returns all fields within holiday' do
+        expect(service.call.first).to include(expected_attrs)
       end
     end
   end

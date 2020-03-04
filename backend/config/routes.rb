@@ -10,6 +10,7 @@ Rails.application.routes.draw do
 
       resources :countries, only: %i[index create update destroy]
 
+      resources :holiday_exprs, controller: 'holidays', only: %i[show]
       resources :holidays, only: %i[index create update destroy] do
         collection do
           get ':country_code',       action: :index
