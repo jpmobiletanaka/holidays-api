@@ -21,7 +21,7 @@ services:
     image: holidays-api_frontend
     build:
       context: ./frontend
-      dockerfile: ../docker/frontend/Dockerfile
+      dockerfile: docker/web/Dockerfile
     environment:
       HOST: '0.0.0.0'
       PORT: '8080'

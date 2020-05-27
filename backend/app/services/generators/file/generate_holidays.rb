@@ -56,10 +56,10 @@ module Generators
         super.joins(:country).where(countries: { en_name: raw_holiday.country })
       end
 
-      def holidays_from_raw(raw_holiday, existing_holiday = nil)
+      def holiday_from_raw(raw_holiday, existing_holiday = nil)
         holiday = super
         holiday.country_code = countries_by_name[raw_holiday.country]
-        { holiday => raw_holiday }
+        holiday
       end
     end
   end
