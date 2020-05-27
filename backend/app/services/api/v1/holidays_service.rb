@@ -3,8 +3,8 @@
 module Api
   module V1
     class HolidaysService
-      HOLIDAY_ATTRS = %w[id country_code ja_name en_name observed day_off current_source_type].freeze
-      DELETE_EVENT = 'DELETE'
+      HOLIDAY_ATTRS = %w[id country_code ja_name en_name observed day_off current_source_type updated_at created_at].freeze
+      DELETE_EVENT = 'DELETE'.freeze
 
       def initialize(params)
         @params = params
