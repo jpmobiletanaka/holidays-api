@@ -9,19 +9,19 @@ import NewHolidayExpr from '@/components/holiday_exprs/New.vue'
 
 const ifNotAuthenticated = (to, from, next) => {
   if (!store.getters['Auth/isAuthenticated']) {
-    next()
+    next();
     return
   }
   next('/')
-}
+};
 
 const ifAuthenticated = (to, from, next) => {
   if (store.getters['Auth/isAuthenticated']) {
-    next()
+    next();
     return
   }
   next('/login')
-}
+};
 
 Vue.use(Router);
 
