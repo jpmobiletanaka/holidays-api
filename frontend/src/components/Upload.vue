@@ -22,35 +22,37 @@
 
 </template>
 <script>
-import { UPLOAD_REQUEST, GET_FILES } from "../store/constants";
+import { UPLOAD_REQUEST, GET_FILES } from '../store/constants';
 
 export default {
   name: 'Upload',
   data() {
     return {
       file: null,
-    }
+    };
   },
+
   mounted() {
-    this.getFiles()
+    this.getFiles();
   },
+
   methods: {
     getFiles() {
-      this.$store.dispatch('Uploads/' + GET_FILES)
+      this.$store.dispatch('Uploads/' + GET_FILES);
     },
     uploadFile() {
-      let formData = new FormData();
+      const formData = new FormData();
       formData.append('file', this.file);
       this.$store.dispatch('Uploads/' + UPLOAD_REQUEST, formData).then((r) => {
-        console.log(r)
-      })
-    }
+        console.log(r);
+      });
+    },
   },
   computed: {
     files() {
-      return this.$store.state.Uploads.files
-    }
-  }
+      return this.$store.state.Uploads.files;
+    },
+  },
 };
 </script>
 

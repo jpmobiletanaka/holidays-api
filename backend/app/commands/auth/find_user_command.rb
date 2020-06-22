@@ -11,6 +11,7 @@ module Auth
 
     def payload
       return unless token.present? && token_contents.present? && user.present?
+
       @result = user
     end
 
