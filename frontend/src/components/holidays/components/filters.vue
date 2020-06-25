@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import { GET_COUNTRIES } from "../../store/constants";
+import { GET_COUNTRIES } from "@/constants";
 import 'vue2-datepicker/index.css';
 
 export default {

@@ -22,7 +22,7 @@
 
 </template>
 <script>
-import { AUTH_REQUEST, AUTH_LOGOUT } from "../store/constants";
+import { AUTH_REQUEST, AUTH_LOGOUT } from '@/constants';
 
 export default {
   name: 'Login',

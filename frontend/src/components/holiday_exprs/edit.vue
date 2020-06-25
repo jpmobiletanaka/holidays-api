@@ -2,15 +2,16 @@
   .row
     .col-sm-12.pt-3
       h4 Edit Holiday Expression
-      edit-form(:holiday="holiday" :edit="true", @form-submitted="sendForm")
+      holiday-form(:holiday="holiday" :edit="true")
 </template>
 
 <script>
-  import { PATCH_HOLIDAY_EXPR, GET_HOLIDAY_EXPR } from "../../store/constants";
+  import { PATCH_HOLIDAY_EXPR } from '@/constants';
+  import { mapActions } from 'vuex';
 
   export default {
     components: {
-      'edit-form': () => import('./Form.vue')
+      holidayForm: () => import('./components/form')
     },
     data() {
       return {
@@ -18,8 +19,10 @@
       }
     },
     methods: {
+      ...mapActions('Holidays', [PATCH_HOLIDAY_EXPR]),
+
       sendForm(payload) {
-        this.$store.dispatch('Holidays/' + PATCH_HOLIDAY_EXPR, Object.assign({}, payload, { id: this.holiday.id }))
+        this[PATCH_HOLIDAY_EXPR](Object.assign({}, payload, { id: this.holiday.id }))
       }
     },
     computed: {

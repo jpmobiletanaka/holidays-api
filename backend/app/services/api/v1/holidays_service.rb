@@ -3,7 +3,8 @@
 module Api
   module V1
     class HolidaysService
-      HOLIDAY_ATTRS = %w[id country_code ja_name en_name observed day_off current_source_type updated_at created_at].freeze
+      HOLIDAY_ATTRS = %w[id country_code ja_name en_name observed day_off current_source_type
+                        holiday_expr_id updated_at created_at].freeze
       DELETE_EVENT = 'DELETE'.freeze
 
       def initialize(params)
@@ -13,7 +14,7 @@ module Api
       def call
         scope.group_by(&holiday_rel).map do |holiday, days|
           holiday.slice(*select_attrs).merge(
-            dates: days.select(&:enabled?).map!(&:date).sort,
+            dates: days.select(&:enabled?).map(&:date).sort,
             # moves: moves(days),
             destroyed: holiday.respond_to?(:holiday) && holiday.holiday.nil?,
             recurring: holiday.recurring? || false

@@ -20,8 +20,11 @@ module Api
       end
 
       def update
-        render_response do
-          @holiday.holiday_expr.update!(holiday_params.to_h.merge(processed: false))
+        holiday_exp = @holiday.holiday_expr || @holiday.build_holiday_expr
+        if holiday_exp.update(holiday_params.to_h.merge(processed: false))
+          render_response { holiday_exp }
+        else
+          render_response(status: :bad_request) { holiday_exp.errors.full_messages.join(', ') }
         end
       end
 
