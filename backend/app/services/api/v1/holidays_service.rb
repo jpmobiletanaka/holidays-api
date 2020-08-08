@@ -64,7 +64,7 @@ module Api
 
       def scope
         where_option = {}
-        where_option = { holidays: { country_code: params[:country_codes] } } if params[:country_codes].present?
+        where_option = { holidays: { country_code: country_codes } } if country_codes.present?
         return history_holidays if history_request?
         @_scope ||= Day.by_date(date_from..date_to)
                       .joins(:holiday)
@@ -78,7 +78,7 @@ module Api
                 .select(:holiday_id,
                         'row_number() OVER (PARTITION BY holiday_id ORDER BY date DESC) AS ts_position')
                 .where("date <= ?::date", state_date)
-        query = query.where(country_code: params[:country_codes]) if params[:country_codes].present?
+        query = query.where(country_code: country_codes) if country_codes.present?
         query = query.where(event: DELETE_EVENT) if deleted_only
         query
       end
@@ -90,6 +90,10 @@ module Api
                       .includes(:moved_to, holiday_history: { holiday: :holiday_expr })
                       .where("t.ts_position <= ?", 1)
                       .where.not(holiday_id: deleted_holiday_ids)
+      end
+
+      def country_codes
+        params[:country_code].presence || params[:country_codes].presence
       end
     end
   end
