@@ -4,20 +4,24 @@
       .ml-2.mt-1
         h6 Filters
       .p-2
-        label
-          | Country
-          b-form-select(v-model="filters.country_code", :options="country_code_options")
-        label.ml-2
-          | From
-          div
-            datepicker(v-model="filters.from")
-        label.ml-2
-          | To
-          div
-            datepicker(v-model="filters.to")
-        .float-right
-          router-link(:to="{name: 'New Holiday Expr'}")
-            button.btn.btn-primary New holiday
+        .row
+          .col-sm-4
+            label
+              | Country
+              b-form-select(v-model="filters.country_codes", :options="country_code_options", multiple :select-size="4")
+          .col-sm-5
+            label.ml-2
+              | From
+              div
+                datepicker(v-model="filters.from")
+            label.ml-2
+              | To
+              div
+                datepicker(v-model="filters.to")
+          .col-sm-3
+            .float-right
+              router-link(:to="{name: 'New Holiday Expr'}")
+                button.btn.btn-primary New holiday
 </template>
 
 <script>
@@ -31,7 +35,7 @@ export default {
   data() {
     return {
       filters: {
-        country_code: null,
+        country_codes: [],
         from: null,
         to: null
       }
@@ -51,9 +55,8 @@ export default {
     country_code_options() {
       let opts = this.$store.state.Countries.countries.map(e => {
         return { value: e.country_code, text: `${e.en_name} (${e.country_code})` }
-      })
-      opts.unshift({ value: null, text: 'All' })
-      return opts
+      });
+      return opts;
     },
     current_source_type_options() {
       return ['google', 'file', 'manual']

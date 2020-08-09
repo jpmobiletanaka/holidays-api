@@ -1,6 +1,8 @@
 <template lang="pug">
   .row
     .col-sm-12.login-page
+      .alert.alert-danger(v-if="isUnauthorized", role="alert")
+        Invalid Email Or Password
       b-form(inline)
         b-form-group(
           class="mb-2 mr-sm-2 mb-sm-0"
@@ -22,7 +24,8 @@
 
 </template>
 <script>
-import { AUTH_REQUEST, AUTH_LOGOUT } from '@/constants';
+import { AUTH_REQUEST } from '@/constants';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   name: 'Login',
@@ -35,20 +38,21 @@ export default {
     }
   },
   methods: {
+    ...mapActions('Auth', [AUTH_REQUEST]),
+
     login() {
-      this.$store.dispatch('Auth/' + AUTH_REQUEST, this.user)
+      this[AUTH_REQUEST](this.user)
         .then(() => {
           this.$router.push('/')
         })
     },
-    logout() {
-      this.$store.dispatch(AUTH_LOGOUT)
-        .then(() => {
-          this.$router.push('/login')
-        })
-    },
   },
   computed: {
+    ...mapState('Auth', ['status']),
+    isUnauthorized() {
+      return this.status.status === 401;
+    },
+
     user() {
       return { email: this.email, password: this.password }
     }
