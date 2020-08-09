@@ -38,12 +38,12 @@ export default {
 
   methods: {
     getFiles() {
-      this.$store.dispatch('Uploads/' + GET_FILES);
+      this.$store.dispatch(`Uploads/${GET_FILES}`);
     },
     uploadFile() {
       const formData = new FormData();
       formData.append('file', this.file);
-      this.$store.dispatch('Uploads/' + UPLOAD_REQUEST, formData).then((r) => {
+      this.$store.dispatch(`Uploads/${UPLOAD_REQUEST}`, formData).then((r) => {
         console.log(r);
       });
     },

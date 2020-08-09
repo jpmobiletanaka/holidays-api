@@ -3,7 +3,8 @@
 module Api
   module V1
     class HolidaysService
-      HOLIDAY_ATTRS = %w[id country_code ja_name en_name observed day_off current_source_type updated_at created_at].freeze
+      HOLIDAY_ATTRS = %w[id country_code ja_name en_name observed day_off
+                         current_source_type updated_at created_at].freeze
       DELETE_EVENT = 'DELETE'.freeze
 
       def initialize(params)
@@ -63,13 +64,13 @@ module Api
 
       def scope
         where_option = {}
-        where_option = { holidays: { country_code: params[:country_code] } } if params[:country_code]
+        where_option = { holidays: { country_code: country_codes } } if country_codes.present?
         return history_holidays if history_request?
-        @scope ||= Day.by_date(date_from..date_to)
+        @_scope ||= Day.by_date(date_from..date_to)
                       .joins(:holiday)
                       .includes({ holiday: :holiday_expr }, :moved_to)
                       .where(where_option)
-                      .order(:date)
+                      .order(:date, :holiday_id)
       end
 
       def partition_query(deleted_only: false)
@@ -77,7 +78,7 @@ module Api
                 .select(:holiday_id,
                         'row_number() OVER (PARTITION BY holiday_id ORDER BY date DESC) AS ts_position')
                 .where("date <= ?::date", state_date)
-        query = query.where(country_code: params[:country_code]) if params[:country_code].present?
+        query = query.where(country_code: country_codes) if country_codes.present?
         query = query.where(event: DELETE_EVENT) if deleted_only
         query
       end
@@ -89,6 +90,10 @@ module Api
                       .includes(:moved_to, holiday_history: { holiday: :holiday_expr })
                       .where("t.ts_position <= ?", 1)
                       .where.not(holiday_id: deleted_holiday_ids)
+      end
+
+      def country_codes
+        params[:country_code].presence || params[:country_codes].presence
       end
     end
   end
