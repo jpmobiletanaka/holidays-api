@@ -6,26 +6,26 @@
 </template>
 
 <script>
-  import { PATCH_HOLIDAY_EXPR, GET_HOLIDAY_EXPR } from "../../store/constants";
+import { PATCH_HOLIDAY_EXPR } from "../../store/constants";
 
-  export default {
-    components: {
-      'edit-form': () => import('./Form.vue')
-    },
-    data() {
-      return {
-        holiday_expr: null
-      }
-    },
-    methods: {
-      sendForm(payload) {
-        this.$store.dispatch('Holidays/' + PATCH_HOLIDAY_EXPR, Object.assign({}, payload, { id: this.holiday.id }))
-      }
-    },
-    computed: {
-      holiday() {
-        return this.$route.params.holiday
-      }
-    },
-  }
+export default {
+  components: {
+    'edit-form': () => import('./Form.vue')
+  },
+  data() {
+    return {
+      holiday_expr: null
+    }
+  },
+  methods: {
+    sendForm(payload) {
+      this.$store.dispatch('Holidays/' + PATCH_HOLIDAY_EXPR, Object.assign({}, payload, { id: this.holiday.id }))
+    }
+  },
+  computed: {
+    holiday() {
+      return this.$route.params.holiday
+    }
+  },
+}
 </script>
