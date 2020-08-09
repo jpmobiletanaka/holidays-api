@@ -10,18 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_16_162331) do
+ActiveRecord::Schema.define(version: 2020_06_22_063450) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
 
   create_table "countries", force: :cascade do |t|
-    t.string "country_code", null: false
+    t.string "country_code", limit: 2, null: false
     t.string "ja_name"
     t.string "en_name"
     t.string "google_calendar_id"
-    t.index ["country_code"], name: "index_countries_on_country_code"
+    t.index ["country_code"], name: "index_countries_on_country_code", unique: true
     t.index ["google_calendar_id"], name: "index_countries_on_google_calendar_id"
   end
 
@@ -81,7 +81,7 @@ ActiveRecord::Schema.define(version: 2020_01_16_162331) do
     t.boolean "processed", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "observed", default: false
+    t.boolean "observed", default: false, null: false
     t.boolean "day_off", default: true, null: false
     t.index ["calendar_type"], name: "index_holiday_exprs_on_calendar_type"
     t.index ["country_code"], name: "index_holiday_exprs_on_country_code"
@@ -102,7 +102,7 @@ ActiveRecord::Schema.define(version: 2020_01_16_162331) do
     t.boolean "observed"
     t.boolean "day_off"
     t.datetime "date"
-    t.string "event", null: false
+    t.string "event", default: "INSERT", null: false
     t.index ["country_code"], name: "index_holiday_histories_on_country_code"
     t.index ["holiday_expr_id"], name: "index_holiday_histories_on_holiday_expr_id"
     t.index ["holiday_id"], name: "index_holiday_histories_on_holiday_id"

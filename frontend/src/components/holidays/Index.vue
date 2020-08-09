@@ -29,10 +29,16 @@
               td {{ holiday.day_off }}
               td {{ moment(holiday.updated_at).format('MMMM Do YYYY, h:mm:ss a') }}
               td
-                router-link(v-if="isManual(holiday)" :to="{ name: 'Edit Holiday Expr', params: { holiday: holiday }}")
+                router-link(
+                  v-if="isManual(holiday)"
+                  :to="{ name: 'Edit Holiday Expr', params: { holiday: holiday }}"
+                )
                   a
                     b-icon(icon="pencil")
-                router-link(v-else :to="{ name: 'New Holiday Expr', params: { holiday: holiday, existing: true }}")
+                router-link(
+                  v-else
+                  :to="{ name: 'New Holiday Expr', params: { holiday: holiday, existing: true }}"
+                )
                   a
                     b-icon(icon="pencil")
 

@@ -31,9 +31,11 @@ export default {
       file: null,
     };
   },
+
   mounted() {
     this.getFiles();
   },
+
   methods: {
     getFiles() {
       this.$store.dispatch(`Uploads/${GET_FILES}`);
