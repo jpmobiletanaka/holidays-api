@@ -1,14 +1,15 @@
 require 'rails_helper'
 
-RSpec.describe Api::V1::HolidaysService do
+describe Api::V1::HolidaysService do
   subject(:service) { described_class.new(params) }
+  let(:country) { create(:country) }
 
   describe '#call' do
-    let(:new_year) { create(:holiday_expr, expression: '2018/1.1', ja_name: I18n.with_locale(:ja) { "元旦" }, en_name: "New Year") }
-    let(:holiday_week) { create(:holiday_expr, expression: '1.1-10', en_name: "Happy New Year") }
-    let(:greenery_day) { create(:holiday_expr, expression: '2017/5.4', ja_name: I18n.with_locale(:ja) { "みどりの日" }, en_name: "Greenery Day") }
-    let(:children_day) { create(:holiday_expr, expression: "2019/5.5", ja_name: I18n.with_locale(:ja) { "子供の日" }, en_name: "Children's Day") }
-    let(:christmas_day) { create(:holiday_expr, expression: "#{Date.current.year}/1.7", ja_name: I18n.with_locale(:ja) { "子供の日" }, en_name: "Christmas Day") }
+    let(:new_year) { create(:holiday_expr, country: country, expression: '2018/1.1', ja_name: I18n.with_locale(:ja) { "元旦" }, en_name: "New Year") }
+    let(:holiday_week) { create(:holiday_expr, country: country, expression: '1.1-10', en_name: "Happy New Year") }
+    let(:greenery_day) { create(:holiday_expr, country: country, expression: '2017/5.4', ja_name: I18n.with_locale(:ja) { "みどりの日" }, en_name: "Greenery Day") }
+    let(:children_day) { create(:holiday_expr, country: country, expression: "2019/5.5", ja_name: I18n.with_locale(:ja) { "子供の日" }, en_name: "Children's Day") }
+    let(:christmas_day) { create(:holiday_expr, country: country, expression: "#{Date.current.year}/1.7", ja_name: I18n.with_locale(:ja) { "子供の日" }, en_name: "Christmas Day") }
 
     before do
       perform_enqueued_jobs do
@@ -90,7 +91,7 @@ RSpec.describe Api::V1::HolidaysService do
       end
 
       it 'returns all fields within holiday' do
-        expect(service.call.first).to include(expected_attrs)
+        expect(service.call.first).to include(expected_attrs.except(:created_at, :updated_at))
       end
     end
   end

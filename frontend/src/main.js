@@ -6,16 +6,15 @@ import router from './router';
 import store from './store';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import moment from 'moment'
-import axios from './store/axios'
 
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
 
 Vue.config.productionTip = false;
-Vue.use(BootstrapVue)
-Vue.use(IconsPlugin)
-Vue.prototype.moment = moment
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
+Vue.prototype.moment = moment;
 
 /* eslint-disable no-new */
 new Vue({

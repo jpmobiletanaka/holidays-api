@@ -7,31 +7,33 @@ const state = {
   token: localStorage.getItem('user-token') || '',
   status: '',
   userData: JSON.parse(localStorage.getItem('user-data') || '{}')
-}
+};
 
 const getters = {
   isAuthenticated(state) {
     if (!state.token || !state.userData.exp) return false
     if ((Math.floor(Date.now() / 1000) > state.userData.exp)) return false
     return true
-  },
-  authStatus: state => state.status,
-}
+  }
+};
 
 const mutations = {
   [AUTH_REQUEST]: (state) => {
-    state.status = 'loading'
+    state.status = 'loading';
   },
   [AUTH_SUCCESS]: (state, token) => {
-    state.status = 'success'
-    state.token = token
+    state.status = 'success';
+    state.token = token;
   },
-  [AUTH_ERROR]: (state) => {
-    state.status = 'error'
+  [AUTH_ERROR]: (state, payload) => {
+    state.status = payload;
   },
   [AUTH_DECODE]: (state, payload) => {
-    localStorage.setItem('user-data', JSON.stringify(payload))
-    state.userData = payload
+    localStorage.setItem('user-data', JSON.stringify(payload));
+    state.userData = payload;
+  },
+  [AUTH_LOGOUT]: (state) => {
+    state.userData = {};
   }
 }
 
@@ -51,13 +53,13 @@ const actions = {
           resolve(resp)
         })
         .catch(err => {
-          commit(AUTH_ERROR, err)
+          commit(AUTH_ERROR, err.response)
           localStorage.removeItem('user-token')
           reject(err)
         })
     })
   },
-  [AUTH_LOGOUT]: ({commit, dispatch}) => {
+  [AUTH_LOGOUT]: ({commit}) => {
     return new Promise((resolve, reject) => {
       commit(AUTH_LOGOUT)
       localStorage.removeItem('user-token')
@@ -74,9 +76,8 @@ const actions = {
     }).join(''));
 
     commit(AUTH_DECODE, JSON.parse(jsonPayload));
-  }
-
-}
+  },
+};
 
 export default {
   namespaced: true,

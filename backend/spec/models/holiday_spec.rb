@@ -1,6 +1,4 @@
-require 'rails_helper'
-
-RSpec.describe Holiday do
+describe Holiday do
   subject(:model) { described_class.new(main_attrs) }
 
   let(:country) { create(:country) }
@@ -11,13 +9,13 @@ RSpec.describe Holiday do
 
   describe 'when created' do
     it 'creates a new HolidayHistory record' do
-      expect { model.save! }.to change(HolidayHistory, :count).by(1)
+      expect { model.save }.to change(HolidayHistory, :count).by(1)
     end
   end
 
   context 'when updated' do
     it 'creates a new HolidayHistory record' do
-      expect { model.save! }.to change(HolidayHistory, :count).by(1)
+      expect { model.save }.to change(HolidayHistory, :count).by(1)
     end
   end
 end

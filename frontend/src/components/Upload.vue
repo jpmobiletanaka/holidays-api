@@ -22,7 +22,7 @@
 
 </template>
 <script>
-import { UPLOAD_REQUEST, GET_FILES } from '../store/constants';
+import { UPLOAD_REQUEST, GET_FILES } from '@/constants';
 
 export default {
   name: 'Upload',
@@ -31,9 +31,11 @@ export default {
       file: null,
     };
   },
+
   mounted() {
     this.getFiles();
   },
+
   methods: {
     getFiles() {
       this.$store.dispatch(`Uploads/${GET_FILES}`);

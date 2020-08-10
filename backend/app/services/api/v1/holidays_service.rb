@@ -3,9 +3,11 @@
 module Api
   module V1
     class HolidaysService
-      HOLIDAY_ATTRS = %w[id country_code ja_name en_name observed day_off
-                         current_source_type updated_at created_at].freeze
-      DELETE_EVENT = 'DELETE'.freeze
+      HOLIDAY_ATTRS = %w[id country_code ja_name en_name observed day_off current_source_type
+                         holiday_expr_id updated_at created_at].freeze
+      HOLIDAY_HISTORY_ATTRS = %w[id country_code ja_name en_name observed day_off current_source_type
+                                 holiday_expr_id holiday_id].freeze
+      DELETE_EVENT = 'DELETE'
 
       def initialize(params)
         @params = params
@@ -14,7 +16,7 @@ module Api
       def call
         scope.group_by(&holiday_rel).map do |holiday, days|
           holiday.slice(*select_attrs).merge(
-            dates: days.select(&:enabled?).map!(&:date).sort,
+            dates: days.select(&:enabled?).map(&:date).sort,
             # moves: moves(days),
             destroyed: holiday.respond_to?(:holiday) && holiday.holiday.nil?,
             recurring: holiday.recurring? || false
@@ -25,8 +27,11 @@ module Api
       private
 
       def select_attrs
-        return HOLIDAY_ATTRS unless history_request?
-        ['holiday_id', *HOLIDAY_ATTRS]
+        if history_request?
+          HOLIDAY_HISTORY_ATTRS
+        else
+          HOLIDAY_ATTRS
+        end
       end
 
       def holiday_rel
@@ -67,10 +72,10 @@ module Api
         where_option = { holidays: { country_code: country_codes } } if country_codes.present?
         return history_holidays if history_request?
         @_scope ||= Day.by_date(date_from..date_to)
-                      .joins(:holiday)
-                      .includes({ holiday: :holiday_expr }, :moved_to)
-                      .where(where_option)
-                      .order(:date, :holiday_id)
+                       .joins(:holiday)
+                       .includes({ holiday: :holiday_expr }, :moved_to)
+                       .where(where_option)
+                       .order(:date, :holiday_id)
       end
 
       def partition_query(deleted_only: false)
