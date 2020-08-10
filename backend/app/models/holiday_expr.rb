@@ -27,7 +27,7 @@ class HolidayExpr < ApplicationRecord
   validates :ja_name, uniqueness: { scope: %i[en_name country_code expression],
                                     message: "with same country and dates has already been taken" }
 
-  after_commit :generate_holidays, on: [:create, :update]
+  after_commit :generate_holidays, on: %i[create update]
 
   def processed!
     update!(processed: true)
