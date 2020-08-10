@@ -3,7 +3,7 @@
     .col-sm-12
       .row
         .col-sm-12
-          filters(@countries-loaded="getHolidays")
+          filters
       .row
         .col-sm-12.holidays-page
           table.table
@@ -38,7 +38,7 @@
 
                 router-link(
                   v-else
-                  :to="{ name: 'New Holiday Expr', params: { holiday: holiday }}"
+                  :to="{ name: 'New Holiday Expr' }"
                 )
                   a
                     b-icon(icon="pencil")
@@ -49,30 +49,26 @@
 </template>
 
 <script>
-import { DESTROY_HOLIDAY, GET_HOLIDAYS } from '@/constants';
+import { DESTROY_HOLIDAY } from '@/constants';
 import { mapState, mapActions } from 'vuex';
 
 export default {
   components: {
-    'filters' : () => import('./components/filters')
+    filters: () => import('./components/filters'),
   },
 
   methods: {
-    ...mapActions('Holidays', [GET_HOLIDAYS, DESTROY_HOLIDAY]),
+    ...mapActions('Holidays', [DESTROY_HOLIDAY]),
 
-    getHolidays(evt) {
-      this[GET_HOLIDAYS](evt)
-    },
     isManual(holiday) {
-      return holiday.current_source_type === 'manual'
+      return holiday.current_source_type === 'manual';
     },
     deleteHoliday(holiday) {
-      this[DESTROY_HOLIDAY](holiday.id)
+      this[DESTROY_HOLIDAY](holiday.id);
     },
   },
   computed: {
     ...mapState('Holidays', ['holidays']),
-    ...mapState('Countries', ['countries']),
   }
 };
 </script>

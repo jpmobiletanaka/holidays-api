@@ -8,16 +8,21 @@
           .col-sm-4
             label
               | Country
-              b-form-select(v-model="filters.country_codes", :options="country_code_options", multiple :select-size="4")
+              b-form-select(
+                v-model="filters.country_codes",
+                :options="country_code_options",
+                multiple :select-size="4",
+                @change="changeFilters"
+              )
           .col-sm-5
             label.ml-2
               | From
               div
-                datepicker(v-model="filters.from")
+                datepicker(v-model="filters.from", @change="changeFilters")
             label.ml-2
               | To
               div
-                datepicker(v-model="filters.to")
+                datepicker(v-model="filters.to", @change="changeFilters")
           .col-sm-3
             .float-right
               router-link(:to="{name: 'New Holiday Expr'}")
@@ -25,50 +30,58 @@
 </template>
 
 <script>
-import { GET_COUNTRIES } from "@/constants";
+import { GET_COUNTRIES, GET_HOLIDAYS } from '@/constants';
+import { mapActions, mapState } from 'vuex';
 import 'vue2-datepicker/index.css';
 
 export default {
   components: {
-    'datepicker': () => import('vue2-datepicker')
+    datepicker: () => import('vue2-datepicker'),
   },
   data() {
     return {
       filters: {
         country_codes: [],
         from: null,
-        to: null
-      }
-    }
-  },
-  mounted() {
-    this.getCountries()
-  },
-  methods: {
-    getCountries() {
-      this.$store.dispatch('Countries/' + GET_COUNTRIES).then(res => {
-        this.$emit('countries-loaded', this.filters)
-      })
-    }
-  },
-  computed: {
-    country_code_options() {
-      let opts = this.$store.state.Countries.countries.map(e => {
-        return { value: e.country_code, text: `${e.en_name} (${e.country_code})` }
-      });
-      return opts;
-    },
-    current_source_type_options() {
-      return ['google', 'file', 'manual']
-    }
-  },
-  watch: {
-    filters: {
-      handler() {
-        this.$emit('countries-loaded', this.filters)
+        to: null,
       },
-      deep: true
-    }
-  }
-};
+    };
+  },
+
+  mounted() {
+    this[GET_COUNTRIES]().then(() => this[GET_HOLIDAYS](this.filters));
+  },
+
+  methods: {
+    ...mapActions('Holidays', [GET_HOLIDAYS]),
+    ...mapActions('Countries', [GET_COUNTRIES]),
+
+    changeFilters() {
+      this[GET_HOLIDAYS](this.formattedFilters());
+    },
+
+    formattedFilters() {
+      const filters = { country_codes: this.filters.country_codes };
+      if (this.filters.from) {
+        filters.from = this.moment(this.filters.from).format('YYYY-MM-DD');
+      }
+      if (this.filters.to) {
+        filters.to = this.moment(this.filters.to).format('YYYY-MM-DD');
+      }
+      return filters;
+    },
+  },
+
+  computed: {
+    ...mapState('Countries', ['countries']),
+
+    country_code_options() {
+      return this.countries.map((e) => {
+        const result = {};
+        result.value = e.country_code;
+        result.text = `${e.en_name} (${e.country_code})`;
+        return result;
+      });
+    },
+  } };
 </script>

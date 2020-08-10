@@ -65,7 +65,7 @@
 <script>
 import 'vue2-datepicker/index.css';
 import { mergeWith, compact, pick } from 'lodash';
-import { GET_COUNTRIES, PATCH_HOLIDAY_EXPR } from '@/constants';
+import { GET_COUNTRIES, PATCH_HOLIDAY_EXPR, POST_HOLIDAY_EXPR } from '@/constants';
 import { mapActions } from 'vuex';
 
 
@@ -112,7 +112,7 @@ export default {
     })
   },
   methods: {
-    ...mapActions('Holidays', [PATCH_HOLIDAY_EXPR]),
+    ...mapActions('Holidays', [PATCH_HOLIDAY_EXPR, POST_HOLIDAY_EXPR]),
     ...mapActions('Countries', [GET_COUNTRIES]),
 
     fillFields() {
@@ -161,12 +161,21 @@ export default {
     onSubmit(evt) {
       evt.preventDefault();
       this.processForm();
-      this[PATCH_HOLIDAY_EXPR](Object.assign({}, this.holiday_expr, { id: this.holiday.id }))
-        .then(() => {
+
+
+      this.submitForm().then(() => {
           this.$router.push('/holidays')
         }).catch((err) => {
           this.error  = err.response.data
       });
+    },
+
+    submitForm() {
+      if (this.holiday) {
+        return this[PATCH_HOLIDAY_EXPR](Object.assign({}, this.holiday_expr, { id: this.holiday.id }))
+      } else {
+        return this[POST_HOLIDAY_EXPR](Object.assign({}, this.holiday_expr))
+      };
     },
 
     onReset(evt) {
