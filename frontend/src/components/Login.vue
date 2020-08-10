@@ -24,7 +24,7 @@
 
 </template>
 <script>
-import { AUTH_REQUEST } from "../store/constants";
+import { AUTH_REQUEST } from '@/constants';
 import { mapState, mapActions } from 'vuex';
 
 export default {

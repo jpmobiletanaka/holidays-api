@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe Holiday do
+describe Holiday do
   subject(:model) { described_class.new(main_attrs) }
 
   let(:country) { create(:country) }

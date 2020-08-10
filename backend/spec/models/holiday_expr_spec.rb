@@ -1,12 +1,38 @@
 require 'rails_helper'
 
-RSpec.describe HolidayExpr do
+describe HolidayExpr do
   subject(:model) { described_class.new(main_attrs) }
 
   let(:country) { create(:country) }
-  let(:main_attrs) { { country_code: country.country_code, expression: '12/21', ja_name: I18n.with_locale(:ja) { Faker::Name.name }, en_name: Faker::Name.name, calendar_type: :gregorian } }
+  let(:main_attrs) do
+    {
+      country_code: country.country_code,
+      expression: '2020.2.8',
+      ja_name: I18n.with_locale(:ja) { Faker::Name.name },
+      en_name: Faker::Name.name,
+      calendar_type: :gregorian }
+  end
 
   it { expect { model.save }.to have_enqueued_job.on_queue('generate_holidays') }
+  it 'saves model' do
+    expect{ perform_enqueued_jobs { model.save }}.to change(described_class, :count).by(1)
+  end
+
+  it 'creates hotel' do
+    expect{ perform_enqueued_jobs { model.save }}.to change(Holiday, :count).by(1)
+  end
+
+
+
+  describe 'update' do
+    before { perform_enqueued_jobs { model.save }}
+
+    let(:params) { { expression: '(2020.1.31)-(2020.2.2)', processed: false }}
+
+    it 'updates model' do
+      expect{ perform_enqueued_jobs { model.update(params) }}.not_to change(described_class, :count)
+    end
+  end
 
   context 'should be valid' do
     it { expect(model.valid?).to be true }
@@ -48,6 +74,9 @@ RSpec.describe HolidayExpr do
     it { model.expression = '2018.01.fullmoon';   expect(model.valid?).to be true }
     it { model.expression = '2018/01/fullmoon';   expect(model.valid?).to be true }
     it { model.expression = '2018/01/full-moon';  expect(model.valid?).to be true }
+
+    it { model.expression = '2020.1.31-2020.2.2';  expect(model.valid?).to be true }
+    it { model.expression = '(2020.1.31)-(2020.2.2)';  expect(model.valid?).to be true }
   end
 
   context 'should be invalid' do

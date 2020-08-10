@@ -12,9 +12,9 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
 
 Vue.config.productionTip = false;
-Vue.use(BootstrapVue)
-Vue.use(IconsPlugin)
-Vue.prototype.moment = moment
+Vue.use(BootstrapVue);
+Vue.use(IconsPlugin);
+Vue.prototype.moment = moment;
 
 /* eslint-disable no-new */
 new Vue({

@@ -1,6 +1,8 @@
 <template lang="pug">
   .row
     .col-sm-12
+      .alert.alert-danger(v-if="error", role="alert")
+        | {{error}}
       b-form(@submit="onSubmit" @reset="onReset" v-if="show")
         b-form-group(
           label="Name (en)"
@@ -63,7 +65,9 @@
 <script>
 import 'vue2-datepicker/index.css';
 import { mergeWith, compact, pick } from 'lodash';
-import { GET_COUNTRIES } from "../../store/constants";
+import { GET_COUNTRIES, PATCH_HOLIDAY_EXPR } from '@/constants';
+import { mapActions } from 'vuex';
+
 
 const HOLIDAY_FIELDS = ['en_name', 'ja_name', 'country_code', 'holiday_type', 'expression']
 
@@ -95,31 +99,39 @@ export default {
       start_date: null,
       end_date: null,
       show: true,
-      calendar_types: [{ text: 'gregorian', value: 0 }, { text: 'julian', value: 1 }]
+      calendar_types: [{ text: 'gregorian', value: 0 }, { text: 'julian', value: 1 }],
+      error: null,
     }
   },
+
   mounted(){
-    this.$store.dispatch('Countries/' + GET_COUNTRIES).then(() => {
+    this[GET_COUNTRIES]().then(() => {
       if(this.holiday) {
         this.fillFields()
       }
     })
   },
   methods: {
+    ...mapActions('Holidays', [PATCH_HOLIDAY_EXPR]),
+    ...mapActions('Countries', [GET_COUNTRIES]),
+
     fillFields() {
       this.holiday_expr = Object.assign({}, this.holiday_expr, this.holidayFields)
       this.recurring = this.holiday.recurring
       this.fillDates()
     },
+
     fillDates() {
       if (this.holiday) {
         this.start_date = this.formatDate(this.holiday.dates[0])
         this.end_date = this.formatDate(this.holiday.dates[this.holiday.dates.length - 1])
       }
     },
+
     formatDate(dateStr){
       return this.recurring ? this.moment(dateStr).format('DD-MM') : dateStr
     },
+
     processForm(){
       let res = this.moment(this.start_date).toObject()
       mergeWith(res, this.moment(this.end_date).toObject(), (dst, src, k) =>{
@@ -135,6 +147,7 @@ export default {
         this.holiday_expr.expression = this.createExpression(res.months, res.date, res.years)
       }
     },
+
     createExpression(months, dates, years = []){
       if (months.length > 1) {
         return `(${compact([years[0], months[0], dates[0]]).join('.')})-(${compact([years[1], months[1], dates[1]]).join('.')})`
@@ -144,19 +157,27 @@ export default {
         return compact([years[0], months[0], `${dates[0]}-${dates[1]}`]).join('.')
       }
     },
+
     onSubmit(evt) {
-      evt.preventDefault()
-      this.processForm()
-      this.$emit('form-submitted', this.holiday_expr)
+      evt.preventDefault();
+      this.processForm();
+      this[PATCH_HOLIDAY_EXPR](Object.assign({}, this.holiday_expr, { id: this.holiday.id }))
+        .then(() => {
+          this.$router.push('/holidays')
+        }).catch((err) => {
+          this.error  = err.response.data
+      });
     },
+
     onReset(evt) {
       evt.preventDefault()
-      this.holiday_expr.en_name = null
-      this.holiday_expr.ja_name = null
-      this.holiday_expr.country_code = null
-      this.holiday_expr.expression = null
+      this.holiday_expr.en_name = null;
+      this.holiday_expr.ja_name = null;
+      this.holiday_expr.country_code = null;
+      this.holiday_expr.expression = null;
     }
   },
+
   computed: {
     holidayFields() {
       return pick(this.holiday, HOLIDAY_FIELDS)

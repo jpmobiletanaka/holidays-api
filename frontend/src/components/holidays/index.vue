@@ -31,13 +31,14 @@
               td
                 router-link(
                   v-if="isManual(holiday)"
-                  :to="{ name: 'Edit Holiday Expr', params: { holiday: holiday }}"
+                  :to="{ name: 'Edit Holiday Expr', params: { id: holiday.id, holiday: holiday }}"
                 )
                   a
                     b-icon(icon="pencil")
+
                 router-link(
                   v-else
-                  :to="{ name: 'New Holiday Expr', params: { holiday: holiday, existing: true }}"
+                  :to="{ name: 'New Holiday Expr', params: { holiday: holiday }}"
                 )
                   a
                     b-icon(icon="pencil")
@@ -48,31 +49,30 @@
 </template>
 
 <script>
-  import {DESTROY_HOLIDAY, GET_HOLIDAYS} from "../../store/constants";
+import { DESTROY_HOLIDAY, GET_HOLIDAYS } from '@/constants';
+import { mapState, mapActions } from 'vuex';
 
 export default {
   components: {
-    'filters' : () => import('./Filters')
+    'filters' : () => import('./components/filters')
   },
 
   methods: {
+    ...mapActions('Holidays', [GET_HOLIDAYS, DESTROY_HOLIDAY]),
+
     getHolidays(evt) {
-      this.$store.dispatch('Holidays/' + GET_HOLIDAYS, evt)
+      this[GET_HOLIDAYS](evt)
     },
     isManual(holiday) {
       return holiday.current_source_type === 'manual'
     },
     deleteHoliday(holiday) {
-      this.$store.dispatch('Holidays/' + DESTROY_HOLIDAY, holiday.id)
+      this[DESTROY_HOLIDAY](holiday.id)
     },
   },
   computed: {
-    holidays() {
-      return this.$store.state.Holidays.holidays
-    },
-    countries() {
-      return this.$store.state.Countries.countries
-    }
+    ...mapState('Holidays', ['holidays']),
+    ...mapState('Countries', ['countries']),
   }
 };
 </script>

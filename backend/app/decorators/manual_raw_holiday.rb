@@ -19,6 +19,8 @@ class ManualRawHoliday
                     Extractors::PeriodExtractor
                   when HolidayExpr::LARGE_PERIOD_GROUP
                     Extractors::LargePeriodExtractor
+                  when HolidayExpr::XLARGE_PERIOD_GROUP
+                    Extractors::XLargePeriodExtractor
                   when HolidayExpr::SIMPLE_GROUP
                     Extractors::SimpleExtractor
                   end
