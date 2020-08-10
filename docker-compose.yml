@@ -39,7 +39,7 @@ services:
       context: .
       dockerfile: ./docker/postgresql/Dockerfile
     ports:
-      - 5433:5432
+      - 5432:5432
     volumes:
       - ./docker/postgresql/data/:/var/lib/postgresql/data
 
