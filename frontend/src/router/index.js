@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 import store from '../store'; // your vuex store
-import Upload from '@/components/Upload';
-import Login from '@/components/Login';
+import Uploads from '@/components/uploads';
+import Login from '@/components/login';
 import Holidays from '@/components/holidays';
 import EditHolidayExpr from '@/components/holiday_exprs/edit'
 import NewHolidayExpr from '@/components/holiday_exprs/new'
@@ -34,9 +34,9 @@ export default new Router({
       beforeEnter: ifNotAuthenticated,
     },
     {
-      path: '/upload',
-      name: 'Upload form',
-      component: Upload,
+      path: '/uploads',
+      name: 'Uploads',
+      component: Uploads,
       beforeEnter: ifAuthenticated,
     },
     {

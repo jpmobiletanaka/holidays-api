@@ -25,7 +25,7 @@
 import { UPLOAD_REQUEST, GET_FILES } from '@/constants';
 
 export default {
-  name: 'Upload',
+  name: 'Uploads',
   data() {
     return {
       file: null,
@@ -40,6 +40,7 @@ export default {
     getFiles() {
       this.$store.dispatch(`Uploads/${GET_FILES}`);
     },
+
     uploadFile() {
       const formData = new FormData();
       formData.append('file', this.file);
@@ -48,6 +49,7 @@ export default {
       });
     },
   },
+
   computed: {
     files() {
       return this.$store.state.Uploads.files;
