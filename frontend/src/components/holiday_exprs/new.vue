@@ -5,7 +5,7 @@
       div.alert.alert-warning(role="alert")
         | You are creating new holiday expression for existing holiday. This will override holiday source to "manual"
 
-      holiday-form
+      holiday-form(:holiday="holiday")
 </template>
 
 <script>
@@ -13,6 +13,12 @@
 export default {
   components: {
     holidayForm: () => import('./components/form'),
+  },
+
+  computed: {
+    holiday() {
+      return this.$route.params.holiday
+    }
   },
 }
 </script>

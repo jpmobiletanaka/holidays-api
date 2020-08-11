@@ -171,7 +171,7 @@ export default {
     },
 
     submitForm() {
-      if (this.holiday) {
+      if (this.edit) {
         return this[PATCH_HOLIDAY_EXPR](Object.assign({}, this.holiday_expr, { id: this.holiday.id }))
       } else {
         return this[POST_HOLIDAY_EXPR](Object.assign({}, this.holiday_expr))

@@ -38,7 +38,7 @@
 
                 router-link(
                   v-else
-                  :to="{ name: 'New Holiday Expr' }"
+                  :to="{ name: 'New Holiday Expr', params: { holiday: holiday }}"
                 )
                   a
                     b-icon(icon="pencil")
