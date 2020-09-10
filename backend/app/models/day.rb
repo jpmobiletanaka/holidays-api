@@ -9,6 +9,7 @@ class Day < ApplicationRecord
   has_one :moved_to, class_name: 'Day', foreign_key: :moved_from_id
 
   scope :by_date, ->(date) { where(date: date) }
+  scope :enabled, -> { where(enabled: true) }
 
   delegate :date, to: :moved_to, prefix: true, allow_nil: true
 

@@ -19,4 +19,8 @@ class Holiday < ApplicationRecord
 
   # TODO: Denormalize to separate field
   delegate :recurring?, to: :holiday_expr, allow_nil: true
+
+  def dates
+    days.enabled.pluck(:date).sort
+  end
 end

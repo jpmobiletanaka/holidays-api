@@ -1,4 +1,4 @@
-import { GET_HOLIDAYS, POST_HOLIDAY_EXPR, PATCH_HOLIDAY_EXPR, GET_HOLIDAY_EXPR, DESTROY_HOLIDAY } from '../constants';
+import { GET_HOLIDAYS, POST_HOLIDAY_EXPR, PATCH_HOLIDAY_EXPR, GET_HOLIDAY, GET_HOLIDAY_EXPR, DESTROY_HOLIDAY } from '../constants';
 import axios from '../axios';
 
 const resource = '/holidays';
@@ -61,6 +61,19 @@ const actions = {
   [GET_HOLIDAY_EXPR]: ({ commit }, id) => {
     return new Promise((resolve, reject) => {
       axios.get(`/holiday_exprs/${id}`)
+        .then((resp) => {
+          resolve(resp);
+        })
+        .catch((err) => {
+          reject(err);
+        });
+    });
+  },
+
+  [GET_HOLIDAY]: ({ commit }, id) => {
+    console.log('GET')
+    return new Promise((resolve, reject) => {
+      axios.get(`/holidays/${id}`)
         .then((resp) => {
           resolve(resp);
         })

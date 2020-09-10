@@ -12,7 +12,7 @@ module Api
       end
 
       def show
-        render_response { Holiday.find(params[:id]).holiday_expr }
+        render_response { Holiday.find(params[:id]).to_json(methods: [:dates]) }
       end
 
       def create
