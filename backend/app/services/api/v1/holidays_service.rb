@@ -64,7 +64,7 @@ module Api
       end
 
       def date_to
-        @_date_to ||= params[:to]&.to_date || Date.civil(base_year, 12, 31)
+        @_date_to ||= params[:to]&.to_date || date_from + 1.year
       end
 
       def scope

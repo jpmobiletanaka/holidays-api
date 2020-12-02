@@ -9,7 +9,7 @@ module Fetchers
       super
       @country         = options[:country]
       @start_date      = start_date || Date.current.beginning_of_year
-      @end_date        = end_date || Date.current.end_of_year
+      @end_date        = end_date || start_date.end_of_year
       @raw_events      = langs.zip(Array.new(langs.size)).to_h
     end
 
