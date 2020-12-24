@@ -9,7 +9,7 @@ module Generators
       SIMILARITY_THRESHOLD = 0.6
       SOURCE = :manual
       COUNTRY_FIELD = :country_code
-      HOLIDAY_FIELDS = %w[en_name ja_name observed country_code].freeze
+      HOLIDAY_FIELDS = %w[en_name ja_name observed day_off country_code].freeze
       RAW_HOLIDAY_FIELDS = %w[ja_name en_name country_code expression].freeze
 
       attr_reader :holiday_expr

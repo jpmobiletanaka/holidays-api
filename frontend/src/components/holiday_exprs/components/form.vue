@@ -69,7 +69,7 @@ import { GET_COUNTRIES, PATCH_HOLIDAY_EXPR, POST_HOLIDAY_EXPR } from '@/constant
 import { mapActions } from 'vuex';
 
 
-const HOLIDAY_FIELDS = ['en_name', 'ja_name', 'country_code', 'holiday_type', 'expression']
+const HOLIDAY_FIELDS = ['en_name', 'ja_name', 'country_code', 'holiday_type', 'expression', 'day_off']
 
 export default {
   components: {
