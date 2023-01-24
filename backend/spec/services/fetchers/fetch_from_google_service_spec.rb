@@ -25,7 +25,7 @@ describe Fetchers::FetchFromGoogleService do
       "2019-06-12" => "Russia Day",
       "2019-09-01" => "Day of Knowledge",
       "2019-11-04" => "Unity Day"
-    }.each_with_object({}) { |(date, event), res| res[Date.parse(date)] = event }
+    }.transform_keys { |date| Date.parse(date) }
   end
 
   subject(:service_call) { described_class.call(langs: %i[en ja], options: { country: country }) }

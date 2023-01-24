@@ -7,6 +7,7 @@ module Api
         render_response do
           token_command = Auth::GenerateUserTokenCommand.call(*params.slice(:email, :password).values)
           raise NotAuthenticatedError unless token_command.success?
+
           { token: token_command.result }
         end
       end

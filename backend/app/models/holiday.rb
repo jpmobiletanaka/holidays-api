@@ -1,5 +1,5 @@
 class Holiday < ApplicationRecord
-  enum current_source_type: %i[manual file google]
+  enum current_source_type: { manual: 0, file: 1, google: 2 }
 
   belongs_to :holiday_expr, optional: true
   belongs_to :country, primary_key: :country_code, foreign_key: :country_code

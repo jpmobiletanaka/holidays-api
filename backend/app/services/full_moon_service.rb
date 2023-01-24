@@ -8,6 +8,7 @@ class FullMoonService
         end
       end
       return moons if month.blank?
+
       moons[month.to_i]
     end
   end

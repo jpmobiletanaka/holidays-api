@@ -7,6 +7,7 @@ module Api
                          holiday_expr_id updated_at created_at].freeze
       HOLIDAY_HISTORY_ATTRS = %w[id country_code ja_name en_name observed day_off current_source_type
                                  holiday_expr_id holiday_id].freeze
+      AVAILABLE_COUNTRIES = %w[cn jp kr tw th hk my us].freeze
       DELETE_EVENT = 'DELETE'
 
       def initialize(params)
@@ -47,6 +48,7 @@ module Api
       def moves(days)
         days.map! do |day|
           next if day.enabled?
+
           { from: day.date, to: day.moved_to_date }
         end.compact!
       end
@@ -68,9 +70,11 @@ module Api
       end
 
       def scope
-        where_option = {}
-        where_option = { holidays: { country_code: country_codes } } if country_codes.present?
+        where_option = {
+          holidays: { country_code: (country_codes.presence || Country::AVAILABLE_COUNTRIES) }
+        }
         return history_holidays if history_request?
+
         @_scope ||= Day.by_date(date_from..date_to)
                        .joins(:holiday)
                        .includes({ holiday: :holiday_expr }, :moved_to)
@@ -83,7 +87,7 @@ module Api
                 .select(:holiday_id,
                         'row_number() OVER (PARTITION BY holiday_id ORDER BY date DESC) AS ts_position')
                 .where("date <= ?::date", state_date)
-        query = query.where(country_code: country_codes) if country_codes.present?
+        query = query.where(country_code: (country_codes.presence || Country::AVAILABLE_COUNTRIES))
         query = query.where(event: DELETE_EVENT) if deleted_only
         query
       end
@@ -95,10 +99,11 @@ module Api
                       .includes(:moved_to, holiday_history: { holiday: :holiday_expr })
                       .where("t.ts_position <= ?", 1)
                       .where.not(holiday_id: deleted_holiday_ids)
+                      .order(:date, :holiday_id)
       end
 
       def country_codes
-        params[:country_code].presence || params[:country_codes].presence
+        (Array.wrap(params[:country_code].presence || params[:country_codes].presence) & Country::AVAILABLE_COUNTRIES)
       end
     end
   end

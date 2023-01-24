@@ -1,4 +1,4 @@
-FROM ruby:2.5.5
+FROM ruby:2.7.7
 
 RUN apt-get update -qq && apt-get install -y --no-install-recommends \
                             apt-utils build-essential \
@@ -22,7 +22,7 @@ RUN mkdir -p tmp/cache && chown -R dockeruser .
 USER dockeruser
 
 RUN gem install bundler
-RUN bundle check || bundle install --without development test
+RUN bundle check || bundle install
 
 COPY docker/web/docker-entrypoint.sh /
 COPY docker/web/ecs-entrypoint.sh /

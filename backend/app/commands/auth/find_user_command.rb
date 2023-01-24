@@ -19,13 +19,14 @@ module Auth
       @user ||= begin
         user = User.find_by(token_contents.slice('id', 'email'))
         return user if user.present?
+
         errors.add(:token, I18n.t('auth.token_invalid'))
         nil
       end
     end
 
     def token
-      headers['Authorization'].split(' ').last
+      headers.env['HTTP_AUTHORIZATION'].to_s.gsub('Bearer ', '')
     rescue NoMethodError
       errors.add(:token, I18n.t('auth.token_missing'))
       nil
@@ -35,6 +36,7 @@ module Auth
       @token_contents ||= begin
         decoded = JwtService.decode(token)
         return decoded if decoded.present?
+
         errors.add(:token, I18n.t('auth.token_expired'))
         nil
       end

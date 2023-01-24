@@ -58,7 +58,7 @@ const actions = {
     });
   },
 
-  [GET_HOLIDAY_EXPR]: ({ commit }, id) => {
+  [GET_HOLIDAY_EXPR]: ({}, id) => {
     return new Promise((resolve, reject) => {
       axios.get(`/holiday_exprs/${id}`)
         .then((resp) => {
@@ -70,8 +70,7 @@ const actions = {
     });
   },
 
-  [GET_HOLIDAY]: ({ commit }, id) => {
-    console.log('GET')
+  [GET_HOLIDAY]: ({}, id) => {
     return new Promise((resolve, reject) => {
       axios.get(`/holidays/${id}`)
         .then((resp) => {

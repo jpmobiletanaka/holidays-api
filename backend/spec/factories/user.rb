@@ -2,10 +2,10 @@ FactoryBot.define do
   factory :user do
     email { Faker::Internet.email }
     password { Faker::Internet.password }
-    admin false
+    admin { false }
 
     factory :admin, class: User do
-      admin true
+      admin { true }
     end
   end
 end

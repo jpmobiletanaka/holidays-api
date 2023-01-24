@@ -14,6 +14,7 @@ module Generators
       def holidays_valid?(holidays, grouped_raw_holiday)
         return true if holidays.empty?
         return true if priority_allows_update?(holidays)
+
         update_state(grouped_raw_holiday, :success, holidays.first.id, 'Higher priority holidays found for this source')
         false
       end

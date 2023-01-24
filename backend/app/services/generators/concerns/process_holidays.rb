@@ -19,6 +19,7 @@ module Generators
         existing_holiday = holidays.shift
         holidays_to_destroy.push(*holidays)
         return handle_existing_holiday(existing_holiday, raw_holiday) if existing_holiday
+
         holidays_to_create[holiday_from_raw(raw_holiday)] = raw_holiday
       end
 
@@ -37,6 +38,7 @@ module Generators
       def handle_existing_holiday(existing_holiday, raw_holiday)
         updated_holiday = holiday_from_raw(raw_holiday, existing_holiday)
         return holidays_to_update[updated_holiday] = raw_holiday if dates_match?(existing_holiday, raw_holiday)
+
         holidays_to_destroy.push existing_holiday
         holidays_to_create[holiday_from_raw(raw_holiday)] = raw_holiday
       end
