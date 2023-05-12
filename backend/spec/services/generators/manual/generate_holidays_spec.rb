@@ -1,25 +1,25 @@
 require 'rails_helper'
 
-RSpec.describe Generators::Manual::GenerateHolidays do
+describe Generators::Manual::GenerateHolidays do
   subject(:service) { described_class.new(holiday_expr, params) }
 
   let(:years_period) { 1995..2005 }
   let(:params) { { start_date: years_period.first, end_date: years_period.last } }
 
-  let(:day) { Faker::Number.between(1, 28) }
-  let(:month) { Faker::Number.between(1, 12) }
-  let(:year) { Faker::Number.between(1970, 2038) }
+  let(:day) { Faker::Number.between(from: 1, to: 28) }
+  let(:month) { Faker::Number.between(from: 1, to: 12) }
+  let(:year) { Faker::Number.between(from: 1970, to: 2038) }
 
-  let(:day_from) { Faker::Number.between(1, 10) }
-  let(:day_to) { Faker::Number.between(10, 20) }
+  let(:day_from) { Faker::Number.between(from: 1, to: 10) }
+  let(:day_to) { Faker::Number.between(from: 10, to: 20) }
   let(:period_days) { day_from..day_to }
 
-  let(:month_from) { Faker::Number.between(1, 2) }
-  let(:month_to) { Faker::Number.between(3, 4) }
+  let(:month_from) { Faker::Number.between(from: 1, to: 2) }
+  let(:month_to) { Faker::Number.between(from: 3, to: 4) }
   let(:period_months) { month_from..month_to }
 
   let(:nth) { [-2, -1, 1, 2, 3, 4].sample }
-  let(:day_of_week) { Faker::Number.between(1, 7) }
+  let(:day_of_week) { Faker::Number.between(from: 1, to: 7) }
 
   describe '#call' do
     let(:holiday_expr) { create(:holiday_expr) }

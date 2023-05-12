@@ -14,8 +14,8 @@ describe Generators::Google::GenerateHolidays do
   end
 
   context 'when matching holidays in the same country overlapping source dates exist' do
-    let(:dates_1) { Date.parse('2020-01-05')..Date.parse('2020-01-07') }
-    let(:dates_2) { Date.parse('2020-01-08')..Date.parse('2020-01-15') }
+    let(:dates1) { Date.parse('2020-01-05')..Date.parse('2020-01-07') }
+    let(:dates2) { Date.parse('2020-01-08')..Date.parse('2020-01-15') }
 
     shared_examples_for :new_holidays_generated do
       let(:new_holiday) { Holiday.last }
@@ -43,7 +43,7 @@ describe Generators::Google::GenerateHolidays do
       end
 
       it 'destroys rest of existing holidays' do
-        expect(Holiday.where(id: old_ids[1..-1])).to be_empty
+        expect(Holiday.where(id: old_ids[1..])).to be_empty
       end
 
       it "doesn't destroy days of existing holidays" do
@@ -71,29 +71,29 @@ describe Generators::Google::GenerateHolidays do
     end
 
     context 'and multiple holidays overlap source dates' do
-      let!(:holiday_1) { create :holiday, en_name: 'Christmas Day', country: country, dates: dates_1 }
-      let!(:holiday_2) { create :holiday, en_name: 'Christmas Day 2', country: country, dates: dates_2 }
-      let(:old_days_count) { [*dates_1.to_a, *dates_2.to_a].size }
+      let!(:holiday1) { create :holiday, en_name: 'Christmas Day', country: country, dates: dates1 }
+      let!(:holiday2) { create :holiday, en_name: 'Christmas Day 2', country: country, dates: dates2 }
+      let(:old_days_count) { [*dates1.to_a, *dates2.to_a].size }
       let(:new_days_count) { 2 }
-      let!(:old_ids) { [holiday_1.id, holiday_2.id] }
+      let!(:old_ids) { [holiday1.id, holiday2.id] }
 
       context 'and one of holidays has source priority higher than processed source' do
-        before { holiday_2.update_column :current_source_type, Holiday.current_source_types[:file] }
+        before { holiday2.update_column :current_source_type, Holiday.current_source_types[:file] }
 
         include_examples :no_new_holidays
       end
 
       context 'and all holidays have source priority lower than processed source' do
-        before { holiday_1.update_column :current_source_type, Holiday.current_source_types[:google] + 1 }
-        before { holiday_2.update_column :current_source_type, Holiday.current_source_types[:google] + 1 }
+        before { holiday1.update_column :current_source_type, Holiday.current_source_types[:google] + 1 }
+        before { holiday2.update_column :current_source_type, Holiday.current_source_types[:google] + 1 }
         before { subject }
 
         include_examples :new_holidays_generated
       end
 
       context 'and all holidays have source priority equal to processed source' do
-        before { holiday_1.update_column :current_source_type, Holiday.current_source_types[:google] }
-        before { holiday_2.update_column :current_source_type, Holiday.current_source_types[:google] }
+        before { holiday1.update_column :current_source_type, Holiday.current_source_types[:google] }
+        before { holiday2.update_column :current_source_type, Holiday.current_source_types[:google] }
         before { subject }
 
         include_examples :new_holidays_generated
@@ -101,20 +101,20 @@ describe Generators::Google::GenerateHolidays do
     end
 
     context 'and one holiday overlap source dates' do
-      let(:old_days_count) { dates_1.to_a.size }
+      let(:old_days_count) { dates1.to_a.size }
       let(:new_days_count) { 7 }
-      let(:old_ids) { [holiday_1.id] }
+      let(:old_ids) { [holiday1.id] }
 
       shared_examples_for :holiday_processing do
         context 'when dates match with existing holiday' do
-          let(:dates_1) { Date.parse('2020-01-07')..Date.parse('2020-01-08') }
-          let!(:holiday_1) do
+          let(:dates1) { Date.parse('2020-01-07')..Date.parse('2020-01-08') }
+          let!(:holiday1) do
             create :holiday, en_name: 'Christmas Day',
                              country: country,
-                             dates: dates_1
+                             dates: dates1
           end
 
-          before { holiday_1.update_column :current_source_type, current_source_type }
+          before { holiday1.update_column :current_source_type, current_source_type }
           before { subject }
 
           include_examples :holidays_updated
@@ -122,13 +122,13 @@ describe Generators::Google::GenerateHolidays do
 
         context "when dates don't match with existing holiday" do
           let(:new_days_count) { 2 }
-          let!(:holiday_1) do
+          let!(:holiday1) do
             create :holiday, en_name: 'Christmas Day',
                              country: country,
-                             dates: dates_1
+                             dates: dates1
           end
 
-          before { holiday_1.update_column :current_source_type, current_source_type }
+          before { holiday1.update_column :current_source_type, current_source_type }
           before { subject }
 
           include_examples :new_holidays_generated
@@ -150,10 +150,10 @@ describe Generators::Google::GenerateHolidays do
       context 'and existing source priority is higher than processed source' do
         let(:current_source_type) { Holiday.current_source_types[:file] }
 
-        let!(:holiday_1) do
+        let!(:holiday1) do
           create :holiday, en_name: 'Christmas Day',
                            country: country,
-                           dates: dates_1,
+                           dates: dates1,
                            current_source_type: current_source_type
         end
 

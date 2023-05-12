@@ -3,7 +3,7 @@ class Upload < ApplicationRecord
 
   mount_uploader :file, HolidaysUploader
 
-  enum status: %i[pending in_progress success error]
+  enum status: { pending: 0, in_progress: 1, success: 2, error: 3 }
 
   validates :file, presence: true
 

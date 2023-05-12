@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Api::V1::HolidaysService do
   subject(:service) { described_class.new(params) }
-  let(:country) { create(:country) }
+  let(:country) { create(:country, country_code: 'jp') }
 
   describe '#call' do
     let(:new_year) { create(:holiday_expr, country: country, expression: '2018/1.1', ja_name: I18n.with_locale(:ja) { "元旦" }, en_name: "New Year") }
@@ -33,7 +33,10 @@ describe Api::V1::HolidaysService do
         before { params[:year] = '2017' }
 
         it 'returns records according to date in year' do
-          expect(service.call).to match([a_hash_including(en_name: greenery_day.en_name)])
+          expect(service.call).to match([
+                                          a_hash_including(en_name: greenery_day.en_name),
+                                          a_hash_including(en_name: new_year.en_name)
+                                        ])
         end
       end
 
@@ -43,8 +46,10 @@ describe Api::V1::HolidaysService do
         context 'when params[:year] is not given' do
           it 'returns new records with existing ones in year' do
             perform_enqueued_jobs { holiday_week }
-            expect(service.call).to match([a_hash_including(en_name: christmas_day.en_name),
-                                           a_hash_including(en_name: holiday_week.en_name)])
+            expect(service.call).to match([
+                                            a_hash_including(en_name: holiday_week.en_name),
+                                            a_hash_including(en_name: christmas_day.en_name)
+                                          ])
           end
         end
 
@@ -53,22 +58,27 @@ describe Api::V1::HolidaysService do
 
           it 'returns new records with existing ones in year' do
             perform_enqueued_jobs { holiday_week }
-            expect(service.call).to match([a_hash_including(en_name: children_day.en_name),
-                                           a_hash_including(en_name: holiday_week.en_name)])
+            expect(service.call).to match([a_hash_including(en_name: holiday_week.en_name),
+                                           a_hash_including(en_name: children_day.en_name)])
           end
         end
       end
 
       describe 'when holiday is deleted' do
-        let(:children_day) { create(:holiday_expr, expression: '2020/1.5', ja_name: I18n.with_locale(:ja) { "子供の日" }, en_name: "Children's Day") }
+        let!(:children_day) {
+          create(:holiday_expr, country: country, expression: '2023/1.5', ja_name: I18n.with_locale(:ja) { "子供の日" }, en_name: "Children's Day")
+        }
         let(:params) { { state_at: Time.current + 1.day } }
 
         it 'not includes only not deleted holiday' do
           perform_enqueued_jobs { holiday_week }
           holiday_id = HolidayExpr.find(holiday_week.id).holidays.first.id
           Holiday.find(holiday_id).delete
-          expect(service.call).to match([a_hash_including(en_name: children_day.en_name),
-                                         a_hash_including(en_name: christmas_day.en_name)])
+
+          expect(service.call).to match([
+                                          a_hash_including(en_name: children_day.en_name),
+                                          a_hash_including(en_name: christmas_day.en_name)
+                                        ])
         end
       end
     end

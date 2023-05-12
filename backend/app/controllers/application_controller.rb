@@ -3,7 +3,7 @@ class NotAuthenticatedError < StandardError; end
 class ApplicationController < ActionController::API
   include ErrorHandler
   include Authable
-  include Pundit
+  include Pundit::Authorization
 
   protected
 

@@ -2,8 +2,8 @@
 
 module Fetchers
   class FetchFromUploadService < ::Fetchers::BaseFetcherService
-    REGION = ENV.fetch('AWS_REGION') { 'ap-northeast-1' }
-    BUCKET = ENV.fetch('HOLIDAYS_API_BUCKET') { 'revenue-staging-uploads' }
+    REGION = ENV.fetch('AWS_REGION', 'ap-northeast-1')
+    BUCKET = ENV.fetch('HOLIDAYS_API_BUCKET', 'revenue-staging-uploads')
     DATE_KEY = 'date'
     EN_COUNTRY_KEY = 'country'
     JA_COUNTRY_KEY = nil

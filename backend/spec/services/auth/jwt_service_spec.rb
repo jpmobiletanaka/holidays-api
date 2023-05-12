@@ -5,7 +5,7 @@ RSpec.describe Auth::JwtService do
 
   context 'not expirable token' do
     let(:payload) { HashWithIndifferentAccess.new(some_key: 'some_value') }
-    let(:token) { 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzb21lX2tleSI6InNvbWVfdmFsdWUifQ.9q2jroIqAFkP9Lv6LKb67L7WUmeyB8kxW2MWFauL9yI' }
+    let(:token) { 'eyJhbGciOiJIUzI1NiJ9.eyJzb21lX2tleSI6InNvbWVfdmFsdWUifQ.As1WdCAIZ_xuvxJhqKvw2uXmatIvawGiXpAeQqnGE3M' }
 
     describe '#encode' do
       it 'returns tokenized payload' do
@@ -21,7 +21,7 @@ RSpec.describe Auth::JwtService do
   end
 
   context 'expirable token' do
-    let(:expires_at) { (Time.current + Faker::Number.number(1).to_i.hours).to_i }
+    let(:expires_at) { (Time.current + Faker::Number.number(digits: 1).to_i.hours).to_i }
     let(:payload) { HashWithIndifferentAccess.new(some_key: 'some_value', exp: expires_at) }
 
     describe '#decode' do

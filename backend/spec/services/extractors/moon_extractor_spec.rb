@@ -1,8 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Extractors::MoonExtractor do
-  let(:month) { Faker::Number.between(1, 12).to_i }
-  let(:period) { Faker::Number.between(1990, 2005).to_i..Faker::Number.between(2005, 2020).to_i }
+  let(:month) { Faker::Number.between(from: 1, to: 12).to_i }
+  let(:period) { Faker::Number.between(from: 1990, to: 2005).to_i..Faker::Number.between(from: 2005, to: 2020).to_i }
   let(:holiday_expr) { create(:holiday_expr, expression: "#{month}/full-moon") }
   let(:dates_count) { period.map { |year| FullMoonService.in(year, month).count }.sum }
 

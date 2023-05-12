@@ -7,7 +7,7 @@ module Api
       before_action :find_country, only: %i[update destroy]
 
       def index
-        render_response { Country.all }
+        render_response { Country.available }
       end
 
       def create

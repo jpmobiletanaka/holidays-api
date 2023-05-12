@@ -62,7 +62,7 @@ jobs:
   build:
     <<: *default
     docker:
-      - image: circleci/ruby:2.5.5-stretch-node-browsers
+      - image: cimg/ruby:2.7.7-browsers
         environment:
           RAILS_ENV: test
           BUNDLE_PATH: vendor/bundle
@@ -95,7 +95,7 @@ jobs:
   spec:
     <<: *default
     docker:
-      - image: circleci/ruby:2.5.5-stretch-node-browsers
+      - image: cimg/ruby:2.7.7-browsers
         environment:
           RAILS_ENV: test
           BUNDLE_PATH: vendor/bundle

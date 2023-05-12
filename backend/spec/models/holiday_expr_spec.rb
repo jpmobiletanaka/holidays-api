@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-fdescribe HolidayExpr do
+describe HolidayExpr do
   subject(:model) { described_class.new(main_attrs) }
 
   let(:country) { create(:country) }
@@ -11,7 +11,7 @@ fdescribe HolidayExpr do
       ja_name: I18n.with_locale(:ja) { Faker::Name.name },
       en_name: Faker::Name.name,
       calendar_type: :gregorian
-}
+    }
   end
 
   it { expect { model.save }.to have_enqueued_job.on_queue('generate_holidays') }

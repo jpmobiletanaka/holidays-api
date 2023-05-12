@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe FullMoonService do
   subject(:service) { described_class }
 
-  let(:year) { Faker::Number.between(1970, 2038) }
-  let(:month) { Faker::Number.between(1, 12) }
+  let(:year) { Faker::Number.between(from: 1970, to: 2038) }
+  let(:month) { Faker::Number.between(from: 1, to: 12) }
 
   describe '#in' do
     context 'without month' do

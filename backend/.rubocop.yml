@@ -1,9 +1,10 @@
 # require: rubocop-rspec
+require: rubocop-rails
 
 AllCops:
   DisplayCopNames: true
   StyleGuideCopsOnly: false
-  TargetRubyVersion: 2.4
+  TargetRubyVersion: 2.7
   Exclude:
     - db/**/*
     - script/**/*
@@ -52,14 +53,14 @@ Rails/UnknownEnv:
 Documentation:
   Enabled: false
 
-Layout/TrailingBlankLines:
+Layout/TrailingEmptyLines:
   Enabled: false
 
 Layout/MultilineBlockLayout:
   Exclude:
     - spec/**/*
 
-Layout/IndentHash:
+Layout/FirstHashElementIndentation:
   Exclude:
     - spec/**/*
 
@@ -132,8 +133,11 @@ Metrics/BlockLength:
     - spec/**/*
     - lib/tasks/**/*
 
-Naming/UncommunicativeMethodParamName:
+Naming/MethodParameterName:
   Enabled: false
 
 Naming/MemoizedInstanceVariableName:
+  Enabled: false
+
+Lint/MissingSuper:
   Enabled: false

@@ -11,7 +11,7 @@ module Extractors
       end
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:disable Metrics/CyclomaticComplexity
     def extract_date(year)
       week_num = nth.dup
       first_week_of_year      = Date.commercial(year, 1, 1)   # 1
@@ -28,9 +28,10 @@ module Extractors
 
       date = Date.commercial(year, week_num, day_of_week) + add.to_i.days
       return unless date.month == month.to_i
+
       date
     end
-    # rubocop:enable Metrics/CyclomaticComplexity, Metrics/PerceivedComplexity
+    # rubocop:enable Metrics/CyclomaticComplexity
 
     private
 
