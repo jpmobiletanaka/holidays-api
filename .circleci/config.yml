@@ -64,9 +64,9 @@ jobs:
       #     name: Install system dependencies
       #     command: |
       #       sudo apt-get update -qq && sudo apt-get install -y unzip libnss3 google-chrome-stable
-      - run:
-          name: Setup env
-          command: cp .env.ci.example .env
+      # - run:
+      #     name: Setup env
+      #     command: cp .env.ci.example .env
       - restore_cache:
           name: Restore bundle cache
           keys:
@@ -93,6 +93,8 @@ jobs:
           HOLIDAYS_API_BUCKET: revenue-staging-uploads
           DB_HOST: 127.0.0.1
           DB_PORT: 5432
+          GOOGLE_CALENDAR_API_KEY: AKIA1234
+          JWT_SECRET_KEY: super_secret_authentication_key
       - image: cimg/postgres:11.20
     steps:
       - attach_workspace:
