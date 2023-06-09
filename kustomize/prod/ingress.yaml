@@ -25,10 +25,3 @@ spec:
                 name: holidays-api-web
                 port:
                   number: 80
-          - path: /cable
-            pathType: Prefix
-            backend:
-              service:
-                name: holidays-api-web
-                port:
-                  number: 80
