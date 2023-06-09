@@ -24,7 +24,7 @@ RUN gem install bundler
 
 
 FROM base AS back-deploy
-RUN bundle check || bundle install
+RUN bundle check || bundle install --without development test
 ENTRYPOINT sudo cron && \
            bundle exec whenever -i && \
            bundle exec rails s -p 3000 -b '0.0.0.0'
