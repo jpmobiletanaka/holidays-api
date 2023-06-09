@@ -25,6 +25,10 @@ module Fetchers
       fetch_file
       transform
       import
+      Rails.logger.info JSON.dump(time: Time.now.utc,
+                                  class: self.class.name,
+                                  file_id: options[:upload_id],
+                                  events: events)
       success
     rescue StandardError => e
       error(e)

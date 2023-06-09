@@ -1,7 +1,7 @@
 module Auth
   class JwtService
     ALGORITHM  = 'HS256'.freeze
-    SECRET_KEY = Rails.application.credentials.jwt_secret_key
+    SECRET_KEY = ENV.fetch('JWT_SECRET_KEY')
 
     def self.encode(payload)
       JWT.encode(payload, SECRET_KEY, ALGORITHM)

@@ -3,13 +3,14 @@ services:
   backend:
     image: holidays-api_backend
     build:
-      context: ./backend
-      dockerfile: docker/web/Dockerfile
+      context: .
+      dockerfile: docker/back/Dockerfile
+      target: back-dev  # back-deploy
     volumes:
       - ./backend:/home/dockeruser/project
       - gems:/usr/local/bundle
     links:
-      - postgres
+      # - postgres
       - frontend
     ports:
       - 3000:3000
@@ -20,8 +21,9 @@ services:
   frontend:
     image: holidays-api_frontend
     build:
-      context: ./frontend
-      dockerfile: docker/web/Dockerfile
+      context: .
+      dockerfile: docker/front/Dockerfile
+      target: front-dev  # front-deploy
     environment:
       HOST: '0.0.0.0'
       PORT: '8080'
@@ -34,27 +36,14 @@ services:
     stdin_open: true
     tty: true
 
-  postgres:
-    build:
-      context: .
-      dockerfile: ./docker/postgresql/Dockerfile
-    ports:
-      - 5432:5432
-    volumes:
-      - ./docker/postgresql/data/:/var/lib/postgresql/data
-
-
-#  mysql:
-#    build:
-#      context: .
-#      dockerfile: ./docker/mysql/Dockerfile
-#    env_file: .env
-#    command: [mysqld, --character-set-server=utf8mb4, --collation-server=utf8mb4_unicode_ci]
-#    ports:
-#      - 3306:3306
-#    volumes:
-#      - ./backend:/home/root/project
-#      - ./docker/mysql/data:/var/lib/mysql
+  # postgres:
+  #   build:
+  #     context: .
+  #     dockerfile: ./docker/postgresql/Dockerfile
+  #   ports:
+  #     - 5432:5432
+  #   volumes:
+  #     - ./docker/postgresql/data/:/var/lib/postgresql/data
 
 volumes:
   gems:

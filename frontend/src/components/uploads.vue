@@ -45,6 +45,7 @@ export default {
       const formData = new FormData();
       formData.append('file', this.file);
       this.$store.dispatch(`Uploads/${UPLOAD_REQUEST}`, formData).then((r) => {
+        // eslint-disable-next-line
         console.log(r);
       });
     },
