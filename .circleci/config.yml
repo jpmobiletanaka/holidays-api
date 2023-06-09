@@ -93,7 +93,7 @@ jobs:
           HOLIDAYS_API_BUCKET: revenue-staging-uploads
           DB_HOST: 127.0.0.1
           DB_PORT: 5432
-      - image: cimg/postgres:11.5
+      - image: cimg/postgres:11.20
     steps:
       - attach_workspace:
           at: .
