@@ -23,7 +23,7 @@ spec:
           emptyDir: {}
       containers:
         - name: backend
-          image: 611630892743.dkr.ecr.ap-northeast-1.amazonaws.com/holidays-api-backend:main-70 # {"$imagepolicy": "flux-system:holidays-api-backend-prod"}
+          image: 611630892743.dkr.ecr.ap-northeast-1.amazonaws.com/holidays-api-backend:main-77 # {"$imagepolicy": "flux-system:holidays-api-backend-prod"}
           imagePullPolicy: Always
           volumeMounts:
             - mountPath: /home/dockeruser/project/tmp
@@ -93,7 +93,6 @@ spec:
                 secretKeyRef:
                   name: secrets
                   key: JWT_SECRET_KEY
-
           # livenessProbe:
           #   exec:
           #     command:
