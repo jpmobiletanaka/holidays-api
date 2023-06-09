@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: holidays-api-frontend
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: holidays-api
+      type: frontend
+  template:
+    metadata:
+      labels:
+        app: holidays-api
+        type: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: 611630892743.dkr.ecr.ap-northeast-1.amazonaws.com/holidays-api-frontend:main-70 # {"$imagepolicy": "flux-system:holidays-api-frontend-prod"}
+          imagePullPolicy: Always
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+          resources:
+            limits:
+              cpu: 10m
+              memory: 128Mi
+            requests:
+              cpu: 10m
+              memory: 128Mi

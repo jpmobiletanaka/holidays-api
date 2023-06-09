@@ -14,8 +14,8 @@ RUN yarn && yarn build && yarn global add http-server
 
 
 FROM base AS front-deploy
-ENTRYPOINT export NODE_ENV=production && \
-           /home/dockeruser/.yarn/bin/http-server ./dist/
+COPY ./frontend/.env.prod .env
+ENTRYPOINT http-server ./dist
 
 
 FROM base AS front-dev
