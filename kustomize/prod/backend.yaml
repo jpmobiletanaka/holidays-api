@@ -23,7 +23,7 @@ spec:
           emptyDir: {}
       containers:
         - name: backend
-          image: 611630892743.dkr.ecr.ap-northeast-1.amazonaws.com/holidays-api-backend:main-88 # {"$imagepolicy": "flux-system:holidays-api-backend-prod"}
+          image: 611630892743.dkr.ecr.ap-northeast-1.amazonaws.com/holidays-api-backend:main-91 # {"$imagepolicy": "flux-system:holidays-api-backend-prod"}
           imagePullPolicy: Always
           volumeMounts:
             - mountPath: /home/dockeruser/project/tmp
