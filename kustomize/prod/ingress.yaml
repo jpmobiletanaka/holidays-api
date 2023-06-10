@@ -25,3 +25,10 @@ spec:
                 name: holidays-api-frontend
                 port:
                   number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: holidays-api-backend
+                port:
+                  number: 80
