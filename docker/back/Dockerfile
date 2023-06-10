@@ -11,7 +11,7 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
 ENV APP_HOME /home/dockeruser/project
 
 RUN useradd -ms /bin/bash dockeruser
-RUN echo "dockeruser ALL=(ALL) NOPASSWD: /usr/sbin/cron" >> /etc/sudoers
+RUN echo "dockeruser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 WORKDIR $APP_HOME
 
