@@ -94,7 +94,7 @@ jobs:
           DB_HOST: 127.0.0.1
           DB_PORT: 5432
           GOOGLE_CALENDAR_API_KEY: AKIA1234
-          JWT_SECRET_KEY: super_secret_authentication_key
+          JWT_SECRET_KEY: c3VwZXJfc2VjcmV0X2F1dGhlbnRpY2F0aW9uX2tleQ
       - image: cimg/postgres:11.20
     steps:
       - attach_workspace:
