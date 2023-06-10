@@ -32,3 +32,37 @@ spec:
                 name: holidays-api-backend
                 port:
                   number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: holidays-api-deprecated
+  namespace: holidays-api-prod
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: "holidays.revenue.metroengines.jp"
+    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
+    # nginx.ingress.kubernetes.io/whitelist-source-range: "13.231.97.44/32,124.219.182.47/32"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - "holidays.revenue.metroengines.jp"
+    secretName: revenue-apa-wildcard
+  rules:
+    - host: 'holidays.revenue.metroengines.jp'
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: holidays-api-frontend
+                port:
+                  number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: holidays-api-backend
+                port:
+                  number: 80
