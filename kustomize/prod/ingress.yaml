@@ -47,7 +47,7 @@ spec:
   tls:
   - hosts:
     - "holidays.revenue.metroengines.jp"
-    secretName: revenue-apa-wildcard
+    secretName: revenue-wildcard
   rules:
     - host: 'holidays.revenue.metroengines.jp'
       http:
