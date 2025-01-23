@@ -41,3 +41,5 @@ backend/public/packs
 backend/public/packs-test
 backend/public/uploads
 backend/byebug_history
+
+docker/postgresql/data

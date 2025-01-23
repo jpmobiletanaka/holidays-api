@@ -109,3 +109,12 @@ sh deploy/push.sh
 sh APP_ENV=your_env deploy/migrate.sh
 sh APP_ENV=your_env deploy/update_service.sh
 ```
+
+### Fetch Holidays
+```ruby
+Country.all.each do |country|
+  Fetchers::FetchFromGoogleService.call({ langs: [:en, :ja], options: { country: country }, start_date: '2026-01-01'.to_date})
+end
+Generators::Google::GenerateHolidays.call
+```
+
