@@ -6,10 +6,12 @@ metadata:
   namespace: holidays-api-prod
   annotations:
     external-dns.alpha.kubernetes.io/hostname: "holidays.metroengines.jp"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    # nginx.ingress.kubernetes.io/whitelist-source-range: "13.231.97.44/32,124.219.182.47/32"
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    # IP allowlist (re-enable via Middleware if needed):
+    # traefik.ingress.kubernetes.io/router.middlewares: holidays-api-prod-ip-allowlist@kubernetescrd
 spec:
-  ingressClassName: nginx
+  ingressClassName: traefik
   tls:
   - hosts:
     - "holidays.metroengines.jp"
@@ -40,10 +42,10 @@ metadata:
   namespace: holidays-api-prod
   annotations:
     external-dns.alpha.kubernetes.io/hostname: "holidays.revenue.metroengines.jp"
-    nginx.ingress.kubernetes.io/force-ssl-redirect: "true"
-    # nginx.ingress.kubernetes.io/whitelist-source-range: "13.231.97.44/32,124.219.182.47/32"
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
 spec:
-  ingressClassName: nginx
+  ingressClassName: traefik
   tls:
   - hosts:
     - "holidays.revenue.metroengines.jp"
