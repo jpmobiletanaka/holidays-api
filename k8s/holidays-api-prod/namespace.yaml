@@ -1,0 +1,8 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: holidays-api-prod
+  labels:
+    name: holidays-api-prod
+    app: holidays-api
+    environment: production

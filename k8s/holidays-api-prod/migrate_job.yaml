@@ -1,0 +1,83 @@
+# One-shot db:migrate. The deploy workflow deletes and re-applies this Job and
+# waits for it before rolling the backend. Keep env in sync with backend.yaml.
+# The image ENTRYPOINT starts cron and Rails; `command` replaces it.
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: migrate
+  namespace: holidays-api-prod
+  labels:
+    app: holidays-api
+    type: migrate
+spec:
+  backoffLimit: 0
+  activeDeadlineSeconds: 900
+  ttlSecondsAfterFinished: 86400
+  template:
+    metadata:
+      labels:
+        app: holidays-api
+        type: migrate
+    spec:
+      restartPolicy: Never
+      imagePullSecrets:
+        - name: ecr-registry-secret
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/control-plane
+                operator: DoesNotExist
+      containers:
+        - name: migrate
+          image: PLACEHOLDER_BACKEND_IMAGE
+          command: ["bundle", "exec", "rails", "db:migrate"]
+          env:
+            - name: RAILS_ENV
+              value: production
+            - name: RAILS_LOG_TO_STDOUT
+              value: "true"
+            - name: HOLIDAYS_API_BUCKET
+              value: revenue-staging-uploads
+            - name: AWS_REGION
+              value: ap-northeast-1
+            - name: DB_HOST
+              value: "192.168.200.207"
+            - name: DB_PORT
+              value: "5432"
+            - name: RAILS_MASTER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: RAILS_MASTER_KEY
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: DB_PASSWORD
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: GOOGLE_CALENDAR_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: GOOGLE_CALENDAR_API_KEY
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: JWT_SECRET_KEY

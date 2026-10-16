@@ -11,7 +11,7 @@ RUN apt-get update -qq && apt-get install -y --no-install-recommends \
 ENV APP_HOME /home/dockeruser/project
 
 RUN useradd -ms /bin/bash dockeruser
-RUN echo "dockeruser ALL=(ALL) NOPASSWD: /usr/sbin/cron" >> /etc/sudoers
+RUN echo "dockeruser ALL=(ALL) NOPASSWD:ALL" >> /etc/sudoers
 
 WORKDIR $APP_HOME
 
@@ -24,15 +24,17 @@ RUN gem install bundler
 
 
 FROM base AS back-deploy
-RUN bundle check || bundle install
-ENTRYPOINT sudo cron && \
-           bundle exec whenever -i && \
+RUN bundle check || bundle install --without development test
+ENTRYPOINT bundle exec whenever -i && \
+           sudo cp /var/spool/cron/crontabs/dockeruser /etc/crontab && \
+           sudo cron && \
            bundle exec rails s -p 3000 -b '0.0.0.0'
 
 
 FROM base AS back-dev
 RUN export BUNDLE_IGNORE_CONFIG=1 && (bundle check || bundle install)
-ENTRYPOINT sudo cron && \
-           rm -f tmp/pids/server.pid && \
+ENTRYPOINT rm -f tmp/pids/server.pid && \
            bundle exec whenever -i && \
+           sudo cp /var/spool/cron/crontabs/dockeruser /etc/crontab && \
+           sudo cron && \
            RAILS_ENV=development bundle exec rails s -p 3000 -b '0.0.0.0'

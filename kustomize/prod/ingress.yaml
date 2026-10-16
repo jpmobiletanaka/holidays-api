@@ -1,0 +1,70 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: holidays-api
+  namespace: holidays-api-prod
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: "holidays.metroengines.jp"
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    # IP allowlist (re-enable via Middleware if needed):
+    # traefik.ingress.kubernetes.io/router.middlewares: holidays-api-prod-ip-allowlist@kubernetescrd
+spec:
+  ingressClassName: traefik
+  tls:
+  - hosts:
+    - "holidays.metroengines.jp"
+    secretName: metroengines.jp
+  rules:
+    - host: 'holidays.metroengines.jp'
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: holidays-api-frontend
+                port:
+                  number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: holidays-api-backend
+                port:
+                  number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: holidays-api-deprecated
+  namespace: holidays-api-prod
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: "holidays.revenue.metroengines.jp"
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+spec:
+  ingressClassName: traefik
+  tls:
+  - hosts:
+    - "holidays.revenue.metroengines.jp"
+    secretName: revenue-wildcard
+  rules:
+    - host: 'holidays.revenue.metroengines.jp'
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: holidays-api-frontend
+                port:
+                  number: 80
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: holidays-api-backend
+                port:
+                  number: 80

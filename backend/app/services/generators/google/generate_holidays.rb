@@ -47,7 +47,7 @@ module Generators
       def raw_holiday_valid?(raw_holiday)
         errors = []
         errors.push('Holiday has multiple Japanese names') unless raw_holiday.ja_names.size == 1
-        errors.push("Country doesnt exist") unless countries_by_code.include?(raw_holiday.country_code)
+        errors.push("Country doesn't exist") unless countries_by_code.include?(raw_holiday.country_code)
         update_state(raw_holiday, :error, nil, errors) && (return false) unless errors.empty?
         true
       end

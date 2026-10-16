@@ -111,6 +111,11 @@ sh APP_ENV=your_env deploy/update_service.sh
 ```
 
 ### Fetch Holidays
+```bash
+kubectl -n holidays-api-prod get pods
+kubectl -n holidays-api-prod exec -it holidays-api-prod-<POD_ID> -c backend -- rails c
+```
+
 ```ruby
 Country.all.each do |country|
   Fetchers::FetchFromGoogleService.call({ langs: [:en, :ja], options: { country: country }, start_date: '2026-01-01'.to_date})

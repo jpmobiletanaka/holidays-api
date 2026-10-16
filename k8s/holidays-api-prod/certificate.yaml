@@ -1,0 +1,22 @@
+# Certificate for holidays-dc.metroengines.jp
+# Stored in secret: holidays-dc-metroengines-jp (must match ingress.yaml tls.secretName)
+#
+# NOT applied by deploy-k8s.yml. Apply by hand once external-dns has published
+# the name and it points at the DC1 Traefik VIP:
+#
+#   kubectl apply -f k8s/holidays-api-prod/certificate.yaml
+#
+# On Monday, add holidays.metroengines.jp to dnsNames after that name's DNS
+# points here, then apply this file again. See scripts/cutover_monday.sh.
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: holidays-dc-metroengines-jp
+  namespace: holidays-api-prod
+spec:
+  secretName: holidays-dc-metroengines-jp
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  dnsNames:
+    - holidays-dc.metroengines.jp

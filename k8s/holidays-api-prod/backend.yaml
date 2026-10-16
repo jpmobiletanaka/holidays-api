@@ -1,0 +1,135 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    meoffice.jp/owner: "Vlad"
+    meoffice.jp/owner-slack: "U8SKCUMAP"
+  name: holidays-api-backend
+  namespace: holidays-api-prod
+spec:
+  replicas: 1
+  strategy:
+    rollingUpdate:
+      maxUnavailable: 0
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: holidays-api
+      type: backend
+  template:
+    metadata:
+      labels:
+        app: holidays-api
+        type: backend
+    spec:
+      terminationGracePeriodSeconds: 40
+      imagePullSecrets:
+        - name: ecr-registry-secret
+      affinity:
+        nodeAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            nodeSelectorTerms:
+            - matchExpressions:
+              - key: node-role.kubernetes.io/control-plane
+                operator: DoesNotExist
+      volumes:
+        - name: cache-volume
+          emptyDir: {}
+      containers:
+        - name: backend
+          image: PLACEHOLDER_BACKEND_IMAGE
+          imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: /home/dockeruser/project/tmp
+              name: cache-volume
+          ports:
+            - name: http
+              containerPort: 3000
+              protocol: TCP
+          startupProbe:
+            httpGet:
+              path: /api/v1/health-check
+              port: http
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 60
+          readinessProbe:
+            httpGet:
+              path: /api/v1/health-check
+              port: http
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          livenessProbe:
+            httpGet:
+              path: /api/v1/health-check
+              port: http
+            periodSeconds: 15
+            timeoutSeconds: 5
+            failureThreshold: 6
+          lifecycle:
+            preStop:
+              sleep:
+                seconds: 10
+          env:
+            - name: RAILS_ENV
+              value: production
+            - name: PUMA_PORT
+              value: "3000"
+            - name: RAILS_MAX_THREADS
+              value: "5"
+            - name: RAILS_MIN_THREADS
+              value: "3"
+            - name: WEB_CONCURRENCY
+              value: "2"
+            - name: RAILS_LOG_TO_STDOUT
+              value: "true"
+            - name: HOLIDAYS_API_BUCKET
+              value: revenue-staging-uploads
+            - name: AWS_REGION
+              value: ap-northeast-1
+            - name: DB_HOST
+              value: "192.168.200.207"
+            - name: DB_PORT
+              value: "5432"
+            - name: RAILS_MASTER_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: RAILS_MASTER_KEY
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: DB_USER
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: DB_PASSWORD
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: AWS_ACCESS_KEY_ID
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: AWS_SECRET_ACCESS_KEY
+            - name: GOOGLE_CALENDAR_API_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: GOOGLE_CALENDAR_API_KEY
+            - name: JWT_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: secrets
+                  key: JWT_SECRET_KEY
+          resources:
+            limits:
+              memory: 384Mi
+            requests:
+              cpu: 10m
+              memory: 384Mi
