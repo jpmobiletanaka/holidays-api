@@ -1,6 +1,9 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  annotations:
+    meoffice.jp/owner: "Vlad"
+    meoffice.jp/owner-slack: "U8SKCUMAP"
   name: holidays-api-backend
   namespace: holidays-api-prod
 spec:
