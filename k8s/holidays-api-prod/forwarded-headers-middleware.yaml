@@ -1,0 +1,11 @@
+# Do not pin X-Forwarded-Host. This ingress serves holidays-dc now and
+# holidays.metroengines.jp after the Monday DNS swap.
+apiVersion: traefik.io/v1alpha1
+kind: Middleware
+metadata:
+  name: forwarded-headers
+  namespace: holidays-api-prod
+spec:
+  headers:
+    customRequestHeaders:
+      X-Forwarded-Proto: "https"

@@ -1,6 +1,9 @@
 import axios from 'axios/index'
 
-const baseHost = process.env.API_URL || 'http://localhost:3000';
+// An empty API_URL is same-origin. Only local dev falls back to the Rails port.
+const baseHost = process.env.API_URL
+  ? process.env.API_URL
+  : (process.env.NODE_ENV === 'development' ? 'http://localhost:3000' : '')
 const basePath = process.env.API_PATH || '/api'
 const apiVersion = process.env.API_VER || 1
 

@@ -1,0 +1,252 @@
+name: 🚀 DC1MAIN Kubernetes Deployment
+
+# Manual deploy of holidays-api onto DC1MAIN-2. Does not touch the EKS cluster.
+# GitHub Environment holidays-api-prod must contain the app secrets listed in
+# "Create Application Secrets" plus the AWS keys this workflow uses for ECR.
+on:
+  workflow_dispatch:
+
+env:
+  AWS_REGION: ap-northeast-1
+  NAMESPACE: holidays-api-prod
+  K8S_DIR: k8s/holidays-api-prod
+  ECR_REGISTRY: 611630892743.dkr.ecr.ap-northeast-1.amazonaws.com
+
+jobs:
+  extract-metadata:
+    name: 📋 Extract Metadata
+    runs-on: [custom-tools-dc1main2-hp]
+    outputs:
+      image_tag: ${{ steps.meta.outputs.image_tag }}
+      commit_hash: ${{ steps.meta.outputs.commit_hash }}
+
+    steps:
+    - name: 🚦 Guard Deployable Branch
+      run: |
+        case "$GITHUB_REF" in
+          refs/heads/main)
+            echo "✅ $GITHUB_REF is deployable"
+            ;;
+          *)
+            echo "::error title=Deploy blocked::$GITHUB_REF is not a deployable ref."
+            echo "❌ Refusing to deploy from $GITHUB_REF"
+            echo "   Deployable branch: main → holidays-api-prod"
+            exit 1
+            ;;
+        esac
+
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 📋 Extract Metadata
+      id: meta
+      run: |
+        COMMIT_HASH=$(git rev-parse --short HEAD)
+        IMAGE_TAG="main-${GITHUB_RUN_NUMBER}"
+        echo "image_tag=$IMAGE_TAG" >> "$GITHUB_OUTPUT"
+        echo "commit_hash=$COMMIT_HASH" >> "$GITHUB_OUTPUT"
+        echo "📦 Image tag: $IMAGE_TAG"
+        echo "📝 Commit: $COMMIT_HASH"
+
+  build-and-push:
+    name: 🔨 Build & Push to ECR
+    runs-on: [custom-tools-dc1main2-hp]
+    needs: extract-metadata
+    environment: holidays-api-prod
+    permissions:
+      id-token: write
+      contents: read
+    outputs:
+      backend_image: ${{ steps.image.outputs.backend_image }}
+      frontend_image: ${{ steps.image.outputs.frontend_image }}
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 🔑 Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: 🏗️ Create ECR repositories if missing
+      run: |
+        for repo in holidays-api-backend holidays-api-frontend; do
+          aws ecr describe-repositories --repository-names "$repo" --region "$AWS_REGION" \
+            || aws ecr create-repository --repository-name "$repo" --region "$AWS_REGION"
+        done
+
+    - name: 🚀 Set up Docker Buildx
+      uses: docker/setup-buildx-action@v3
+      with:
+        driver-opts: |
+          network=host
+        buildkitd-flags: --allow-insecure-entitlement network.host
+
+    - name: 🔨 Build and push backend and frontend
+      id: image
+      run: |
+        IMAGE_TAG="${{ needs.extract-metadata.outputs.image_tag }}"
+        aws ecr get-login-password --region "$AWS_REGION" | \
+          docker login --username AWS --password-stdin "$ECR_REGISTRY"
+
+        export DOCKER_BUILDKIT=1
+        export BUILDKIT_PROGRESS=plain
+
+        build_one() {
+          local name="$1" dockerfile="$2" target="$3" repository="$4"
+          local full="${ECR_REGISTRY}/${repository}:${IMAGE_TAG}"
+          echo "🔨 Building $name → $full"
+          docker buildx build \
+            --file "$dockerfile" \
+            --tag "$full" \
+            --tag "${ECR_REGISTRY}/${repository}:main-latest" \
+            --platform linux/amd64 \
+            --target "$target" \
+            --push \
+            --provenance=false \
+            --sbom=false \
+            --label "build_number=${GITHUB_RUN_NUMBER}" \
+            --label "commit_sha=${GITHUB_SHA}" \
+            --progress=plain \
+            .
+          echo "${name}_image=${full}" >> "$GITHUB_OUTPUT"
+        }
+
+        build_one backend docker/back/Dockerfile back-deploy holidays-api-backend
+        build_one frontend docker/front/Dockerfile front-deploy holidays-api-frontend
+
+  deploy-to-k8s:
+    name: 🚀 Deploy to Kubernetes (DC1MAIN-2)
+    runs-on: [custom-tools-dc1main2-hp]
+    needs: [extract-metadata, build-and-push]
+    environment: holidays-api-prod
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 🔑 Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v4
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: ${{ env.AWS_REGION }}
+
+    - name: 🔐 Create namespace and ECR registry secret
+      run: |
+        kubectl apply -f "$K8S_DIR/namespace.yaml"
+        ECR_TOKEN=$(aws ecr get-login-password --region "$AWS_REGION")
+        kubectl create secret docker-registry ecr-registry-secret \
+          --docker-server="$ECR_REGISTRY" \
+          --docker-username=AWS \
+          --docker-password="$ECR_TOKEN" \
+          --namespace="$NAMESPACE" \
+          --dry-run=client -o yaml | kubectl apply -f -
+
+    - name: 🔐 Create application secrets
+      env:
+        RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+        DB_USER: ${{ secrets.DB_USER }}
+        DB_PASSWORD: ${{ secrets.DB_PASSWORD }}
+        AWS_ACCESS_KEY_ID_VAL: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY_VAL: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        GOOGLE_CALENDAR_API_KEY: ${{ secrets.GOOGLE_CALENDAR_API_KEY }}
+        JWT_SECRET_KEY: ${{ secrets.JWT_SECRET_KEY }}
+      run: |
+        missing=0
+        for name in RAILS_MASTER_KEY DB_USER DB_PASSWORD AWS_ACCESS_KEY_ID_VAL AWS_SECRET_ACCESS_KEY_VAL GOOGLE_CALENDAR_API_KEY JWT_SECRET_KEY; do
+          if [ -z "${!name}" ]; then
+            echo "❌ Missing GitHub Environment secret: $name"
+            missing=1
+          fi
+        done
+        if [ "$missing" -ne 0 ]; then
+          echo "Create them on the holidays-api-prod environment."
+          echo "DB_USER / DB_PASSWORD must match APP_USER / APP_PASSWORD from scripts/pg_sync.sh."
+          exit 1
+        fi
+
+        kubectl apply -f "$K8S_DIR/namespace.yaml"
+
+        kubectl create secret generic secrets \
+          --from-literal=RAILS_MASTER_KEY="$RAILS_MASTER_KEY" \
+          --from-literal=DB_USER="$DB_USER" \
+          --from-literal=DB_PASSWORD="$DB_PASSWORD" \
+          --from-literal=AWS_ACCESS_KEY_ID="$AWS_ACCESS_KEY_ID_VAL" \
+          --from-literal=AWS_SECRET_ACCESS_KEY="$AWS_SECRET_ACCESS_KEY_VAL" \
+          --from-literal=GOOGLE_CALENDAR_API_KEY="$GOOGLE_CALENDAR_API_KEY" \
+          --from-literal=JWT_SECRET_KEY="$JWT_SECRET_KEY" \
+          --namespace="$NAMESPACE" \
+          --dry-run=client -o yaml | kubectl apply -f -
+
+    - name: 🗄️ Run migrations
+      run: |
+        BACKEND_IMAGE="${{ needs.build-and-push.outputs.backend_image }}"
+        if [ -z "$BACKEND_IMAGE" ]; then
+          echo "❌ Backend image is empty"
+          exit 1
+        fi
+
+        kubectl delete job migrate -n "$NAMESPACE" --ignore-not-found --cascade=foreground --wait=true
+        sed "s|PLACEHOLDER_BACKEND_IMAGE|${BACKEND_IMAGE}|g" "$K8S_DIR/migrate_job.yaml" | kubectl apply -f -
+
+        TIMEOUT=960
+        DEADLINE=$((SECONDS + TIMEOUT))
+        while true; do
+          COMPLETE=$(kubectl get job migrate -n "$NAMESPACE" -o jsonpath='{.status.conditions[?(@.type=="Complete")].status}' 2>/dev/null || true)
+          FAILED=$(kubectl get job migrate -n "$NAMESPACE" -o jsonpath='{.status.conditions[?(@.type=="Failed")].status}' 2>/dev/null || true)
+          if [ "$COMPLETE" = "True" ]; then
+            break
+          fi
+          if [ "$FAILED" = "True" ]; then
+            echo "❌ Migrations failed. Running pods were not updated."
+            kubectl logs job/migrate -n "$NAMESPACE" --tail=200 || true
+            exit 1
+          fi
+          if [ "$SECONDS" -ge "$DEADLINE" ]; then
+            echo "❌ Timed out after ${TIMEOUT}s waiting for migrations."
+            kubectl logs job/migrate -n "$NAMESPACE" --tail=200 || true
+            exit 1
+          fi
+          sleep 5
+        done
+        kubectl logs job/migrate -n "$NAMESPACE" --tail=100 || true
+
+    - name: 🚀 Deploy
+      run: |
+        BACKEND_IMAGE="${{ needs.build-and-push.outputs.backend_image }}"
+        FRONTEND_IMAGE="${{ needs.build-and-push.outputs.frontend_image }}"
+        if [ -z "$BACKEND_IMAGE" ] || [ -z "$FRONTEND_IMAGE" ]; then
+          echo "❌ Image output is empty"
+          exit 1
+        fi
+
+        sed "s|PLACEHOLDER_BACKEND_IMAGE|${BACKEND_IMAGE}|g" "$K8S_DIR/backend.yaml" | kubectl apply -f -
+        sed "s|PLACEHOLDER_FRONTEND_IMAGE|${FRONTEND_IMAGE}|g" "$K8S_DIR/frontend.yaml" | kubectl apply -f -
+        kubectl apply -f "$K8S_DIR/service_backend.yaml"
+        kubectl apply -f "$K8S_DIR/service_frontend.yaml"
+        kubectl apply -f "$K8S_DIR/forwarded-headers-middleware.yaml"
+        kubectl apply -f "$K8S_DIR/ingress.yaml"
+        echo "ℹ️ certificate.yaml is NOT applied here. Apply it after holidays-dc.metroengines.jp resolves to DC1."
+
+    - name: ⏳ Wait for rollout
+      run: |
+        kubectl rollout status deployment/holidays-api-backend -n "$NAMESPACE" --timeout=600s
+        kubectl rollout status deployment/holidays-api-frontend -n "$NAMESPACE" --timeout=300s
+        kubectl get pods,svc,ingress -n "$NAMESPACE"
+
+    - name: 🔍 Summary
+      run: |
+        echo "🎉 holidays-api on DC1MAIN-2"
+        echo "📦 Backend:  ${{ needs.build-and-push.outputs.backend_image }}"
+        echo "📦 Frontend: ${{ needs.build-and-push.outputs.frontend_image }}"
+        echo "🌐 URL: https://holidays-dc.metroengines.jp"
+        echo "📝 Commit: ${{ needs.extract-metadata.outputs.commit_hash }}"
+        echo "Postgres: 192.168.200.207:5432 / holidays_production"
+        echo "Load data with scripts/pg_sync.sh before expecting the app to serve holidays."

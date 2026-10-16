@@ -1,0 +1,58 @@
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: holidays-api
+  namespace: holidays-api-prod
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: "holidays-dc.metroengines.jp"
+    # TLS secret is issued by manually applying certificate.yaml (not this workflow).
+    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.tls: "true"
+    traefik.ingress.kubernetes.io/router.middlewares: holidays-api-prod-forwarded-headers@kubernetescrd
+spec:
+  ingressClassName: traefik
+  tls:
+  - hosts:
+    - holidays-dc.metroengines.jp
+    secretName: holidays-dc-metroengines-jp
+  rules:
+  - host: holidays-dc.metroengines.jp
+    http:
+      paths:
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: holidays-api-backend
+            port:
+              number: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: holidays-api-frontend
+            port:
+              number: 80
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: holidays-api-http
+  namespace: holidays-api-prod
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: web
+    traefik.ingress.kubernetes.io/redirect-to-https: "true"
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: holidays-dc.metroengines.jp
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: holidays-api-frontend
+            port:
+              number: 80
